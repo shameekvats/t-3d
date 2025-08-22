@@ -2,30 +2,17 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import { defineConfig } from 'astro/config';
-
-import sitemap from '@astrojs/sitemap';
 import tailwind from '@astrojs/tailwind';
+import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
-import partytown from '@astrojs/partytown';
 import icon from 'astro-icon';
-import compress from 'astro-compress';
-import type { AstroIntegration } from 'astro';
-
-import astrowind from './vendor/integration';
-
-import { readingTimeRemarkPlugin, responsiveTablesRehypePlugin, lazyImagesRehypePlugin } from './src/utils/frontmatter';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const hasExternalScripts = false;
-const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroIntegration)[] = []) =>
-  hasExternalScripts ? (Array.isArray(items) ? items.map((item) => item()) : [items()]) : [];
 
 export default defineConfig({
   site: 'https://shameekvats.github.io',
   base: '/t-3d',
   output: 'static',
-
   integrations: [
     tailwind({
       applyBaseStyles: false,
@@ -48,45 +35,122 @@ export default defineConfig({
         ],
       },
     }),
-
-    ...whenExternalScripts(() =>
-      partytown({
-        config: { forward: ['dataLayer.push'] },
-      })
-    ),
-
-    compress({
-      CSS: true,
-      HTML: {
-        'html-minifier-terser': {
-          removeAttributeQuotes: false,
-        },
-      },
-      Image: false,
-      JavaScript: true,
-      SVG: false,
-      Logger: 1,
-    }),
-
-    astrowind({
-      config: './src/config.yaml',
-    }),
   ],
-
-  image: {
-    domains: ['cdn.pixabay.com'],
-  },
-
-  markdown: {
-    remarkPlugins: [readingTimeRemarkPlugin],
-    rehypePlugins: [responsiveTablesRehypePlugin, lazyImagesRehypePlugin],
-  },
-
   vite: {
     resolve: {
       alias: {
-        '~': path.resolve(__dirname, './src'),
+        '~': new URL('./src', import.meta.url).pathname,
       },
     },
+    define: {
+      __DATE__: `'${new Date().toISOString()}'`,
+    },
+    plugins: [
+      {
+        name: 'astrowind-config',
+        resolveId(id) {
+          if (id === 'astrowind:config') {
+            return id;
+          }
+        },
+        load(id) {
+          if (id === 'astrowind:config') {
+            return `
+export const SITE = {
+  name: 'AstroWind',
+  site: 'https://shameekvats.github.io',
+  base: '/t-3d',
+  trailingSlash: false,
+  googleSiteVerificationId: '',
+};
+
+export const I18N = {
+  language: 'en',
+  textDirection: 'ltr',
+};
+
+export const METADATA = {
+  title: {
+    default: 'AstroWind — Free template for creating websites with Astro + Tailwind CSS',
+    template: '%s — AstroWind'
+  },
+  description: "🚀 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs.",
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    site_name: 'AstroWind',
+    images: [
+      {
+        url: '~/assets/images/default.png',
+        width: 1200,
+        height: 628,
+      }
+    ],
+    type: 'website',
+  },
+  twitter: {
+    handle: '@onwidget',
+    site: '@onwidget',
+    cardType: 'summary_large_image',
+  },
+};
+
+export const ANALYTICS = {
+  vendors: {
+    googleAnalytics: {
+      id: undefined,
+    },
+  },
+};
+
+export const APP_BLOG = {
+  isEnabled: true,
+  postsPerPage: 6,
+  isRelatedPostsEnabled: true,
+  relatedPostsCount: 4,
+  post: {
+    isEnabled: true,
+    permalink: '/%slug%',
+    robots: {
+      index: true,
+      follow: true,
+    },
+  },
+  list: {
+    isEnabled: true,
+    pathname: 'blog',
+    robots: {
+      index: true,
+      follow: true,
+    },
+  },
+  category: {
+    isEnabled: true,
+    pathname: 'category',
+    robots: {
+      index: true,
+      follow: true,
+    },
+  },
+  tag: {
+    isEnabled: true,
+    pathname: 'tag',
+    robots: {
+      index: true,
+      follow: true,
+    },
+  },
+};
+
+export const UI = {
+  theme: 'system',
+};
+            `;
+          }
+        },
+      },
+    ],
   },
 });
