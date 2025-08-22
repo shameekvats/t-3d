@@ -22,6 +22,8 @@ const whenExternalScripts = (items: (() => AstroIntegration) | (() => AstroInteg
   hasExternalScripts ? (Array.isArray(items) ? items.map((item) => item()) : [items()]) : [];
 
 export default defineConfig({
+  site: 'https://shameekvats.github.io',
+  base: '/t-3d',
   output: 'static',
 
   integrations: [
