@@ -1,11 +1,10 @@
 ---
-import { getAsset } from '~/utils/permalinks';
-import { SITE } from 'astrowind:config';
+import logoImage from '~/assets/images/logo.png';
 ---
 
 <span class="flex items-center">
   <img 
-    src={getAsset('~/assets/images/t-3d_logo.png')} 
+    src={logoImage.src} 
     alt="tattva-3d logo" 
     class="h-8 w-8 mr-2"
     width="32"
