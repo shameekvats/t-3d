@@ -57,7 +57,7 @@ export default defineConfig({
           if (id === 'astrowind:config') {
             return `
 export const SITE = {
-  name: 'AstroWind',
+  name: 'tattva-3d',
   site: 'https://shameekvats.github.io',
   base: '/t-3d',
   trailingSlash: false,
@@ -71,16 +71,16 @@ export const I18N = {
 
 export const METADATA = {
   title: {
-    default: 'AstroWind — Free template for creating websites with Astro + Tailwind CSS',
-    template: '%s — AstroWind'
+    default: 'tattva-3d — 3D Printing Journey & Design Showcase',
+    template: '%s — tattva-3d'
   },
-  description: "🚀 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs.",
+  description: "Showcasing my 3D printing journey, custom designs, and modeling skills. From concept to creation.",
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
-    site_name: 'AstroWind',
+    site_name: 'tattva-3d',
     images: [
       {
         url: '~/assets/images/default.png',
@@ -91,8 +91,8 @@ export const METADATA = {
     type: 'website',
   },
   twitter: {
-    handle: '@onwidget',
-    site: '@onwidget',
+    handle: '@tattva3d',
+    site: '@tattva3d',
     cardType: 'summary_large_image',
   },
 };
