@@ -1,0 +1,164 @@
+---
+export interface Props {
+  beforeImage: string;
+  afterImage: string;
+  beforeLabel?: string;
+  afterLabel?: string;
+  title: string;
+  description: string;
+  id: string;
+}
+
+const { 
+  beforeImage, 
+  afterImage, 
+  beforeLabel = "3D Model", 
+  afterLabel = "Printed Result",
+  title,
+  description,
+  id
+} = Astro.props;
+---
+
+<div class="bg-white dark:bg-slate-800 rounded-lg shadow-lg overflow-hidden">
+  <!-- Image Comparison Container -->
+  <div class="relative overflow-hidden bg-gray-100 dark:bg-slate-700 comparison-container" style="aspect-ratio: 16/10;" data-id={id}>
+    <!-- Before Image (3D Model) -->
+    <img 
+      src={beforeImage} 
+      alt={`${title} - 3D Model`}
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    
+    <!-- After Image (Printed Result) with clip-path -->
+    <img 
+      src={afterImage} 
+      alt={`${title} - Printed Result`}
+      class="absolute inset-0 w-full h-full object-cover after-image"
+      style="clip-path: inset(0 50% 0 0);"
+    />
+    
+    <!-- Slider Handle -->
+    <div 
+      class="absolute top-0 bottom-0 w-1 bg-white shadow-lg cursor-ew-resize z-10 slider-handle"
+      style="left: 50%; transform: translateX(-50%);"
+    >
+      <!-- Handle Circle with correct arrows -->
+      <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg border-2 border-blue-500 flex items-center justify-center">
+        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h8m-8 0l4 4m-4-4l4-4"></path>
+        </svg>
+      </div>
+    </div>
+    
+    <!-- Labels -->
+    <div class="absolute top-4 left-4 bg-black bg-opacity-60 text-white px-3 py-1 rounded-full text-sm font-medium">
+      {beforeLabel}
+    </div>
+    <div class="absolute top-4 right-4 bg-black bg-opacity-60 text-white px-3 py-1 rounded-full text-sm font-medium">
+      {afterLabel}
+    </div>
+  </div>
+  
+  <!-- Content -->
+  <div class="p-6">
+    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+      {title}
+    </h3>
+    <p class="text-gray-600 dark:text-gray-300">
+      {description}
+    </p>
+  </div>
+</div>
+
+<script>
+  // Wait for DOM to be fully loaded
+  document.addEventListener('DOMContentLoaded', function() {
+    // Initialize all comparison sliders
+    const containers = document.querySelectorAll('.comparison-container');
+    
+    containers.forEach(container => {
+      const slider = container.querySelector('.slider-handle');
+      const afterImage = container.querySelector('.after-image');
+      let isDragging = false;
+
+      function updateSlider(x) {
+        const rect = container.getBoundingClientRect();
+        const percentage = Math.max(0, Math.min(100, ((x - rect.left) / rect.width) * 100));
+        
+        slider.style.left = percentage + '%';
+        afterImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
+      }
+
+      // Mouse events
+      slider.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        e.preventDefault();
+        document.body.style.cursor = 'ew-resize';
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (isDragging) {
+          updateSlider(e.clientX);
+        }
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          document.body.style.cursor = '';
+        }
+      });
+
+      // Touch events for mobile
+      slider.addEventListener('touchstart', (e) => {
+        isDragging = true;
+        e.preventDefault();
+      });
+
+      document.addEventListener('touchmove', (e) => {
+        if (isDragging) {
+          e.preventDefault();
+          const touch = e.touches[0];
+          updateSlider(touch.clientX);
+        }
+      });
+
+      document.addEventListener('touchend', () => {
+        isDragging = false;
+      });
+
+      // Click to move slider
+      container.addEventListener('click', (e) => {
+        if (!slider.contains(e.target)) {
+          updateSlider(e.clientX);
+        }
+      });
+
+      // Add hover effect
+      slider.addEventListener('mouseenter', () => {
+        slider.style.opacity = '0.8';
+      });
+
+      slider.addEventListener('mouseleave', () => {
+        if (!isDragging) {
+          slider.style.opacity = '1';
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .slider-handle {
+    transition: opacity 0.2s ease;
+  }
+  
+  .slider-handle:hover {
+    opacity: 0.8;
+  }
+  
+  .comparison-container {
+    user-select: none;
+  }
+</style>

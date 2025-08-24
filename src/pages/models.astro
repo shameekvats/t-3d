@@ -1,0 +1,196 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import ImageComparisonSlider from '~/components/widgets/ImageComparisonSlider.astro';
+
+const metadata = {
+  title: '3D Models — tattva-3d',
+};
+
+// Sample 3D model projects with before/after comparisons
+const modelProjects = [
+  {
+    id: 'miniature-figure',
+    title: 'Custom Miniature Figure',
+    description: 'Detailed character miniature with intricate features and textures. Drag the slider to see how accurately the 3D print captures every detail of the digital model.',
+    beforeImage: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    afterImage: 'https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: 'mechanical-part',
+    title: 'Precision Mechanical Component',
+    description: 'Industrial-grade mechanical part with tight tolerances. Compare the CAD model with the finished print showing dimensional accuracy and surface finish quality.',
+    beforeImage: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    afterImage: 'https://images.unsplash.com/photo-1562563823-4635a3d3a8b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: 'architectural-model',
+    title: 'Architectural Scale Model',
+    description: 'Detailed building model with complex geometries. See how the 3D print preserves all architectural details from windows to structural elements.',
+    beforeImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    afterImage: 'https://images.unsplash.com/photo-1565191999001-551c187427bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: 'jewelry-piece',
+    title: 'Custom Jewelry Design',
+    description: 'Intricate jewelry piece with fine details. Drag to compare the digital design with the high-resolution resin print showing exceptional detail retention.',
+    beforeImage: 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    afterImage: 'https://images.unsplash.com/photo-1573408301185-9146fe634ad0?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: 'prototype-gadget',
+    title: 'Product Prototype',
+    description: 'Functional prototype for product testing. Compare the CAD design with the printed prototype used for form, fit, and function validation.',
+    beforeImage: 'https://images.unsplash.com/photo-1559085153-6e4ad5e6b0ed?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    afterImage: 'https://images.unsplash.com/photo-1578321272176-b7bbc0679853?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: 'artistic-sculpture',
+    title: 'Artistic Sculpture',
+    description: 'Complex artistic piece with organic curves. See how 3D printing captures the subtle details and smooth surfaces of the original digital sculpture.',
+    beforeImage: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    afterImage: 'https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+  }
+];
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+  <Hero>
+    <Fragment slot="title">3D Models</Fragment>
+    <Fragment slot="subtitle">
+      From Digital Design to Physical Reality. Explore our precision 3D printing work through 
+      interactive before/after comparisons. Drag the sliders to see how accurately we bring digital models to life.
+    </Fragment>
+  </Hero>
+
+  <!-- Instructions Section ********* -->
+  <section class="py-8 bg-blue-50 dark:bg-slate-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <div class="flex items-center justify-center mb-4">
+        <svg class="w-8 h-8 text-blue-600 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">How to Use</h3>
+      </div>
+      <p class="text-gray-600 dark:text-gray-300">
+        <strong>Desktop:</strong> Click and drag the slider or click anywhere on the image to move it. 
+        <strong>Mobile:</strong> Touch and drag the slider to compare the 3D model with the printed result.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3D Models Comparison Section *** -->
+  <section class="py-16 md:py-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold leading-tighter tracking-tighter mb-4 font-heading">
+          Digital to Physical Transformations
+        </h2>
+        <p class="text-xl text-muted dark:text-slate-300 max-w-3xl mx-auto">
+          See the precision and quality of our 3D printing services. Each comparison shows the 
+          digital 3D model on the left and the actual printed result on the right.
+        </p>
+      </div>
+
+      <!-- Models Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {modelProjects.map((project) => (
+          <ImageComparisonSlider
+            id={project.id}
+            title={project.title}
+            description={project.description}
+            beforeImage={project.beforeImage}
+            afterImage={project.afterImage}
+            beforeLabel="3D Model"
+            afterLabel="Printed Result"
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Process Section *************** -->
+  <section class="py-16 md:py-20 bg-gray-50 dark:bg-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold leading-tighter tracking-tighter mb-4 font-heading">
+          Our 3D Modeling Process
+        </h2>
+        <p class="text-xl text-muted dark:text-slate-300">
+          From concept to completion, we ensure every detail is perfect
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Step 1 -->
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+            <span class="text-2xl font-bold text-blue-600">1</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Design & Model</h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            We create or optimize your 3D model with attention to printability and detail retention
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-4 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
+            <span class="text-2xl font-bold text-green-600">2</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Precision Print</h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            Using advanced 3D printing technology to ensure accuracy and quality in every layer
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="text-center">
+          <div class="w-16 h-16 mx-auto mb-4 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center">
+            <span class="text-2xl font-bold text-purple-600">3</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-white">Finish & Deliver</h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            Post-processing and quality checks ensure your print matches the digital model perfectly
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action *************** -->
+  <section class="py-16 md:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg p-8 text-white">
+        <h2 class="text-3xl font-bold mb-4">
+          Ready to Bring Your 3D Model to Life?
+        </h2>
+        <p class="text-xl mb-6 opacity-90">
+          Send us your 3D files or let us create a custom model for you. 
+          Experience the same precision and quality shown above.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href="/t-3d/contact"
+            class="inline-flex items-center px-6 py-3 border border-white text-base font-medium rounded-lg text-blue-600 bg-white hover:bg-gray-50 transition duration-150"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-3.582 8-8 8a8.955 8.955 0 01-4.126-.964L3 20l1.036-6.874A8.955 8.955 0 013 9c0-4.418 3.582-8 8-8s8 3.582 8 8z"></path>
+            </svg>
+            Get a Quote
+          </a>
+          <a 
+            href="mailto:t-3d@ik.me?subject=3D Model Printing Request&body=Hi,%0D%0A%0D%0AI'm interested in 3D printing services. I have attached my 3D model files.%0D%0A%0D%0AProject details:%0D%0A- %0D%0A- %0D%0A%0D%0APlease provide a quote and timeline.%0D%0A%0D%0AThanks!"
+            class="inline-flex items-center px-6 py-3 border border-white text-base font-medium rounded-lg text-white hover:bg-white hover:bg-opacity-10 transition duration-150"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+            </svg>
+            Send Files
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
