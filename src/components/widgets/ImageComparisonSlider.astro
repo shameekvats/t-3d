@@ -43,10 +43,11 @@ const {
       class="absolute top-0 bottom-0 w-1 bg-white shadow-lg cursor-ew-resize z-10 slider-handle"
       style="left: 50%; transform: translateX(-50%);"
     >
-      <!-- Handle Circle with correct arrows -->
+      <!-- Handle Circle with LEFT-RIGHT arrows -->
       <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg border-2 border-blue-500 flex items-center justify-center">
         <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h8m-8 0l4 4m-4-4l4-4"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12l4-4 4 4M8 12l4 4 4-4"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H8"></path>
         </svg>
       </div>
     </div>
@@ -71,20 +72,22 @@ const {
   </div>
 </div>
 
-<script>
-  // Wait for DOM to be fully loaded
-  document.addEventListener('DOMContentLoaded', function() {
+<script is:inline>
+  function initializeSliders() {
     // Initialize all comparison sliders
     const containers = document.querySelectorAll('.comparison-container');
     
-    containers.forEach(container => {
+    containers.forEach((container, index) => {
       const slider = container.querySelector('.slider-handle');
       const afterImage = container.querySelector('.after-image');
+      
+      if (!slider || !afterImage) return;
+      
       let isDragging = false;
 
-      function updateSlider(x) {
+      function updateSlider(clientX) {
         const rect = container.getBoundingClientRect();
-        const percentage = Math.max(0, Math.min(100, ((x - rect.left) / rect.width) * 100));
+        const percentage = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
         
         slider.style.left = percentage + '%';
         afterImage.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
@@ -95,10 +98,12 @@ const {
         isDragging = true;
         e.preventDefault();
         document.body.style.cursor = 'ew-resize';
+        console.log('Mouse down on slider');
       });
 
       document.addEventListener('mousemove', (e) => {
         if (isDragging) {
+          e.preventDefault();
           updateSlider(e.clientX);
         }
       });
@@ -107,6 +112,7 @@ const {
         if (isDragging) {
           isDragging = false;
           document.body.style.cursor = '';
+          console.log('Mouse up');
         }
       });
 
@@ -114,6 +120,7 @@ const {
       slider.addEventListener('touchstart', (e) => {
         isDragging = true;
         e.preventDefault();
+        console.log('Touch start');
       });
 
       document.addEventListener('touchmove', (e) => {
@@ -125,28 +132,30 @@ const {
       });
 
       document.addEventListener('touchend', () => {
-        isDragging = false;
+        if (isDragging) {
+          isDragging = false;
+          console.log('Touch end');
+        }
       });
 
-      // Click to move slider
+      // Click anywhere on container to move slider
       container.addEventListener('click', (e) => {
         if (!slider.contains(e.target)) {
           updateSlider(e.clientX);
+          console.log('Container clicked');
         }
       });
 
-      // Add hover effect
-      slider.addEventListener('mouseenter', () => {
-        slider.style.opacity = '0.8';
-      });
-
-      slider.addEventListener('mouseleave', () => {
-        if (!isDragging) {
-          slider.style.opacity = '1';
-        }
-      });
+      console.log(`Slider ${index + 1} initialized`);
     });
-  });
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeSliders);
+  } else {
+    initializeSliders();
+  }
 </script>
 
 <style>
@@ -160,5 +169,9 @@ const {
   
   .comparison-container {
     user-select: none;
+  }
+  
+  .slider-handle {
+    z-index: 20;
   }
 </style>
