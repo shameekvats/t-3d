@@ -1,9 +1,17 @@
 ---
+import { getAsset } from '~/utils/permalinks';
 import { SITE } from 'astrowind:config';
 ---
 
-<span
-  class="self-center ml-2 rtl:ml-0 rtl:mr-2 text-2xl md:text-xl font-bold text-gray-900 whitespace-nowrap dark:text-white"
->
-  🚀 {SITE?.name}
+<span class="flex items-center">
+  <img 
+    src={getAsset('~/assets/images/t-3d_logo.png')} 
+    alt="tattva-3d logo" 
+    class="h-8 w-8 mr-2"
+    width="32"
+    height="32"
+  />
+  <span class="text-xl font-bold text-gray-900 dark:text-white">
+    tattva-3d
+  </span>
 </span>

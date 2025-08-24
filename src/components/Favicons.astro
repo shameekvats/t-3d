@@ -1,10 +1,23 @@
 ---
-import favIcon from '~/assets/favicons/favicon.ico';
-import favIconSvg from '~/assets/favicons/favicon.svg';
-import appleTouchIcon from '~/assets/favicons/apple-touch-icon.png';
+import favIcon from '~/assets/images/t-3d_logo.png';
+import favIconSvg from '~/assets/images/t-3d_logo.png';
+import appleTouchIcon from '~/assets/images/t-3d_logo.png';
 ---
 
+<!-- Basic favicon -->
+<link rel="icon" type="image/png" href={favIcon} />
 <link rel="shortcut icon" href={favIcon} />
-<link rel="icon" type="image/svg+xml" href={favIconSvg.src} />
-<link rel="mask-icon" href={favIconSvg.src} color="#8D46E7" />
-<link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon.src} />
+
+<!-- Apple touch icon -->
+<link rel="apple-touch-icon" sizes="180x180" href={appleTouchIcon} />
+
+<!-- Additional favicon formats -->
+<link rel="icon" type="image/png" sizes="32x32" href={favIcon} />
+<link rel="icon" type="image/png" sizes="16x16" href={favIcon} />
+
+<!-- Safari pinned tab -->
+<link rel="mask-icon" href={favIconSvg} color="#8D46E7" />
+
+<!-- Theme and tile colors -->
+<meta name="theme-color" content="#ffffff" />
+<meta name="msapplication-TileColor" content="#0078d4" />
