@@ -2,13 +2,11 @@
 import Layout from '~/layouts/PageLayout.astro';
 
 import Hero from '~/components/widgets/Hero.astro';
-import Note from '~/components/widgets/Note.astro';
 import Features from '~/components/widgets/Features.astro';
-import Content from '~/components/widgets/Content.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 
 const metadata = {
-  title: 'tattva-3d — 3D Printing Journey & Design Showcase',
+  title: 'tattva-3d — Custom 3D Prints & Gifts',
   ignoreTitleTemplate: true,
 };
 ---
@@ -25,111 +23,55 @@ const metadata = {
         href: '/gallery',
         icon: 'tabler:photo',
       },
-      { text: 'Learn more', href: '#features' },
+      { text: 'Get Started', href: '/contact' },
     ]}
   >
     <Fragment slot="title">
-      3d Prints on Demand
+      Custom 3D Prints & Gifts
     </Fragment>
 
     <Fragment slot="subtitle">
       <span class="hidden sm:inline">
-        Custom 3D printing services and design solutions for your creative projects. 
-        From concept to creation, bringing your ideas to life with precision and quality.
+        Transform your ideas into unique 3D printed gifts, branding materials, and creative keepsakes. 
+        From personalized presents to business promotional items.
       </span>
     </Fragment>
   </Hero>
-
-  <!-- Note Widget ******************* -->
-
-  <Note />
 
   <!-- Features Widget *************** -->
 
   <Features
     id="features"
-    tagline="What we offer"
-    title="Discover our 3D printing services"
-    subtitle="Professional 3D printing and design services tailored to your needs."
+    tagline="What we create"
+    title="Unique 3D prints for every occasion"
+    subtitle="Personal gifts and business branding made simple."
     items={[
       {
-        title: 'Custom 3D Printing',
+        title: 'Custom Gifts',
         description:
-          'High-quality 3D printing services using the latest technology and premium materials for your projects.',
-        icon: 'tabler:printer',
+          'Personalized 3D printed gifts for birthdays, anniversaries, and special occasions.',
+        icon: 'tabler:gift',
       },
       {
-        title: '3D Design & Modeling',
+        title: 'Business Branding',
         description:
-          'Professional 3D modeling and design services to bring your ideas from concept to reality.',
-        icon: 'tabler:box',
+          'Membership cards, keychains, display logos, and promotional materials for your business.',
+        icon: 'tabler:building-store',
       },
       {
-        title: 'Prototyping',
+        title: 'Creative Art',
         description:
-          'Rapid prototyping services for product development, testing, and validation of your designs.',
-        icon: 'tabler:tools',
+          'Transform photos into 3D filament art and create unique decorative pieces.',
+        icon: 'tabler:palette',
       },
       {
-        title: 'Material Consultation',
+        title: 'Miniature Models',
         description:
-          'Expert advice on material selection for optimal results based on your specific requirements.',
-        icon: 'tabler:checklist',
-      },
-      {
-        title: 'Post-Processing',
-        description:
-          'Professional finishing services including sanding, painting, and assembly for your 3D prints.',
-        icon: 'tabler:brush',
-      },
-      {
-        title: 'Quick Turnaround',
-        description:
-          'Fast and reliable delivery times without compromising on quality and attention to detail.',
-        icon: 'tabler:clock',
+          'Custom city maps, historical landmarks, and miniature statues for collectors.',
+        icon: 'tabler:building-monument',
       },
     ]}
   />
-
-  <!-- Content Widget **************** -->
-
-  <Content
-    isReversed
-    tagline="About tattva-3d"
-    title="Your 3D printing journey starts here"
-    items={[
-      {
-        title: 'Quality Materials',
-        description:
-          'We use only premium quality filaments and resins to ensure your prints are durable and precise.',
-      },
-      {
-        title: 'Expert Design',
-        description:
-          'Our experienced team provides professional 3D modeling and design optimization services.',
-      },
-      {
-        title: 'Customer Focused',
-        description:
-          'We work closely with you throughout the process to ensure your vision becomes reality.',
-      },
-    ]}
-    image={{
-      src: 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80',
-      alt: '3D Printing Process',
-    }}
-  >
-    <Fragment slot="content">
-      <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
-        Professional 3D Printing Services
-      </h3>
-      Transform your ideas into tangible reality with our comprehensive 3D printing solutions.
-    </Fragment>
-
-    <Fragment slot="bg">
-      <div class="absolute inset-0 bg-blue-50 dark:bg-slate-800"></div>
-    </Fragment>
-  </Content>
 
   <!-- CallToAction Widget *********** -->
 
@@ -137,18 +79,18 @@ const metadata = {
     actions={[
       {
         variant: 'primary',
-        text: 'Get Started',
+        text: 'Start Your Project',
         href: '/contact',
         icon: 'tabler:message-circle',
       },
     ]}
   >
     <Fragment slot="title">
-      Ready to bring your ideas to life?
+      Ready to create something unique?
     </Fragment>
 
     <Fragment slot="subtitle">
-      Contact us today to discuss your 3D printing project and get a custom quote.
+      Share your idea and let's bring it to life with 3D printing.
     </Fragment>
   </CallToAction>
 </Layout>
