@@ -1,0 +1,184 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+
+const metadata = {
+  title: 'Gallery — tattva-3d',
+};
+
+// Sample gallery images - you can replace these with your actual project images
+const galleryItems = [
+  {
+    src: 'https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    alt: 'Custom miniature figurine',
+    title: 'Custom Miniatures',
+    description: 'Detailed miniature figures for gaming and collectibles'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1562563823-4635a3d3a8b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    alt: 'Mechanical prototype part',
+    title: 'Prototypes',
+    description: 'Functional prototypes for product development'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1559085153-6e4ad5e6b0ed?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    alt: 'Decorative home items',
+    title: 'Home Decor',
+    description: 'Custom decorative pieces and home accessories'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1565191999001-551c187427bb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    alt: 'Educational models',
+    title: 'Educational Models',
+    description: 'Anatomical and scientific models for learning'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1578321272176-b7bbc0679853?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    alt: 'Custom tools and gadgets',
+    title: 'Tools & Gadgets',
+    description: 'Custom tools and practical everyday items'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    alt: 'Artistic sculptures',
+    title: 'Art & Sculptures',
+    description: 'Creative artistic pieces and sculptures'
+  }
+];
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+  <Hero>
+    <Fragment slot="title">Gallery</Fragment>
+    <Fragment slot="subtitle">
+      Explore our collection of 3D printed projects. From prototypes to custom designs, 
+      see the quality and precision of our work.
+    </Fragment>
+  </Hero>
+
+  <!-- Gallery Section *************** -->
+  <section class="py-16 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {galleryItems.map((item, index) => (
+          <div class="group relative bg-white dark:bg-slate-800 rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+            <!-- Image Container -->
+            <div class="aspect-w-4 aspect-h-3 overflow-hidden">
+              <img 
+                src={item.src} 
+                alt={item.alt}
+                class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                loading={index < 3 ? 'eager' : 'lazy'}
+              />
+            </div>
+            
+            <!-- Content Overlay -->
+            <div class="p-6">
+              <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">
+                {item.title}
+              </h3>
+              <p class="text-gray-600 dark:text-gray-300 text-sm">
+                {item.description}
+              </p>
+            </div>
+            
+            <!-- Hover Overlay -->
+            <div class="absolute inset-0 bg-blue-600 bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300 flex items-center justify-center">
+              <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Call to Action -->
+      <div class="text-center mt-16">
+        <div class="bg-blue-50 dark:bg-slate-800 rounded-lg p-8">
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            Ready to Start Your Project?
+          </h2>
+          <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
+            Have an idea you'd like to bring to life? Whether it's a prototype, custom design, 
+            or bulk production, we're here to help make it reality.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="/t-3d/contact"
+              class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 transition duration-150"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-3.582 8-8 8a8.955 8.955 0 01-4.126-.964L3 20l1.036-6.874A8.955 8.955 0 013 9c0-4.418 3.582-8 8-8s8 3.582 8 8z"></path>
+              </svg>
+              Get a Quote
+            </a>
+            <a 
+              href="mailto:t-3d@ik.me?subject=Gallery Inquiry - Custom Project"
+              class="inline-flex items-center px-6 py-3 border border-gray-300 dark:border-gray-600 text-base font-medium rounded-lg text-gray-700 dark:text-gray-200 bg-white dark:bg-slate-700 hover:bg-gray-50 dark:hover:bg-slate-600 transition duration-150"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+              </svg>
+              Email Us
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Categories *********** -->
+  <section class="py-16 md:py-20 bg-gray-50 dark:bg-slate-800">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold leading-tighter tracking-tighter mb-4 font-heading">
+          What We Print
+        </h2>
+        <p class="text-xl text-muted dark:text-slate-300">
+          We specialize in various types of 3D printing projects
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Prototypes -->
+        <div class="bg-white dark:bg-slate-700 rounded-lg p-6 text-center">
+          <div class="w-12 h-12 mx-auto mb-4 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Prototypes</h3>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">Functional prototypes for testing and development</p>
+        </div>
+
+        <!-- Custom Designs -->
+        <div class="bg-white dark:bg-slate-700 rounded-lg p-6 text-center">
+          <div class="w-12 h-12 mx-auto mb-4 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Custom Designs</h3>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">Unique designs tailored to your specific needs</p>
+        </div>
+
+        <!-- Replacement Parts -->
+        <div class="bg-white dark:bg-slate-700 rounded-lg p-6 text-center">
+          <div class="w-12 h-12 mx-auto mb-4 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Replacement Parts</h3>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">Hard-to-find or discontinued parts made new</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
