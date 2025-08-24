@@ -1,79 +1,226 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import HeroText from '~/components/widgets/HeroText.astro';
-import ContactUs from '~/components/widgets/Contact.astro';
-import Features2 from '~/components/widgets/Features2.astro';
+import Hero from '~/components/widgets/Hero.astro';
 
 const metadata = {
-  title: 'Contact',
+  title: 'Contact — tattva-3d',
 };
 ---
 
 <Layout metadata={metadata}>
-  <!-- HeroText Widget ******************* -->
+  <!-- Hero Widget ******************* -->
 
-  <HeroText tagline="Contact" title="Let's Connect!" />
+  <Hero>
+    <Fragment slot="title">Get in touch</Fragment>
 
-  <ContactUs
-    id="form"
-    title="Drop us a message today!"
-    subtitle="For quicker answers, explore our FAQs section. You may find the solution you're looking  for right there! If not, our support team is delighted to help you."
-    inputs={[
-      {
-        type: 'text',
-        name: 'name',
-        label: 'Name',
-      },
-      {
-        type: 'email',
-        name: 'email',
-        label: 'Email',
-      },
-    ]}
-    textarea={{
-      label: 'Message',
-    }}
-    disclaimer={{
-      label:
-        'By submitting this contact form, you acknowledge and agree to the collection of your personal information.',
-    }}
-    description="Our support team typically responds within 24 business hours."
-  />
+    <Fragment slot="subtitle">
+      Ready to bring your 3D printing ideas to life? Contact us today for custom printing services, 
+      design consultation, or any questions about your project.
+    </Fragment>
+  </Hero>
 
-  <!-- Features2 Widget ************** -->
+  <!-- Contact Form Section *********** -->
 
-  <Features2
-    title="We are here to help!"
-    items={[
-      {
-        title: 'General support',
-        description: `Chat with us for inquiries related to account management, website navigation, payment issues, accessing purchased templates or general questions about the website's functionality.`,
-      },
-      {
-        title: 'Contact sales',
-        description:
-          'Chat with us for questions about purchases, customization options, licensing for commercial use, inquiries about specific template, etc.',
-      },
-      {
-        title: 'Technical support',
-        description:
-          'Chat with us when facing issues like template installation, problems editing difficulties, compatibility issues with software or download errors, or other technical challenges related to using the templates.',
-      },
-      {
-        title: 'Phone',
-        description: '+1 (234) 567-890',
-        icon: 'tabler:headset',
-      },
-      {
-        title: 'Email',
-        description: 'contact@support.com',
-        icon: 'tabler:mail',
-      },
-      {
-        title: 'Location',
-        description: '1234 Lorem Ipsum St, 12345, Miami, EEUU',
-        icon: 'tabler:map-pin',
-      },
-    ]}
-  />
+  <section class="py-16 md:py-20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold leading-tighter tracking-tighter mb-4 font-heading">
+          Send us a message
+        </h2>
+        <p class="text-xl text-muted dark:text-slate-300">
+          We'll get back to you as soon as possible to discuss your 3D printing needs.
+        </p>
+      </div>
+
+      <div class="max-w-2xl mx-auto">
+        <form class="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Name Field -->
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Name *
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-700 dark:text-white"
+                placeholder="Your full name"
+              />
+            </div>
+
+            <!-- Email Field -->
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Email *
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-700 dark:text-white"
+                placeholder="your.email@example.com"
+              />
+            </div>
+          </div>
+
+          <!-- Phone Field -->
+          <div class="mb-6">
+            <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Phone
+            </label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-700 dark:text-white"
+              placeholder="Your phone number (optional)"
+            />
+          </div>
+
+          <!-- Subject Field -->
+          <div class="mb-6">
+            <label for="subject" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Subject *
+            </label>
+            <input
+              type="text"
+              id="subject"
+              name="subject"
+              required
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-700 dark:text-white"
+              placeholder="3D Printing Project, Design Consultation, etc."
+            />
+          </div>
+
+          <!-- Message Field -->
+          <div class="mb-6">
+            <label for="message" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Message *
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              required
+              class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-700 dark:text-white resize-vertical"
+              placeholder="Tell us about your project: What do you want to print? Do you have 3D files ready? What materials do you prefer? Any specific requirements or questions?"
+            ></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="text-center">
+            <button
+              type="submit"
+              class="inline-flex items-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+              </svg>
+              Send Message
+            </button>
+          </div>
+
+          <p class="text-center text-gray-600 dark:text-gray-300 mt-6">
+            You can also reach us directly at: <a href="mailto:t-3d@ik.me" class="text-blue-600 hover:text-blue-800">t-3d@ik.me</a>
+          </p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- File Upload Section *********** -->
+
+  <section class="py-12 md:py-16">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="bg-blue-50 dark:bg-slate-800 rounded-lg p-8">
+        <div class="text-center mb-6">
+          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            Have Files to Share?
+          </h3>
+          <p class="text-gray-600 dark:text-gray-300">
+            Got 3D models, reference images, or technical drawings? Send them directly to our email.
+          </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="bg-white dark:bg-slate-700 rounded-lg p-6">
+            <h4 class="font-semibold text-lg mb-3 text-gray-900 dark:text-white">
+              📧 Email with Attachments
+            </h4>
+            <a 
+              href="mailto:t-3d@ik.me?subject=3D Printing Project - File Attachments"
+              class="text-blue-600 hover:text-blue-800 font-medium"
+            >
+              t-3d@ik.me
+            </a>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+              Attach your files directly to the email
+            </p>
+          </div>
+          
+          <div class="bg-white dark:bg-slate-700 rounded-lg p-6">
+            <h4 class="font-semibold text-lg mb-3 text-gray-900 dark:text-white">
+              📁 Supported Formats
+            </h4>
+            <ul class="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+              <li>• 3D Files: STL, OBJ, 3MF, PLY</li>
+              <li>• Images: JPG, PNG, PDF</li>
+              <li>• Archives: ZIP, RAR</li>
+              <li>• CAD: STEP, IGES (if available)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Information *********** -->
+
+  <section class="py-12 md:py-16 bg-gray-50 dark:bg-slate-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-10">
+        <h2 class="text-3xl md:text-4xl font-bold leading-tighter tracking-tighter mb-4 font-heading">
+          Contact Information
+        </h2>
+        <p class="text-xl text-muted dark:text-slate-300">
+          Get in touch with tattva-3d for all your 3D printing needs
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Email Contact -->
+        <div class="bg-white dark:bg-slate-700 rounded-lg shadow-lg p-8 text-center">
+          <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 7.89a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Email Us</h3>
+          <a href="mailto:t-3d@ik.me" class="text-blue-600 hover:text-blue-800 font-medium text-lg">
+            t-3d@ik.me
+          </a>
+          <p class="text-gray-600 dark:text-gray-300 mt-2 text-sm">
+            We typically respond within 24 hours
+          </p>
+        </div>
+
+        <!-- Response Time -->
+        <div class="bg-white dark:bg-slate-700 rounded-lg shadow-lg p-8 text-center">
+          <div class="w-16 h-16 mx-auto mb-4 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-white">Quick Response</h3>
+          <p class="text-gray-900 dark:text-white font-medium text-lg">24-48 Hours</p>
+          <p class="text-gray-600 dark:text-gray-300 mt-2 text-sm">
+            Fast turnaround for quotes and consultations
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>

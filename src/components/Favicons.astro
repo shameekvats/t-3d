@@ -1,14 +1,21 @@
 ---
-import favIcon from '~/assets/images/logo.png';
+import logoImage from '~/assets/images/logo.png';
 ---
 
 <!-- Basic favicon -->
-<link rel="icon" type="image/png" href={favIcon} />
-<link rel="shortcut icon" href={favIcon} />
+<link rel="icon" type="image/png" href={logoImage.src} />
+<link rel="shortcut icon" href={logoImage.src} />
 
 <!-- Apple touch icon -->
-<link rel="apple-touch-icon" sizes="180x180" href={favIcon} />
+<link rel="apple-touch-icon" sizes="180x180" href={logoImage.src} />
 
 <!-- Additional favicon formats -->
-<link rel="icon" type="image/png" sizes="32x32" href={favIcon} />
-<link rel="icon" type="image/png" sizes="16x16" href={favIcon} />
+<link rel="icon" type="image/png" sizes="32x32" href={logoImage.src} />
+<link rel="icon" type="image/png" sizes="16x16" href={logoImage.src} />
+
+<!-- Safari pinned tab -->
+<link rel="mask-icon" href={logoImage.src} color="#8D46E7" />
+
+<!-- Theme and tile colors -->
+<meta name="theme-color" content="#ffffff" />
+<meta name="msapplication-TileColor" content="#0078d4" />
