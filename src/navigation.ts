@@ -19,13 +19,6 @@ export const headerData = {
       href: getPermalink('/contact'),
     },
   ],
-  actions: [
-    {
-      text: 'Download Portfolio',
-      href: '#',
-      target: '_blank',
-    }
-  ],
 };
 
 export const footerData = {
