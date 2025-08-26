@@ -6,12 +6,12 @@ const metadata = {
   title: 'Gallery — tattva-3d',
 };
 
-// Import your real images properly
+// Import your real images properly - ALL using the same format
 import nishArt from '../assets/images/Gallery/Nish.jpeg';
 import acRomaLogo from '../assets/images/Gallery/AC Roma.jpg';
 import kohliKeepsake from '../assets/images/Gallery/Kohli.png';
-import lowkeyLightbox from 'src/assets/images/Gallery/Low_Key lightbox.png'
-import mouse from 'src/assets/images/Gallery/Mouse.jpg'
+import lowkeyLightbox from '../assets/images/Gallery/Low_Key lightbox.png';
+import mouse from '../assets/images/Gallery/Mouse.jpg';
 
 // Clean gallery with your real images
 const galleryItems = [
@@ -33,17 +33,16 @@ const galleryItems = [
     title: 'Sports Collectible',
     category: 'Keepsakes'
   },
-  // Placeholder for future real images
   {
-    src: 'src/assets/images/Gallery/Low_Key lightbox.png',
-    alt: 'Custom lightbox',
-    title: 'Custom lightbox',
+    src: lowkeyLightbox.src, // ✅ FIXED - Use .src from imported asset
+    alt: 'Custom lightbox with LED lighting',
+    title: 'Custom Lightbox',
     category: 'Branding'
   },
   {
-    src: 'src/assets/images/Gallery/Mouse.jpg',
-    alt: 'Wireless Mouse',
-    title: 'Wireless mouse',
+    src: mouse.src, // ✅ FIXED - Use .src from imported asset
+    alt: 'Custom wireless mouse design',
+    title: 'Wireless Mouse',
     category: 'Electronics'
   },
   {
