@@ -39,11 +39,20 @@ const metadata = {
 
   <!-- Features Widget *************** -->
 
-  <Features
-    id="features"
-    tagline="What we create"
-    title="Unique 3D prints for every occasion"
-    subtitle="From personalized presents to business promotional items."
+ <Features
+  id="features"
+  tagline="What we create"
+  title="Unique 3D prints for every occasion"
+  subtitle="From personalized presents to business promotional items."
+  columns={2}
+  classes={{
+    items: {
+      container: 'justify-items-center',
+      panel: 'flex flex-row items-center justify-center text-center max-w-xs',
+      title: 'md:text-[1.3rem] ml-3',
+      icon: 'text-white bg-primary rounded-full w-12 h-12 p-3 flex-shrink-0',
+    }
+  }}
     items={[
       {
         title: 'Custom Gifts',
