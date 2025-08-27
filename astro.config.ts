@@ -10,8 +10,8 @@ import icon from 'astro-icon';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
-  site: 'https://shameekvats.github.io',
-  base: '/t-3d',
+  site: 'https://t-3d.me', // ← CHANGED: Your custom domain
+  base: '/', // ← CHANGED: Root path for custom domain
   output: 'static',
   integrations: [
     tailwind({
@@ -58,8 +58,8 @@ export default defineConfig({
             return `
 export const SITE = {
   name: 'tattva-3d',
-  site: 'https://shameekvats.github.io',
-  base: '/t-3d',
+  site: 'https://t-3d.me', // ← CHANGED: Your custom domain
+  base: '/', // ← CHANGED: Root path for custom domain
   trailingSlash: false,
   googleSiteVerificationId: '',
 };
@@ -71,10 +71,10 @@ export const I18N = {
 
 export const METADATA = {
   title: {
-    default: 'tattva-3d — 3D Printing Journey & Design Showcase',
+    default: 'tattva-3d — 3d Printing Journey & Design Showcase',
     template: '%s — tattva-3d'
   },
-  description: "Showcasing my 3D printing journey, custom designs, and modeling skills. From concept to creation.",
+  description: "Showcasing my 3d printing journey, custom designs, and modeling skills. From concept to creation.",
   robots: {
     index: true,
     follow: true,
