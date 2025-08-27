@@ -4,6 +4,14 @@ import Hero from '~/components/widgets/Hero.astro';
 import ImageComparisonSlider from '~/components/widgets/ImageComparisonSlider.astro';
 import { getPermalink } from '~/utils/permalinks';
 
+// Import your before/after images
+import warriorsBefore from '../assets/images/Models/Before/Warriors_3d.png';
+import warriorsAfter from '../assets/images/Models/After/Warriors.jpg';
+import keychainBefore from '../assets/images/Models/Before/BM_Keychain_3d.png';
+import keychainAfter from '../assets/images/Models/After/BM_Keychain.jpg';
+
+// Add more imports as needed...
+
 const metadata = {
   title: '3d Models — tattva-3d',
 };
@@ -11,11 +19,18 @@ const metadata = {
 // Updated model projects to match your actual business
 const modelProjects = [
   {
-    id: 'custom-gift',
-    title: 'Personalized Gift',
-    description: 'Custom 3d printed gift with personal touches',
-    beforeImage: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    afterImage: 'https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    id: 'business-keychain',
+    title: 'Business Keychain',
+    description: 'Beyond Music Keychain',
+    beforeImage: keychainBefore.src,
+    afterImage: keychainAfter.src,
+  },
+  {
+    id: 'business-keychain',
+    title: 'Business Keychain',
+    description: 'Beyond Music Keychain',
+    beforeImage: warriorsBefore.src,
+    afterImage: warriorsAfter.src,
   },
   {
     id: 'business-keychain',
