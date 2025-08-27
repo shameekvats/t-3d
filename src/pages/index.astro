@@ -3,7 +3,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import Features from '~/components/widgets/Features.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
-import { getPermalink } from '~/utils/permalinks'; // ← Add this import
+import { getPermalink } from '~/utils/permalinks';
 
 const metadata = {
   title: 'tattva-3d — 3d Prints on Demand',
@@ -20,10 +20,10 @@ const metadata = {
       {
         variant: 'primary',
         text: 'View Gallery',
-        href: getPermalink('/gallery'), // ← Future-proof!
+        href: getPermalink('/gallery'),
         icon: 'tabler:photo',
       },
-      { text: 'Get Started', href: getPermalink('/contact') }, // ← Future-proof!
+      { text: 'Get Started', href: getPermalink('/contact') },
     ]}
   >
     <Fragment slot="title">
@@ -32,7 +32,7 @@ const metadata = {
 
     <Fragment slot="subtitle">
       <span class="hidden sm:inline">
-        Transform your ideas into unique 3D printed gifts, branding materials, and creative keepsakes.
+        Transform your ideas into unique 3d printed gifts, branding materials, and creative keepsakes.
       </span>
     </Fragment>
   </Hero>
@@ -42,7 +42,7 @@ const metadata = {
  <Features
   id="features"
   tagline="What we create"
-  title="Unique 3D prints for every occasion"
+  title="Unique 3d prints for every occasion"
   subtitle="From personalized presents to business promotional items."
   columns={2}
   classes={{
@@ -80,7 +80,7 @@ const metadata = {
       {
         variant: 'primary',
         text: 'Start Your Project',
-        href: getPermalink('/contact'), // ← Future-proof!
+        href: getPermalink('/contact'),
         icon: 'tabler:message-circle',
       },
     ]}
@@ -90,7 +90,7 @@ const metadata = {
     </Fragment>
 
     <Fragment slot="subtitle">
-      Share your idea and let's bring it to life with 3D printing.
+      Share your idea and let's bring it to life with 3d printing.
     </Fragment>
   </CallToAction>
 </Layout>

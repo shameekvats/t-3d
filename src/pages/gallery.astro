@@ -1,7 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
-import { getPermalink } from '~/utils/permalinks'; // ← Add this import
+import { getPermalink } from '~/utils/permalinks';
 
 const metadata = {
   title: 'Gallery — tattva-3d',
@@ -19,7 +19,7 @@ import cat from '../assets/images/Gallery/Cat.jpeg';
 const galleryItems = [
   {
     src: nishArt.src,
-    alt: 'Custom portrait artwork in 3D filament',
+    alt: 'Custom portrait artwork in 3d filament',
     title: 'Portrait Art',
     category: 'Creative Art'
   },
@@ -67,7 +67,7 @@ const galleryItems = [
   <Hero>
     <Fragment slot="title">Gallery</Fragment>
     <Fragment slot="subtitle">
-      Explore our collection of custom 3D printed products, ideal for gifts, branding materials, and creative pieces.
+      Explore our collection of custom 3d printed products, ideal for gifts, branding materials, and creative pieces.
     </Fragment>
   </Hero>
 
@@ -127,7 +127,7 @@ const galleryItems = [
           Let's Chat
         </a>
         <a 
-          href="mailto:t-3d@ik.me?subject=Custom Project Idea&body=Hi!%0D%0A%0D%0AI have a cool idea for a 3D print:%0D%0A%0D%0A[Describe your idea here]%0D%0A%0D%0ALooking forward to hearing from you!"
+          href="mailto:t-3d@ik.me?subject=Custom Project Idea&body=Hi!%0D%0A%0D%0AI have a cool idea for a 3d print:%0D%0A%0D%0A[Describe your idea here]%0D%0A%0D%0ALooking forward to hearing from you!"
           class="inline-flex items-center px-8 py-3 bg-white hover:bg-gray-50 text-gray-700 font-medium rounded-lg border border-gray-200 transition duration-200 shadow-lg hover:shadow-xl"
         >
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
