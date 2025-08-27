@@ -2,6 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
 import ImageComparisonSlider from '~/components/widgets/ImageComparisonSlider.astro';
+import { getPermalink } from '~/utils/permalinks'; // ← Add this import
 
 const metadata = {
   title: '3D Models — tattva-3d',
@@ -161,7 +162,7 @@ const modelProjects = [
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a 
-          href="/t-3d/contact"
+          href={getPermalink('/contact')}
           class="inline-flex items-center px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-200 shadow-lg hover:shadow-xl"
         >
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">

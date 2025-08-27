@@ -1,9 +1,9 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-
 import Hero from '~/components/widgets/Hero.astro';
 import Features from '~/components/widgets/Features.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+import { getPermalink } from '~/utils/permalinks'; // ← Add this import
 
 const metadata = {
   title: 'tattva-3d — 3d Prints on Demand',
@@ -20,10 +20,10 @@ const metadata = {
       {
         variant: 'primary',
         text: 'View Gallery',
-        href: '/gallery',
+        href: getPermalink('/gallery'), // ← Future-proof!
         icon: 'tabler:photo',
       },
-      { text: 'Get Started', href: '/contact' },
+      { text: 'Get Started', href: getPermalink('/contact') }, // ← Future-proof!
     ]}
   >
     <Fragment slot="title">
@@ -80,7 +80,7 @@ const metadata = {
       {
         variant: 'primary',
         text: 'Start Your Project',
-        href: '/contact',
+        href: getPermalink('/contact'), // ← Future-proof!
         icon: 'tabler:message-circle',
       },
     ]}

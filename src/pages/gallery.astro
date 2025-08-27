@@ -1,6 +1,7 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
+import { getPermalink } from '~/utils/permalinks'; // ← Add this import
 
 const metadata = {
   title: 'Gallery — tattva-3d',
@@ -35,13 +36,13 @@ const galleryItems = [
     category: 'Keepsakes'
   },
   {
-    src: lowkeyLightbox.src, // ✅ FIXED - Use .src from imported asset
+    src: lowkeyLightbox.src,
     alt: 'Custom lightbox with LED lighting',
     title: 'Custom Lightbox',
     category: 'Branding'
   },
   {
-    src: mouse.src, // ✅ FIXED - Use .src from imported asset
+    src: mouse.src,
     alt: 'Custom wireless mouse design',
     title: 'Wireless Mouse',
     category: 'Electronics'
@@ -117,7 +118,7 @@ const galleryItems = [
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a 
-          href="/t-3d/contact"
+          href={getPermalink('/contact')}
           class="inline-flex items-center px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-200 shadow-lg hover:shadow-xl"
         >
           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
