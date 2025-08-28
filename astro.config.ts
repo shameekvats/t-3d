@@ -71,29 +71,22 @@ export const I18N = {
 
 export const METADATA = {
   title: {
-    default: 'tattva-3d — 3d Printing Journey & Design Showcase',
+    default: 'tattva-3d — 3d Printing on demand',
     template: '%s — tattva-3d'
   },
-  description: "Custom 3d printing! From concept to creation - unique prints for every occasion.",
+  description: "Custom 3d printing services! From concept to creation - unique prints for gifts, business items, and creative projects.",
   robots: {
     index: true,
     follow: true,
   },
   openGraph: {
     site_name: 'tattva-3d',
-    images: [
-      {
-        url: '~/assets/images/logo.png',
-        width: 1200,
-        height: 630,
-      }
-    ],
     type: 'website',
   },
   twitter: {
     handle: '@tattva3d',
     site: '@tattva3d',
-    cardType: 'summary_large_image',
+    cardType: 'summary',
   },
 };
 
