@@ -74,7 +74,7 @@ export const METADATA = {
     default: 'tattva-3d — 3d Printing Journey & Design Showcase',
     template: '%s — tattva-3d'
   },
-  description: "Showcasing my 3d printing journey, custom designs, and modeling skills. From concept to creation.",
+  description: "Custom 3d printing! From concept to creation - unique prints for every occasion.",
   robots: {
     index: true,
     follow: true,
@@ -83,9 +83,9 @@ export const METADATA = {
     site_name: 'tattva-3d',
     images: [
       {
-        url: '~/assets/images/default.png',
+        url: '~/assets/images/logo.png',
         width: 1200,
-        height: 628,
+        height: 630,
       }
     ],
     type: 'website',
