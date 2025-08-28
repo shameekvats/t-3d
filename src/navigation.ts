@@ -48,7 +48,7 @@ export const footerData = {
     { 
       ariaLabel: 'Instagram', 
       icon: 'tabler:brand-instagram', 
-      href: 'https://instagram.com/your-instagram-handle',
+      href: 'https://www.instagram.com/tattva_3d/',
       text: '',
     },
   ],
