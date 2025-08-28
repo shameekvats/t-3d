@@ -22,12 +22,12 @@ const metadata = {
       <div class="text-center mb-10">
         <h2 class="text-3xl font-bold mb-4">Send us a message</h2>
         <p class="text-lg text-gray-600 dark:text-gray-300">
-          Fill out the form below and we'll prepare an email for you to send.
+          Fill out the form and we'll get back to you soon!
         </p>
       </div>
 
       <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8">
-        <form id="contactForm">
+        <form action="https://formspree.io/f/mzzazwro" method="POST" id="contactForm">
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <!-- Name Field -->
             <div>
@@ -114,7 +114,7 @@ const metadata = {
                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
               </svg>
               <p class="text-green-700 dark:text-green-300">
-                Your email client should open with a pre-filled message. Please send it to complete your inquiry!
+                Thanks! Your message has been sent. We'll get back to you soon!
               </p>
             </div>
           </div>
@@ -137,36 +137,29 @@ document.addEventListener('DOMContentLoaded', function() {
   const contactForm = document.getElementById('contactForm');
   const successMessage = document.getElementById('successMessage');
 
-  contactForm.addEventListener('submit', function(e) {
+  contactForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    const formData = new FormData(this);
-    const name = formData.get('name');
-    const email = formData.get('email');
-    const subject = formData.get('subject');
-    const message = formData.get('message');
-    
-    const emailBody = `Hi tattva-3d team,
+    try {
+      const response = await fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
 
-I'm interested in your 3d printing services.
-
-Name: ${name}
-Email: ${email}
-Project: ${subject}
-
-Details:
-${message}
-
-Looking forward to hearing from you!
-
-Best regards,
-${name}`;
-
-    const mailtoLink = `mailto:t-3d@ik.me?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
-    
-    successMessage.classList.remove('hidden');
-    window.location.href = mailtoLink;
-    successMessage.scrollIntoView({ behavior: 'smooth' });
+      if (response.ok) {
+        successMessage.classList.remove('hidden');
+        successMessage.querySelector('p').textContent = 'Thanks! Your message has been sent. We\'ll get back to you soon!';
+        contactForm.reset();
+        successMessage.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        alert('Sorry, there was an error sending your message. Please try again.');
+      }
+    } catch (error) {
+      alert('Sorry, there was an error sending your message. Please try again.');
+    }
   });
 });
 </script>
