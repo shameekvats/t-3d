@@ -1,4 +1,4 @@
-import { getPermalink, getBlogPermalink, getAsset } from './utils/permalinks';
+import { getPermalink, getAsset } from './utils/permalinks';
 
 export const headerData = {
   links: [
@@ -12,7 +12,7 @@ export const headerData = {
     },
     {
       text: '3D Models',
-      href: getPermalink('/models'),
+      href: getPermalink('/3d-models'),
     },
     {
       text: 'Contact',
@@ -26,16 +26,31 @@ export const footerData = {
     {
       title: 'tattva-3d',
       links: [
-        { text: 'Home', href: '/' },
-        { text: 'Gallery', href: '/gallery' },
-        { text: '3D Models', href: '/models' },
-        { text: 'Contact', href: '/contact' },
+        { text: 'Home', href: getPermalink('/') },
+        { text: 'Gallery', href: getPermalink('/gallery') },
+        { text: '3D Models', href: getPermalink('/3d-models') },
+        { text: 'Contact', href: getPermalink('/contact') },
+      ],
+    },
+    {
+      title: 'Support',
+      links: [
+        { text: 'Contact Us', href: getPermalink('/contact') },
+        { text: 'Email', href: 'mailto:t-3d@ik.me' },
       ],
     },
   ],
+  secondaryLinks: [
+    { text: 'Terms', href: getPermalink('/terms') },
+    { text: 'Privacy Policy', href: getPermalink('/privacy') },
+  ],
   socialLinks: [
-    { ariaLabel: 'Instagram', icon: 'tabler:brand-instagram', href: '#' },
-    { ariaLabel: 'Github', icon: 'tabler:brand-github', href: '#' },
+    { 
+      ariaLabel: 'Instagram', 
+      icon: 'tabler:brand-instagram', 
+      href: 'https://instagram.com/your-instagram-handle',
+      text: '',
+    },
   ],
   footNote: `
     Made with ❤️ by tattva-3d. All rights reserved.
