@@ -90,7 +90,7 @@ const metadata = {
               rows="5"
               required
               class="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent dark:bg-slate-700 dark:text-white resize-vertical"
-              placeholder="What do you want to create? Do you have files ready? Any specific requirements?"
+              placeholder="What do you want to create? Do you have files ready? Any specific requirements? For large files, please mention them and we'll provide sharing instructions."
             ></textarea>
           </div>
 
@@ -98,12 +98,13 @@ const metadata = {
           <div class="text-center">
             <button
               type="submit"
-              class="inline-flex items-center px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-200 shadow-lg hover:shadow-xl"
+              class="inline-flex items-center px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-200 shadow-lg hover:shadow-xl disabled:opacity-50"
+              id="submitButton"
             >
               <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
               </svg>
-              Send Message
+              <span id="buttonText">Send Message</span>
             </button>
           </div>
 
@@ -120,8 +121,25 @@ const metadata = {
           </div>
         </form>
 
+        <!-- File Sharing Instructions -->
+        <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-600">
+          <div class="bg-blue-50 dark:bg-blue-900 rounded-lg p-4 mb-4">
+            <h3 class="text-lg font-medium text-blue-900 dark:text-blue-100 mb-2">
+              📁 Need to share files?
+            </h3>
+            <p class="text-sm text-blue-700 dark:text-blue-300">
+              For STL files, reference images, or design files, you can:
+            </p>
+            <ul class="text-sm text-blue-700 dark:text-blue-300 mt-2 space-y-1">
+              <li>• <strong>Email directly:</strong> Send files to t-3d@ik.me</li>
+              <li>• <strong>Cloud sharing:</strong> Share Google Drive or Dropbox links in your message</li>
+              <li>• <strong>Mention files:</strong> Let us know what you have and we'll guide you</li>
+            </ul>
+          </div>
+        </div>
+
         <!-- Direct Email Option -->
-        <div class="mt-8 pt-6 border-t border-gray-200 dark:border-gray-600 text-center">
+        <div class="text-center">
           <p class="text-gray-600 dark:text-gray-300">
             Or email us directly at: 
             <a href="mailto:t-3d@ik.me" class="text-blue-600 hover:text-blue-800 font-medium">t-3d@ik.me</a>
@@ -136,10 +154,19 @@ const metadata = {
 document.addEventListener('DOMContentLoaded', function() {
   const contactForm = document.getElementById('contactForm');
   const successMessage = document.getElementById('successMessage');
+  const submitButton = document.getElementById('submitButton');
+  const buttonText = document.getElementById('buttonText');
 
   contactForm.addEventListener('submit', async function(e) {
     e.preventDefault();
     
+    // Show loading state
+    submitButton.disabled = true;
+    buttonText.textContent = 'Sending...';
+    
+    // Hide previous messages
+    successMessage.classList.add('hidden');
+
     try {
       const response = await fetch(contactForm.action, {
         method: 'POST',
@@ -151,7 +178,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
       if (response.ok) {
         successMessage.classList.remove('hidden');
-        successMessage.querySelector('p').textContent = 'Thanks! Your message has been sent. We\'ll get back to you soon!';
         contactForm.reset();
         successMessage.scrollIntoView({ behavior: 'smooth' });
       } else {
@@ -160,6 +186,10 @@ document.addEventListener('DOMContentLoaded', function() {
     } catch (error) {
       alert('Sorry, there was an error sending your message. Please try again.');
     }
+
+    // Reset button state
+    submitButton.disabled = false;
+    buttonText.textContent = 'Send Message';
   });
 });
 </script>
