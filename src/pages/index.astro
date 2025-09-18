@@ -35,6 +35,27 @@ const metadata = {
         Transform your ideas into unique 3d printed gifts, branding materials, and creative keepsakes.
       </span>
     </Fragment>
+
+    <!-- Video Background -->
+    <Fragment slot="bg">
+      <div class="absolute inset-0 overflow-hidden">
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          class="hero-video"
+          poster="/videos/timelapse-poster.jpg"
+        >
+          <source src="/videos/timelapse-hd.webm" type="video/webm">
+          <source src="/videos/timelapse-hd.mp4" type="video/mp4">
+          <!-- Fallback for mobile -->
+          <source src="/videos/timelapse-mobile.mp4" type="video/mp4" media="(max-width: 768px)">
+        </video>
+        <!-- Dynamic overlay for better text readability in both modes -->
+        <div class="absolute inset-0 hero-overlay-light dark:hero-overlay-dark"></div>
+      </div>
+    </Fragment>
   </Hero>
 
   <!-- Features Widget *************** -->
@@ -46,6 +67,7 @@ const metadata = {
   subtitle="From personalized presents to business promotional items."
   columns={2}
   classes={{
+    container: 'py-16 bg-gray-50/50 dark:bg-slate-900/80',
     items: {
       container: 'justify-items-center',
       panel: 'flex flex-row items-center justify-center text-center max-w-xs',
@@ -74,10 +96,10 @@ const metadata = {
   />
 
   <!-- Instagram Feed Section using SnapWidget -->
-  <section class="py-16 bg-gray-50 dark:bg-slate-900">
+  <section class="py-16 bg-white/80 dark:bg-slate-800/90 backdrop-blur-sm">
     <div class="max-w-6xl mx-auto px-4 sm:px-6">
       <div class="text-center mb-8">
-        <h2 class="text-3xl font-bold mb-4">Follow Our Journey</h2>
+        <h2 class="text-3xl font-bold mb-4 text-gray-900 dark:text-gray-100">Follow Our Journey</h2>
         <p class="text-lg text-gray-600 dark:text-gray-300">
           See our latest 3D prints and behind-the-scenes content on Instagram
         </p>
@@ -87,7 +109,7 @@ const metadata = {
       <div class="flex justify-center mb-8">
         <div id="snapwidget-container" class="w-full max-w-4xl">
           <!-- SnapWidget Instagram Feed -->
-          <div class="rounded-lg overflow-hidden shadow-lg bg-white dark:bg-slate-800">
+          <div class="rounded-lg overflow-hidden shadow-lg bg-white dark:bg-slate-800 border border-gray-100 dark:border-slate-700">
             <iframe src="https://snapwidget.com/embed/1108094" 
                     class="snapwidget-widget" 
                     allowtransparency="true" 
@@ -141,6 +163,46 @@ const metadata = {
 <!-- SnapWidget Script -->
 <script src="https://snapwidget.com/js/snapwidget.js"></script>
 
+<!-- Video Background Optimization -->
+<style>
+  /* Ensure video covers the full hero area */
+  .hero-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Different opacity for light and dark modes */
+  :root .hero-video {
+    opacity: 0.25; /* Light mode - more visible */
+  }
+
+  :root.dark .hero-video {
+    opacity: 0.4; /* Dark mode - more visible to show through dark background */
+  }
+
+  /* Optimize video loading on mobile */
+  @media (max-width: 768px) {
+    .hero-video {
+      opacity: 0.2 !important; /* Consistent mobile opacity */
+    }
+  }
+
+  /* Enhanced gradient overlays for better text contrast */
+  .hero-overlay-light {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.3) 100%);
+  }
+
+  .hero-overlay-dark {
+    background: linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
+  }
+</style>
+
 <!-- Auto-resize SnapWidget iframe -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -152,5 +214,14 @@ const metadata = {
         iframe.style.height = '750px'; 
       }
     }, 2000);
+
+    // Ensure video starts playing after load
+    const heroVideo = document.querySelector('.hero-video');
+    if (heroVideo) {
+      heroVideo.play().catch(() => {
+        // If autoplay is blocked, the video will still show the first frame
+        console.log('Video autoplay was prevented, showing poster/first frame');
+      });
+    }
   });
 </script>
