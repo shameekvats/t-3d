@@ -138,15 +138,12 @@ const galleryItems = [
   },
   {
     src: filamentPainting.src,
-    alt: 'Custom filament art painting',
+    srcGlow: filamentPaintingGlow.src, // Add glow version
+    alt: 'Custom filament art painting with glow-in-dark effect',
     title: 'Filament Painting',
     categories: ['art', 'gifts', 'custom'],
-  },
-  {
-    src: filamentPaintingGlow.src,
-    alt: 'Glow-in-dark filament painting',
-    title: 'Glow Filament Art',
-    categories: ['art', 'gifts', 'custom'],
+    hasRevealEffect: true,
+    revealHint: 'Hover for glow effect',
   },
   {
     src: catBookmark.src,
@@ -314,17 +311,42 @@ function getCategoryCount(categoryId: string) {
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6" id="gallery-grid">
         {galleryItems.map((item, index) => (
           <div 
-            class="portfolio-item group relative bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            class={`portfolio-item group relative bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${item.hasRevealEffect ? 'reveal-item' : ''}`}
             data-categories={JSON.stringify(item.categories)}
+            data-has-reveal={item.hasRevealEffect ? 'true' : 'false'}
           >
             <!-- Image Container -->
-            <div class="aspect-square overflow-hidden">
-              <img 
-                src={item.src} 
-                alt={item.alt}
-                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                loading={index < 4 ? 'eager' : 'lazy'}
-              />
+            <div class="aspect-square overflow-hidden relative">
+              {item.hasRevealEffect ? (
+                <>
+                  {/* Base image (day version) */}
+                  <img 
+                    src={item.src} 
+                    alt={item.alt}
+                    class="reveal-base-image w-full h-full object-cover transition-all duration-500 absolute inset-0"
+                    loading={index < 4 ? 'eager' : 'lazy'}
+                  />
+                  {/* Reveal image (glow version) */}
+                  <img 
+                    src={item.srcGlow} 
+                    alt={`${item.alt} - revealed`}
+                    class="reveal-glow-image w-full h-full object-cover transition-all duration-500 absolute inset-0 opacity-0"
+                    loading="lazy"
+                  />
+                  {/* Reveal hint badge */}
+                  <div class="reveal-hint absolute top-3 right-3 bg-primary/90 text-white text-xs px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm flex items-center gap-1.5 pointer-events-none z-10">
+                    <span class="animate-pulse">✨</span>
+                    <span class="font-medium">{item.revealHint}</span>
+                  </div>
+                </>
+              ) : (
+                <img 
+                  src={item.src} 
+                  alt={item.alt}
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  loading={index < 4 ? 'eager' : 'lazy'}
+                />
+              )}
             </div>
             
             <!-- Content Overlay -->
@@ -482,6 +504,30 @@ function getCategoryCount(categoryId: string) {
         });
       });
     });
+
+    // Mobile tap toggle for reveal items
+    const revealItems = document.querySelectorAll('.reveal-item');
+    revealItems.forEach(item => {
+      // Detect if device is touch-enabled
+      const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      
+      if (isTouchDevice) {
+        item.addEventListener('click', function(e) {
+          // Prevent click from bubbling to parent elements
+          e.preventDefault();
+          
+          // Toggle active class for tap on mobile
+          this.classList.toggle('active');
+          
+          // Remove active class from other reveal items
+          revealItems.forEach(otherItem => {
+            if (otherItem !== this) {
+              otherItem.classList.remove('active');
+            }
+          });
+        });
+      }
+    });
   });
 </script>
 
@@ -489,6 +535,42 @@ function getCategoryCount(categoryId: string) {
 <style>
   .portfolio-item {
     transition: opacity 0.3s ease-in-out;
+  }
+
+  /* Reveal Effect Styles */
+  .reveal-item:hover .reveal-glow-image,
+  .reveal-item.active .reveal-glow-image {
+    opacity: 1;
+  }
+
+  .reveal-item:hover .reveal-base-image,
+  .reveal-item.active .reveal-base-image {
+    opacity: 0;
+  }
+
+  .reveal-item:hover .reveal-hint,
+  .reveal-item.active .reveal-hint {
+    opacity: 0;
+  }
+
+  .reveal-item {
+    cursor: pointer;
+  }
+
+  /* Smooth fade transition for reveal images */
+  .reveal-base-image,
+  .reveal-glow-image {
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .reveal-hint {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  /* Ensure images don't scale on hover when reveal is active */
+  .reveal-item:hover .reveal-base-image,
+  .reveal-item:hover .reveal-glow-image {
+    transform: none;
   }
   
   #category-filters {
