@@ -28,7 +28,9 @@ import asRomaLightbox from '../assets/images/Gallery/AS Roma_Lightbox.jpg';
 import bunny from '../assets/images/Gallery/Bunny.jpg';
 import catBookmark from '../assets/images/Gallery/Cat_Sticker_Bookmark.jpeg';
 import colosseum from '../assets/images/Gallery/Colosseum.jpg';
-import cookieCutter from '../assets/images/Gallery/Cookie_Cutter5.jpg';
+import cookieCutter1 from '../assets/images/Gallery/Cookie_Cutter1.jpg';
+import cookieCutter2 from '../assets/images/Gallery/Cookie_Cutter2.jpg';
+import cookieCutter5 from '../assets/images/Gallery/Cookie_Cutter5.jpg';
 import filamentPainting from '../assets/images/Gallery/Filament_Painting.jpg';
 import filamentPaintingGlow from '../assets/images/Gallery/Filament_Painting_Glow.jpg';
 import ghost from '../assets/images/Gallery/Ghost.jpg';
@@ -115,22 +117,12 @@ const galleryItems = [
     categories: ['gifts', 'business'],
   },
   {
-    src: colosseum.src,
-    alt: 'Colosseum architectural model',
-    title: 'Colosseum Model',
+    images: [colosseum.src, taj.src, thinker.src],
+    alt: 'Architectural monuments and sculptures collection',
+    title: 'Monuments',
     categories: ['art', 'home'],
-  },
-  {
-    src: taj.src,
-    alt: 'Taj Mahal architectural miniature',
-    title: 'Taj Mahal Miniature',
-    categories: ['art', 'home'],
-  },
-  {
-    src: thinker.src,
-    alt: 'The Thinker sculpture replica',
-    title: 'The Thinker',
-    categories: ['art', 'home'],
+    hasMultiReveal: true,
+    revealHint: 'Hover to explore',
   },
   {
     src: beatlesDecor.src,
@@ -154,16 +146,12 @@ const galleryItems = [
     categories: ['gifts', 'art'],
   },
   {
-    src: bunny.src,
-    alt: 'Custom bunny figurine',
-    title: 'Bunny Figurine',
+    images: [bunny.src, ghost.src],
+    alt: 'Character tealights collection',
+    title: 'Tealights',
     categories: ['gifts', 'home'],
-  },
-  {
-    src: ghost.src,
-    alt: 'Ghost decoration piece',
-    title: 'Ghost Decor',
-    categories: ['gifts', 'home'],
+    hasMultiReveal: true,
+    revealHint: 'Hover to see more',
   },
   {
     src: halloweenMask.src,
@@ -172,10 +160,12 @@ const galleryItems = [
     categories: ['gifts', 'custom'],
   },
   {
-    src: cookieCutter.src,
-    alt: 'Custom cookie cutter design',
+    images: [cookieCutter1.src, cookieCutter2.src, cookieCutter5.src],
+    alt: 'Custom cookie cutter from multiple angles',
     title: 'Cookie Cutter',
     categories: ['home', 'gifts'],
+    hasMultiReveal: true,
+    revealHint: 'Hover to explore',
   },
   {
     src: luxVilleMap.src,
@@ -322,13 +312,39 @@ function getCategoryCount(categoryId: string) {
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6" id="gallery-grid">
         {galleryItems.map((item, index) => (
           <div 
-            class={`portfolio-item group relative bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${item.hasRevealEffect ? 'reveal-item' : ''}`}
+            class={`portfolio-item group relative bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${item.hasRevealEffect ? 'reveal-item' : ''} ${item.hasMultiReveal ? 'multi-reveal-item' : ''}`}
             data-categories={JSON.stringify(item.categories)}
             data-has-reveal={item.hasRevealEffect ? 'true' : 'false'}
+            data-has-multi={item.hasMultiReveal ? 'true' : 'false'}
+            data-images={item.hasMultiReveal ? JSON.stringify(item.images) : '[]'}
           >
             <!-- Image Container -->
             <div class="aspect-square overflow-hidden relative">
-              {item.hasRevealEffect ? (
+              {item.hasMultiReveal ? (
+                <>
+                  {/* Multi-image carousel */}
+                  {item.images.map((imgSrc, imgIndex) => (
+                    <img 
+                      src={imgSrc} 
+                      alt={`${item.alt} - view ${imgIndex + 1}`}
+                      class={`carousel-image w-full h-full object-cover transition-all duration-500 absolute inset-0 ${imgIndex === 0 ? 'opacity-100' : 'opacity-0'}`}
+                      data-index={imgIndex}
+                      loading={index < 4 ? 'eager' : 'lazy'}
+                    />
+                  ))}
+                  {/* Navigation dots */}
+                  <div class="nav-dots absolute bottom-3 left-1/2 transform -translate-x-1/2 flex items-center gap-2 bg-black/50 backdrop-blur-sm px-3 py-2 rounded-full z-10">
+                    {item.images.map((_, dotIndex) => (
+                      <div class={`nav-dot w-2 h-2 rounded-full transition-all duration-300 ${dotIndex === 0 ? 'bg-white w-6' : 'bg-white/50'}`} data-dot-index={dotIndex}></div>
+                    ))}
+                  </div>
+                  {/* Reveal hint badge */}
+                  <div class="reveal-hint absolute top-3 right-3 bg-primary/90 text-white text-xs px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm flex items-center gap-1.5 pointer-events-none z-10">
+                    <span class="animate-pulse">✨</span>
+                    <span class="font-medium">{item.revealHint}</span>
+                  </div>
+                </>
+              ) : item.hasRevealEffect ? (
                 <>
                   {/* Base image (day version) */}
                   <img 
@@ -539,6 +555,57 @@ function getCategoryCount(categoryId: string) {
         });
       }
     });
+
+    // Multi-image carousel functionality
+    const multiRevealItems = document.querySelectorAll('.multi-reveal-item');
+    multiRevealItems.forEach(item => {
+      let currentIndex = 0;
+      const images = item.querySelectorAll('.carousel-image');
+      const dots = item.querySelectorAll('.nav-dot');
+      const totalImages = images.length;
+
+      function showImage(index) {
+        // Hide all images
+        images.forEach(img => {
+          img.style.opacity = '0';
+        });
+        
+        // Show current image
+        images[index].style.opacity = '1';
+        
+        // Update dots
+        dots.forEach((dot, dotIndex) => {
+          if (dotIndex === index) {
+            dot.classList.add('bg-white', 'w-6');
+            dot.classList.remove('bg-white/50');
+          } else {
+            dot.classList.remove('bg-white', 'w-6');
+            dot.classList.add('bg-white/50');
+          }
+        });
+      }
+
+      function nextImage() {
+        currentIndex = (currentIndex + 1) % totalImages;
+        showImage(currentIndex);
+      }
+
+      // Hover/Click to cycle through images
+      const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      
+      if (isTouchDevice) {
+        // Mobile: tap to cycle
+        item.addEventListener('click', function(e) {
+          e.preventDefault();
+          nextImage();
+        });
+      } else {
+        // Desktop: hover to cycle
+        item.addEventListener('mouseenter', function() {
+          nextImage();
+        });
+      }
+    });
   });
 </script>
 
@@ -582,6 +649,31 @@ function getCategoryCount(categoryId: string) {
   .reveal-item:hover .reveal-base-image,
   .reveal-item:hover .reveal-glow-image {
     transform: none;
+  }
+
+  /* Multi-image carousel styles */
+  .multi-reveal-item {
+    cursor: pointer;
+  }
+
+  .carousel-image {
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .multi-reveal-item:hover .carousel-image {
+    transform: none;
+  }
+
+  .multi-reveal-item:hover .reveal-hint {
+    opacity: 0;
+  }
+
+  .nav-dots {
+    pointer-events: none;
+  }
+
+  .nav-dot {
+    transition: all 0.3s ease-in-out;
   }
   
   #category-filters {
