@@ -36,6 +36,7 @@ const modelProjects = [
     description: 'Beyond Music branded keychain from concept to reality',
     beforeImage: keychainBefore.src,
     afterImage: keychainAfter.src,
+    categories: ['business', 'gifts'],
   },
   {
     id: 'warriors-logo',
@@ -43,6 +44,7 @@ const modelProjects = [
     description: 'Custom sports team logo keepsake',
     beforeImage: warriorsBefore.src,
     afterImage: warriorsAfter.src,
+    categories: ['gifts', 'art'],
   },
   {
     id: 'decorative-vase',
@@ -50,6 +52,7 @@ const modelProjects = [
     description: 'Customizable geometric vase design',
     beforeImage: vaseBefore.src,
     afterImage: vaseAfter.src,
+    categories: ['home', 'art'],
   },
   {
     id: 'business-card',
@@ -57,6 +60,7 @@ const modelProjects = [
     description: 'Premium textured business cards',
     beforeImage: membershipBefore.src,
     afterImage: membershipAfter.src,
+    categories: ['business'],
   }
 ];
 
@@ -66,45 +70,65 @@ const galleryItems = [
     src: nishArt.src,
     alt: 'Custom portrait artwork in 3d filament',
     title: 'Portrait Art',
-    category: 'Creative Art'
+    categories: ['art', 'gifts'],
   },
   {
     src: acRomaLogo.src,
     alt: 'AC Roma custom display logo',
     title: 'Team Logo Display',
-    category: 'Display Items'
+    categories: ['art', 'gifts'],
   },
   {
     src: kohliKeepsake.src,
     alt: 'Virat Kohli sports collectible',
     title: 'Sports Collectible',
-    category: 'Keepsakes'
+    categories: ['gifts', 'art'],
   },
   {
     src: lowkeyLightbox.src,
     alt: 'Custom lightbox with LED lighting',
     title: 'Custom Lightbox',
-    category: 'Branding'
+    categories: ['business'],
   },
   {
     src: mouse.src,
     alt: 'Custom wireless mouse design',
     title: 'Wireless Mouse',
-    category: 'Electronics'
+    categories: ['custom', 'gifts'],
   },
   {
     src: cat.src, 
     alt: 'Funky Cat bookmark',
     title: 'Cat Bookmark',
-    category: 'Filament Painting'
+    categories: ['gifts', 'art'],
   },
   {
     src: bmKey.src,
     alt: 'Custom Beyond Music Keychain',
     title: 'Beyond Music Keychain',
-    category: 'Branding'
+    categories: ['business', 'gifts'],
   }
 ];
+
+// Category definitions
+const categories = [
+  { id: 'all', name: 'All' },
+  { id: 'gifts', name: 'Gifts & Accessories' },
+  { id: 'business', name: 'Business/Brand Solutions' },
+  { id: 'home', name: 'Home & Kitchen' },
+  { id: 'art', name: 'Art & Decor' },
+  { id: 'custom', name: 'Custom Projects' }
+];
+
+// Calculate item counts per category
+function getCategoryCount(categoryId: string) {
+  if (categoryId === 'all') {
+    return modelProjects.length + galleryItems.length;
+  }
+  const modelCount = modelProjects.filter(item => item.categories.includes(categoryId)).length;
+  const galleryCount = galleryItems.filter(item => item.categories.includes(categoryId)).length;
+  return modelCount + galleryCount;
+}
 ---
 
 <Layout metadata={metadata}>
@@ -117,6 +141,35 @@ const galleryItems = [
       From digital design to physical reality — explore our custom 3D modeling capabilities and finished creations
     </Fragment>
   </Hero>
+
+  <!-- Category Filter Section *************** -->
+  <section class="py-8 bg-white dark:bg-slate-900 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-center gap-3 flex-wrap">
+        <span class="text-sm font-medium text-gray-600 dark:text-gray-400 hidden sm:inline">
+          Filter by:
+        </span>
+        <div class="flex items-center gap-2 flex-wrap justify-center" id="category-filters">
+          {categories.map((category) => (
+            <button
+              data-category={category.id}
+              class="category-filter inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105 hover:shadow-md"
+              class:list={[
+                category.id === 'all' 
+                  ? 'bg-primary text-white shadow-lg' 
+                  : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-700'
+              ]}
+            >
+              <span>{category.name}</span>
+              <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-bold rounded-full bg-white/20">
+                {getCategoryCount(category.id)}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Section 1: Custom 3D Modeling *************** -->
   <section class="py-16 md:py-20 bg-gray-50/50 dark:bg-slate-900/80">
@@ -133,9 +186,12 @@ const galleryItems = [
       </div>
 
       <!-- Models Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="models-grid">
         {modelProjects.map((project) => (
-          <div class="group relative bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          <div 
+            class="portfolio-item group relative bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            data-categories={JSON.stringify(project.categories)}
+          >
             <!-- Image Comparison Container -->
             <div class="aspect-video overflow-hidden">
               <ImageComparisonSlider
@@ -179,9 +235,12 @@ const galleryItems = [
       </div>
 
       <!-- Gallery Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6" id="gallery-grid">
         {galleryItems.map((item, index) => (
-          <div class="group relative bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+          <div 
+            class="portfolio-item group relative bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            data-categories={JSON.stringify(item.categories)}
+          >
             <!-- Image Container -->
             <div class="aspect-square overflow-hidden">
               <img 
@@ -300,3 +359,89 @@ const galleryItems = [
     </div>
   </section>
 </Layout>
+
+<!-- Category Filtering Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.category-filter');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
+    // Add click handlers to all filter buttons
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const selectedCategory = this.getAttribute('data-category');
+        
+        // Update active button styles
+        filterButtons.forEach(btn => {
+          if (btn === this) {
+            btn.classList.remove('bg-gray-100', 'dark:bg-slate-800', 'text-gray-700', 'dark:text-gray-300');
+            btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
+          } else {
+            btn.classList.remove('bg-primary', 'text-white', 'shadow-lg');
+            btn.classList.add('bg-gray-100', 'dark:bg-slate-800', 'text-gray-700', 'dark:text-gray-300');
+          }
+        });
+        
+        // Filter portfolio items with fade animation
+        portfolioItems.forEach(item => {
+          const itemCategories = JSON.parse(item.getAttribute('data-categories') || '[]');
+          const shouldShow = selectedCategory === 'all' || itemCategories.includes(selectedCategory);
+          
+          if (shouldShow) {
+            // Fade in
+            item.style.opacity = '0';
+            item.style.display = 'block';
+            setTimeout(() => {
+              item.style.transition = 'opacity 0.3s ease-in-out';
+              item.style.opacity = '1';
+            }, 10);
+          } else {
+            // Fade out
+            item.style.transition = 'opacity 0.3s ease-in-out';
+            item.style.opacity = '0';
+            setTimeout(() => {
+              item.style.display = 'none';
+            }, 300);
+          }
+        });
+      });
+    });
+  });
+</script>
+
+<!-- Filter Styles -->
+<style>
+  .portfolio-item {
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  #category-filters {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  @media (max-width: 640px) {
+    #category-filters {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      padding-bottom: 0.5rem;
+      scrollbar-width: none; /* Firefox */
+    }
+    
+    #category-filters::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
+    }
+    
+    .category-filter {
+      flex-shrink: 0;
+    }
+  }
+  
+  .category-filter {
+    cursor: pointer;
+  }
+  
+  .category-filter:active {
+    transform: scale(0.95);
+  }
+</style>
