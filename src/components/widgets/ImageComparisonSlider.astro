@@ -72,12 +72,12 @@ const {
   </div>
 </div>
 
-<script is:inline>
+<script>
   function initializeSliders() {
     // Initialize all comparison sliders
     const containers = document.querySelectorAll('.comparison-container');
     
-    containers.forEach((container, index) => {
+    containers.forEach((container) => {
       const slider = container.querySelector('.slider-handle');
       const afterImage = container.querySelector('.after-image');
       
@@ -98,7 +98,6 @@ const {
         isDragging = true;
         e.preventDefault();
         document.body.style.cursor = 'ew-resize';
-        console.log('Mouse down on slider');
       });
 
       document.addEventListener('mousemove', (e) => {
@@ -112,7 +111,6 @@ const {
         if (isDragging) {
           isDragging = false;
           document.body.style.cursor = '';
-          console.log('Mouse up');
         }
       });
 
@@ -120,8 +118,7 @@ const {
       slider.addEventListener('touchstart', (e) => {
         isDragging = true;
         e.preventDefault();
-        console.log('Touch start');
-      });
+      }, { passive: false });
 
       document.addEventListener('touchmove', (e) => {
         if (isDragging) {
@@ -129,12 +126,11 @@ const {
           const touch = e.touches[0];
           updateSlider(touch.clientX);
         }
-      });
+      }, { passive: false });
 
       document.addEventListener('touchend', () => {
         if (isDragging) {
           isDragging = false;
-          console.log('Touch end');
         }
       });
 
@@ -142,11 +138,8 @@ const {
       container.addEventListener('click', (e) => {
         if (!slider.contains(e.target)) {
           updateSlider(e.clientX);
-          console.log('Container clicked');
         }
       });
-
-      console.log(`Slider ${index + 1} initialized`);
     });
   }
 

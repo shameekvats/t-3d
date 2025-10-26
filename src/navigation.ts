@@ -7,12 +7,8 @@ export const headerData = {
       href: getPermalink('/'),
     },
     {
-      text: 'Gallery',
-      href: getPermalink('/gallery'),
-    },
-    {
-      text: '3D Models',
-      href: getPermalink('/3d-models'),
+      text: 'Portfolio',
+      href: getPermalink('/portfolio'),
     },
     {
       text: 'Contact',
@@ -27,8 +23,7 @@ export const footerData = {
       title: 'tattva-3d',
       links: [
         { text: 'Home', href: getPermalink('/') },
-        { text: 'Gallery', href: getPermalink('/gallery') },
-        { text: '3D Models', href: getPermalink('/3d-models') },
+        { text: 'Portfolio', href: getPermalink('/portfolio') },
         { text: 'Contact', href: getPermalink('/contact') },
       ],
     },

@@ -13,6 +13,10 @@ export default defineConfig({
   site: 'https://t-3d.me', // ← CHANGED: Your custom domain
   base: '/', // ← CHANGED: Root path for custom domain
   output: 'static',
+  redirects: {
+    '/gallery': '/portfolio',
+    '/3d-models': '/portfolio',
+  },
   integrations: [
     tailwind({
       applyBaseStyles: false,

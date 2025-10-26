@@ -1,0 +1,302 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import ImageComparisonSlider from '~/components/widgets/ImageComparisonSlider.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'Portfolio — tattva-3d',
+  description: 'Explore our custom 3D modeling and printing portfolio - from digital designs to finished products.',
+};
+
+// Import 3D Model comparison images (Before/After)
+import warriorsBefore from '../assets/images/Models/Before/Warriors_3d.png';
+import warriorsAfter from '../assets/images/Models/After/Warriors.jpg';
+import keychainBefore from '../assets/images/Models/Before/BM_Keychain_3d.png';
+import keychainAfter from '../assets/images/Models/After/BM_Keychain.jpg';
+import vaseBefore from '../assets/images/Models/Before/Vase_3d.png';
+import vaseAfter from '../assets/images/Models/After/Vase.jpg';
+import membershipBefore from '../assets/images/Models/Before/BM_Membership_3d.png';
+import membershipAfter from '../assets/images/Models/After/BM_Membership.jpg';
+
+// Import gallery images (Finished products)
+import nishArt from '../assets/images/Gallery/Nish.jpeg';
+import acRomaLogo from '../assets/images/Gallery/AC Roma.jpg';
+import kohliKeepsake from '../assets/images/Gallery/Kohli.png';
+import lowkeyLightbox from '../assets/images/Gallery/Low_Key lightbox.png';
+import mouse from '../assets/images/Gallery/Mouse.jpg';
+import cat from '../assets/images/Gallery/Cat.jpeg';
+import bmKey from '../assets/images/Gallery/BM_Keychain.jpg';
+
+// 3D Modeling Projects (Before/After comparisons)
+const modelProjects = [
+  {
+    id: 'business-keychain',
+    title: 'Business Keychain',
+    description: 'Beyond Music branded keychain from concept to reality',
+    beforeImage: keychainBefore.src,
+    afterImage: keychainAfter.src,
+  },
+  {
+    id: 'warriors-logo',
+    title: 'Warriors Cricket Club Logo',
+    description: 'Custom sports team logo keepsake',
+    beforeImage: warriorsBefore.src,
+    afterImage: warriorsAfter.src,
+  },
+  {
+    id: 'decorative-vase',
+    title: 'Decorative Vase',
+    description: 'Customizable geometric vase design',
+    beforeImage: vaseBefore.src,
+    afterImage: vaseAfter.src,
+  },
+  {
+    id: 'business-card',
+    title: 'Business Membership Card',
+    description: 'Premium textured business cards',
+    beforeImage: membershipBefore.src,
+    afterImage: membershipAfter.src,
+  }
+];
+
+// Gallery Items (Finished products)
+const galleryItems = [
+  {
+    src: nishArt.src,
+    alt: 'Custom portrait artwork in 3d filament',
+    title: 'Portrait Art',
+    category: 'Creative Art'
+  },
+  {
+    src: acRomaLogo.src,
+    alt: 'AC Roma custom display logo',
+    title: 'Team Logo Display',
+    category: 'Display Items'
+  },
+  {
+    src: kohliKeepsake.src,
+    alt: 'Virat Kohli sports collectible',
+    title: 'Sports Collectible',
+    category: 'Keepsakes'
+  },
+  {
+    src: lowkeyLightbox.src,
+    alt: 'Custom lightbox with LED lighting',
+    title: 'Custom Lightbox',
+    category: 'Branding'
+  },
+  {
+    src: mouse.src,
+    alt: 'Custom wireless mouse design',
+    title: 'Wireless Mouse',
+    category: 'Electronics'
+  },
+  {
+    src: cat.src, 
+    alt: 'Funky Cat bookmark',
+    title: 'Cat Bookmark',
+    category: 'Filament Painting'
+  },
+  {
+    src: bmKey.src,
+    alt: 'Custom Beyond Music Keychain',
+    title: 'Beyond Music Keychain',
+    category: 'Branding'
+  }
+];
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+  <Hero>
+    <Fragment slot="title">
+      Our Work
+    </Fragment>
+    <Fragment slot="subtitle">
+      From digital design to physical reality — explore our custom 3D modeling capabilities and finished creations
+    </Fragment>
+  </Hero>
+
+  <!-- Section 1: Custom 3D Modeling *************** -->
+  <section class="py-16 md:py-20 bg-gray-50/50 dark:bg-slate-900/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <!-- Section Header -->
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          Custom 3D Modeling & Design
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          We bring your ideas to life — slide to see the transformation from digital design to printed product
+        </p>
+      </div>
+
+      <!-- Models Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {modelProjects.map((project) => (
+          <div class="group relative bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <!-- Image Comparison Container -->
+            <div class="aspect-video overflow-hidden">
+              <ImageComparisonSlider
+                id={project.id}
+                title={project.title}
+                description={project.description}
+                beforeImage={project.afterImage}
+                afterImage={project.beforeImage}
+                beforeLabel="Design"
+                afterLabel="Result"
+              />
+            </div>
+            
+            <!-- Content Info -->
+            <div class="p-6">
+              <h3 class="font-semibold text-xl mb-2 text-gray-900 dark:text-gray-100">
+                {project.title}
+              </h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                {project.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Finished Products Gallery *************** -->
+  <section class="py-16 md:py-20 bg-white/80 dark:bg-slate-800/90">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <!-- Section Header -->
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          Gallery of Creations
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          Custom 3D printed products for gifts, branding, art, and more
+        </p>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6">
+        {galleryItems.map((item, index) => (
+          <div class="group relative bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+            <!-- Image Container -->
+            <div class="aspect-square overflow-hidden">
+              <img 
+                src={item.src} 
+                alt={item.alt}
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                loading={index < 4 ? 'eager' : 'lazy'}
+              />
+            </div>
+            
+            <!-- Content Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                <h3 class="font-semibold text-lg mb-1">
+                  {item.title}
+                </h3>
+                <p class="text-sm text-gray-200">
+                  {item.category}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section *************** -->
+  <section class="py-16 md:py-20 bg-gray-50/50 dark:bg-slate-900/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <!-- Section Header -->
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          How It Works
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300">
+          Simple steps from idea to reality
+        </p>
+      </div>
+
+      <!-- Steps Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <!-- Step 1 -->
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-2xl font-bold mb-6">
+            1
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
+            Share Your Idea
+          </h3>
+          <p class="text-gray-600 dark:text-gray-400">
+            Tell us what you want to create
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-2xl font-bold mb-6">
+            2
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
+            We Design & Print
+          </h3>
+          <p class="text-gray-600 dark:text-gray-400">
+            We create and 3d print your piece
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-2xl font-bold mb-6">
+            3
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
+            You Receive & Enjoy
+          </h3>
+          <p class="text-gray-600 dark:text-gray-400">
+            Get your finished project delivered
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section *************** -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 dark:from-primary/20 dark:via-secondary/20 dark:to-accent/20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+        Ready to Create Something Special?
+      </h2>
+      <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
+        Transform your ideas into reality — custom gifts, cherished memories, unique jewelry, personalized keepsakes, or anything you can imagine. Let's bring your vision to life!
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href={getPermalink('/contact')}
+          class="inline-flex items-center justify-center px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-all duration-200 shadow-lg hover:shadow-xl"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+          </svg>
+          Start Your Project
+        </a>
+        <a 
+          href="https://www.instagram.com/tattva_3d/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-lg hover:shadow-xl"
+        >
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.40z"/>
+          </svg>
+          Follow on Instagram
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
