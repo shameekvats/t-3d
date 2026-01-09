@@ -13,6 +13,7 @@ export const headerData = {
     {
       text: 'Workshop',
       href: getPermalink('/workshop'),
+      badge: 'FREE',
     },
     {
       text: 'Contact',
