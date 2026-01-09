@@ -18,6 +18,23 @@ const metadata = {
     <Fragment slot="subtitle">
       From idea to real object — made by you
     </Fragment>
+    
+    <!-- Video Background -->
+    <Fragment slot="bg">
+      <div class="absolute inset-0 overflow-hidden">
+        <video
+          autoplay
+          muted
+          loop
+          playsinline
+          class="hero-video"
+        >
+          <source src="/movies/print_plate_25fps.mp4" type="video/mp4">
+        </video>
+        <!-- Dynamic overlay for better text readability in both modes -->
+        <div class="absolute inset-0 hero-overlay-light dark:hero-overlay-dark"></div>
+      </div>
+    </Fragment>
   </Hero>
 
   <!-- What You'll Learn Section -->
@@ -418,6 +435,43 @@ const metadata = {
 </Layout>
 
 <style>
+  /* Hero video background styling */
+  .hero-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Different opacity for light and dark modes */
+  :root .hero-video {
+    opacity: 0.25; /* Light mode - more visible */
+  }
+
+  :root.dark .hero-video {
+    opacity: 0.4; /* Dark mode - more visible to show through dark background */
+  }
+
+  /* Optimize video loading on mobile */
+  @media (max-width: 768px) {
+    .hero-video {
+      opacity: 0.2 !important; /* Consistent mobile opacity */
+    }
+  }
+
+  /* Enhanced gradient overlays for better text contrast */
+  .hero-overlay-light {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.3) 100%);
+  }
+
+  .hero-overlay-dark {
+    background: linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
+  }
+
   /* Custom radio button styling */
   input[type="radio"]:checked + span {
     color: rgb(var(--color-primary));

@@ -214,6 +214,19 @@ function getCategoryCount(categoryId: string) {
     <Fragment slot="subtitle">
       From digital design to physical reality — explore our custom 3D modeling capabilities and finished creations
     </Fragment>
+    
+    <!-- Background Image -->
+    <Fragment slot="bg">
+      <div class="absolute inset-0 overflow-hidden">
+        <img
+          src="/images/Stand_holder.jpg"
+          alt="3D Printed Stand Holder"
+          class="hero-bg-image"
+        />
+        <!-- Dynamic overlay for better text readability in both modes -->
+        <div class="absolute inset-0 hero-overlay-light dark:hero-overlay-dark"></div>
+      </div>
+    </Fragment>
   </Hero>
 
   <!-- Category Filter Section *************** -->
@@ -700,9 +713,47 @@ function getCategoryCount(categoryId: string) {
   
   .category-filter {
     cursor: pointer;
+    user-select: none;
   }
   
   .category-filter:active {
     transform: scale(0.95);
+  }
+
+  /* Hero background image styling */
+  .hero-bg-image {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Different opacity for light and dark modes */
+  :root .hero-bg-image {
+    opacity: 0.25; /* Light mode - more visible */
+  }
+
+  :root.dark .hero-bg-image {
+    opacity: 0.4; /* Dark mode - more visible to show through dark background */
+  }
+
+  /* Optimize image on mobile */
+  @media (max-width: 768px) {
+    .hero-bg-image {
+      opacity: 0.2 !important; /* Consistent mobile opacity */
+    }
+  }
+
+  /* Enhanced gradient overlays for better text contrast */
+  .hero-overlay-light {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.3) 100%);
+  }
+
+  .hero-overlay-dark {
+    background: linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
   }
 </style>
