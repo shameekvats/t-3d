@@ -1,0 +1,436 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'Free 3D Printing Workshop — tattva-3d',
+  description: 'Join our hands-on 3D printing workshop. From idea to real object - made by you. No experience needed. Ages 12+.',
+};
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Section -->
+  <Hero>
+    <Fragment slot="title">
+      Free 3D Printing Workshop
+    </Fragment>
+    <Fragment slot="subtitle">
+      From idea to real object — made by you
+    </Fragment>
+  </Hero>
+
+  <!-- What You'll Learn Section -->
+  <section class="py-16 md:py-20 bg-white dark:bg-slate-900">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          What You'll Learn
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          A hands-on introduction to 3D printing — no experience needed
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Learning Item 1 -->
+        <div class="text-center p-6 bg-gray-50 dark:bg-slate-800 rounded-xl">
+          <div class="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">3D Printing Basics</h3>
+          <p class="text-gray-600 dark:text-gray-400">Hands-on introduction to 3D printing technology and workflow</p>
+        </div>
+
+        <!-- Learning Item 2 -->
+        <div class="text-center p-6 bg-gray-50 dark:bg-slate-800 rounded-xl">
+          <div class="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Design Keychains & Accessories</h3>
+          <p class="text-gray-600 dark:text-gray-400">Create personalized keychains and practical accessories</p>
+        </div>
+
+        <!-- Learning Item 3 -->
+        <div class="text-center p-6 bg-gray-50 dark:bg-slate-800 rounded-xl">
+          <div class="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Images to 3D Art</h3>
+          <p class="text-gray-600 dark:text-gray-400">Transform your favorite images into stunning 3D printed art</p>
+        </div>
+
+        <!-- Learning Item 4 -->
+        <div class="text-center p-6 bg-gray-50 dark:bg-slate-800 rounded-xl">
+          <div class="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Custom Jewelry</h3>
+          <p class="text-gray-600 dark:text-gray-400">Create simple custom earrings, pendants, and accessories</p>
+        </div>
+
+        <!-- Learning Item 5 -->
+        <div class="text-center p-6 bg-gray-50 dark:bg-slate-800 rounded-xl">
+          <div class="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">Full Workflow</h3>
+          <p class="text-gray-600 dark:text-gray-400">Learn the complete process: design → slice → print</p>
+        </div>
+
+        <!-- Ages Note -->
+        <div class="text-center p-6 bg-primary/5 dark:bg-primary/10 rounded-xl border-2 border-primary/20">
+          <div class="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-primary">Ages 12+</h3>
+          <p class="text-gray-600 dark:text-gray-400">All materials provided</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workshop Details Section -->
+  <section class="py-16 md:py-20 bg-gray-50/50 dark:bg-slate-900/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          Workshop Details
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <!-- Date & Time -->
+        <div class="text-center p-8 bg-white dark:bg-slate-800 rounded-xl shadow-md">
+          <div class="text-4xl mb-4">📅</div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">When</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-2">Saturdays in January</p>
+          <p class="text-lg font-medium text-gray-900 dark:text-gray-100">2:00 – 5:00 PM</p>
+        </div>
+
+        <!-- Location -->
+        <div class="text-center p-8 bg-white dark:bg-slate-800 rounded-xl shadow-md">
+          <div class="text-4xl mb-4">📍</div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">Where</h3>
+          <p class="text-gray-600 dark:text-gray-400">Luxembourg City</p>
+          <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">Exact address sent after registration</p>
+        </div>
+
+        <!-- Pricing -->
+        <div class="text-center p-8 bg-white dark:bg-slate-800 rounded-xl shadow-md border-2 border-primary">
+          <div class="text-4xl mb-4">💰</div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">Pricing</h3>
+          <p class="text-3xl font-bold text-primary mb-2">FREE</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400">Take-home prints: €10 (optional)</p>
+        </div>
+      </div>
+
+      <!-- What to Bring -->
+      <div class="max-w-2xl mx-auto bg-white dark:bg-slate-800 rounded-xl shadow-md p-8">
+        <h3 class="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-gray-100">What to Bring</h3>
+        <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+          <li class="flex items-start">
+            <svg class="w-6 h-6 text-primary mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            <span><strong>Laptop</strong> (optional)</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="w-6 h-6 text-primary mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            <span><strong>Images or ideas</strong> you'd like to try (optional)</span>
+          </li>
+          <li class="flex items-start">
+            <svg class="w-6 h-6 text-primary mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            <span><strong class="text-primary">Just yourself and your curiosity!</strong></span>
+          </li>
+        </ul>
+        <div class="mt-6 p-4 bg-gray-50 dark:bg-slate-900 rounded-lg">
+          <p class="text-sm text-gray-600 dark:text-gray-400 text-center">
+            You can participate without taking anything home.<br/>
+            The €10 applies only if you choose to keep your print.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration Form Section -->
+  <section class="py-16 md:py-20 bg-white dark:bg-slate-900" id="register">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          Reserve Your Spot
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300">
+          Fill out the form below to secure your place in the workshop
+        </p>
+      </div>
+
+      <form 
+        action="https://formspree.io/f/xqeezkka" 
+        method="POST"
+        class="bg-gray-50 dark:bg-slate-800 rounded-xl shadow-lg p-8"
+      >
+        <!-- Success Message (shown after submission) -->
+        <input type="hidden" name="_subject" value="New Workshop Registration">
+        <input type="hidden" name="_next" value="/workshop/thank-you">
+        <input type="text" name="_gotcha" style="display:none">
+
+        <!-- Full Name -->
+        <div class="mb-6">
+          <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            👤 Full Name <span class="text-red-500">*</span>
+          </label>
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            required
+            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+            placeholder="Enter your full name"
+          >
+        </div>
+
+        <!-- Email -->
+        <div class="mb-6">
+          <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            📧 Email Address <span class="text-red-500">*</span>
+          </label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            required
+            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+            placeholder="your.email@example.com"
+          >
+        </div>
+
+        <!-- Phone Number -->
+        <div class="mb-6">
+          <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            📱 Phone Number <span class="text-gray-400">(optional)</span>
+          </label>
+          <input 
+            type="tel" 
+            id="phone" 
+            name="phone"
+            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+            placeholder="+352 123 456 789"
+          >
+        </div>
+
+        <!-- Select Saturday -->
+        <div class="mb-6">
+          <label for="workshop-date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            📅 Select a Saturday <span class="text-red-500">*</span>
+          </label>
+          <select 
+            id="workshop-date" 
+            name="workshop-date" 
+            required
+            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+          >
+            <option value="">Choose a date...</option>
+            <option value="2026-01-17">Saturday, 17th Jan 2026</option>
+            <option value="2026-01-24">Saturday, 24th Jan 2026</option>
+            <option value="2026-01-31">Saturday, 31st Jan 2026</option>
+          </select>
+        </div>
+
+        <!-- Experience Level -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+            🖨️ Have you tried 3D printing before? <span class="text-gray-400">(optional)</span>
+          </label>
+          <div class="space-y-3">
+            <label class="flex items-center p-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary cursor-pointer transition-colors">
+              <input 
+                type="radio" 
+                name="experience" 
+                value="never"
+                class="w-4 h-4 text-primary focus:ring-primary"
+              >
+              <span class="ml-3 text-gray-700 dark:text-gray-300">Never</span>
+            </label>
+            <label class="flex items-center p-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary cursor-pointer transition-colors">
+              <input 
+                type="radio" 
+                name="experience" 
+                value="a-little"
+                class="w-4 h-4 text-primary focus:ring-primary"
+              >
+              <span class="ml-3 text-gray-700 dark:text-gray-300">A Little</span>
+            </label>
+            <label class="flex items-center p-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary cursor-pointer transition-colors">
+              <input 
+                type="radio" 
+                name="experience" 
+                value="basics"
+                class="w-4 h-4 text-primary focus:ring-primary"
+              >
+              <span class="ml-3 text-gray-700 dark:text-gray-300">Yes, I know the basics</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- What to Create -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+            ✨ What are you most excited to create? <span class="text-gray-400">(optional)</span>
+          </label>
+          <div class="space-y-3">
+            <label class="flex items-center p-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary cursor-pointer transition-colors">
+              <input 
+                type="radio" 
+                name="excited-about" 
+                value="keychain"
+                class="w-4 h-4 text-primary focus:ring-primary"
+              >
+              <span class="ml-3 text-gray-700 dark:text-gray-300">Keychain</span>
+            </label>
+            <label class="flex items-center p-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary cursor-pointer transition-colors">
+              <input 
+                type="radio" 
+                name="excited-about" 
+                value="jewelry"
+                class="w-4 h-4 text-primary focus:ring-primary"
+              >
+              <span class="ml-3 text-gray-700 dark:text-gray-300">Jewelry</span>
+            </label>
+            <label class="flex items-center p-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary cursor-pointer transition-colors">
+              <input 
+                type="radio" 
+                name="excited-about" 
+                value="image-to-3d"
+                class="w-4 h-4 text-primary focus:ring-primary"
+              >
+              <span class="ml-3 text-gray-700 dark:text-gray-300">Image → 3D Art</span>
+            </label>
+            <label class="flex items-center p-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary cursor-pointer transition-colors">
+              <input 
+                type="radio" 
+                name="excited-about" 
+                value="cookie-cutter"
+                class="w-4 h-4 text-primary focus:ring-primary"
+              >
+              <span class="ml-3 text-gray-700 dark:text-gray-300">Cookie Cutter</span>
+            </label>
+            <label class="flex items-center p-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary cursor-pointer transition-colors">
+              <input 
+                type="radio" 
+                name="excited-about" 
+                value="brand-merchandise"
+                class="w-4 h-4 text-primary focus:ring-primary"
+              >
+              <span class="ml-3 text-gray-700 dark:text-gray-300">Brand Merchandise</span>
+            </label>
+            <label class="flex items-center p-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary cursor-pointer transition-colors">
+              <input 
+                type="radio" 
+                name="excited-about" 
+                value="exploring"
+                class="w-4 h-4 text-primary focus:ring-primary"
+              >
+              <span class="ml-3 text-gray-700 dark:text-gray-300">Just curious / exploring</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Have Idea -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+            💡 Do you have an image or idea in mind? <span class="text-gray-400">(optional)</span>
+          </label>
+          <div class="space-y-3">
+            <label class="flex items-center p-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary cursor-pointer transition-colors">
+              <input 
+                type="radio" 
+                name="has-idea" 
+                value="yes"
+                class="w-4 h-4 text-primary focus:ring-primary"
+              >
+              <span class="ml-3 text-gray-700 dark:text-gray-300">Yes</span>
+            </label>
+            <label class="flex items-center p-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary cursor-pointer transition-colors">
+              <input 
+                type="radio" 
+                name="has-idea" 
+                value="no"
+                class="w-4 h-4 text-primary focus:ring-primary"
+              >
+              <span class="ml-3 text-gray-700 dark:text-gray-300">No</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- How Did You Hear -->
+        <div class="mb-8">
+          <label for="referral-source" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            🔍 Where did you learn about this workshop? <span class="text-gray-400">(optional)</span>
+          </label>
+          <select 
+            id="referral-source" 
+            name="referral-source"
+            class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
+          >
+            <option value="">Choose an option...</option>
+            <option value="instagram">Instagram</option>
+            <option value="website">Website</option>
+            <option value="word-of-mouth">Word of mouth</option>
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button 
+          type="submit"
+          class="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2"
+        >
+          <span>Save My Seat!</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+          </svg>
+        </button>
+
+        <p class="mt-4 text-sm text-gray-500 dark:text-gray-400 text-center">
+          By submitting this form, you agree to receive workshop-related communications.
+        </p>
+      </form>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  /* Custom radio button styling */
+  input[type="radio"]:checked + span {
+    color: rgb(var(--color-primary));
+    font-weight: 500;
+  }
+
+  input[type="radio"]:checked {
+    accent-color: rgb(var(--color-primary));
+  }
+
+  /* Form focus states */
+  input:focus,
+  select:focus {
+    outline: none;
+  }
+</style>

@@ -11,6 +11,10 @@ export const headerData = {
       href: getPermalink('/portfolio'),
     },
     {
+      text: 'Workshop',
+      href: getPermalink('/workshop'),
+    },
+    {
       text: 'Contact',
       href: getPermalink('/contact'),
     },
@@ -24,6 +28,7 @@ export const footerData = {
       links: [
         { text: 'Home', href: getPermalink('/') },
         { text: 'Portfolio', href: getPermalink('/portfolio') },
+        { text: 'Workshop', href: getPermalink('/workshop') },
         { text: 'Contact', href: getPermalink('/contact') },
       ],
     },
