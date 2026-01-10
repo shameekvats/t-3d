@@ -22,3 +22,8 @@ pnpm-debug.log*
 pnpm-lock.yaml
 
 .astro
+
+# Internal documentation (not for public repo)
+WORKSHOP_SETUP.md
+HOW_TO_UPDATE_DATES.md
+FAQ_ANSWERS.md
