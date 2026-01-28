@@ -1,0 +1,759 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import ImageComparisonSlider from '~/components/widgets/ImageComparisonSlider.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'Portfolio — tattva-3d',
+  description: 'Explore our custom 3D modeling and printing portfolio - from digital designs to finished products.',
+};
+
+// Import 3D Model comparison images (Before/After)
+import warriorsBefore from '../assets/images/Models/Before_Warriors_3d.png';
+import warriorsAfter from '../assets/images/Models/After_Warriors.jpg';
+import keychainBefore from '../assets/images/Models/Before_BM_Keychain_3d.png';
+import keychainAfter from '../assets/images/Models/After_BM_Keychain.jpg';
+import vaseBefore from '../assets/images/Models/Before_Vase_3d.png';
+import vaseAfter from '../assets/images/Models/After_Vase.jpg';
+import membershipBefore from '../assets/images/Models/Before_BM_Membership_3d.png';
+import membershipAfter from '../assets/images/Models/After_BM_Membership.jpg';
+import boxBefore from '../assets/images/Models/Before_Box.png';
+import boxAfter from '../assets/images/Models/After_Box.jpg';
+import ledLampBefore from '../assets/images/Models/Before_LED_Lamp.png';
+import ledLampAfter from '../assets/images/Models/After_LED_Lamp.jpg';
+
+// Import gallery images (Finished products)
+import asRomaLightbox from '../assets/images/Gallery/AS Roma_Lightbox.jpg';
+import bunny from '../assets/images/Gallery/Bunny.jpg';
+import catBookmark from '../assets/images/Gallery/Cat_Sticker_Bookmark.jpeg';
+import colosseum from '../assets/images/Gallery/Colosseum.jpg';
+import cookieCutter1 from '../assets/images/Gallery/Cookie_Cutter1.jpg';
+import cookieCutter2 from '../assets/images/Gallery/Cookie_Cutter2.jpg';
+import cookieCutter5 from '../assets/images/Gallery/Cookie_Cutter5.jpg';
+import filamentPainting from '../assets/images/Gallery/Filament_Painting.jpg';
+import filamentPaintingGlow from '../assets/images/Gallery/Filament_Painting_Glow.jpg';
+import ghost from '../assets/images/Gallery/Ghost.jpg';
+import halloweenMask from '../assets/images/Gallery/Haloween_Mask.jpg';
+import lightboxLowKey from '../assets/images/Gallery/Lightbox_LowKey.JPG';
+import mouse from '../assets/images/Gallery/Mouse.jpg';
+import taj from '../assets/images/Gallery/Taj1.jpg';
+import thinker from '../assets/images/Gallery/Thinker.jpg';
+import beatlesDecor from '../assets/images/Gallery/beatles_Decor.jpeg';
+import keychain from '../assets/images/Gallery/keychain.JPG';
+import luxVilleMap from '../assets/images/Gallery/Lux_Ville1.PNG';
+import luxVille3D from '../assets/images/Gallery/Lux_Ville.jpg';
+
+// 3D Modeling Projects (Before/After comparisons)
+const modelProjects = [
+  {
+    id: 'business-keychain',
+    title: 'Business Keychain',
+    description: 'Beyond Music branded keychain from concept to reality',
+    beforeImage: keychainBefore.src,
+    afterImage: keychainAfter.src,
+    categories: ['business', 'gifts'],
+  },
+  {
+    id: 'warriors-logo',
+    title: 'Warriors Cricket Club Logo',
+    description: 'Custom sports team logo keepsake',
+    beforeImage: warriorsBefore.src,
+    afterImage: warriorsAfter.src,
+    categories: ['gifts', 'art'],
+  },
+  {
+    id: 'decorative-vase',
+    title: 'Decorative Vase',
+    description: 'Customizable geometric vase design',
+    beforeImage: vaseBefore.src,
+    afterImage: vaseAfter.src,
+    categories: ['home', 'art'],
+  },
+  {
+    id: 'business-card',
+    title: 'Business Membership Card',
+    description: 'Premium textured business cards',
+    beforeImage: membershipBefore.src,
+    afterImage: membershipAfter.src,
+    categories: ['business'],
+  },
+  {
+    id: 'storage-box',
+    title: 'Storage Box',
+    description: 'Custom designed storage and organization box',
+    beforeImage: boxBefore.src,
+    afterImage: boxAfter.src,
+    categories: ['home', 'gifts'],
+  },
+  {
+    id: 'led-lamp',
+    title: 'LED Lamp',
+    description: 'Modern LED lamp with custom 3D printed design',
+    beforeImage: ledLampBefore.src,
+    afterImage: ledLampAfter.src,
+    categories: ['home', 'custom'],
+  }
+];
+
+// Gallery Items (Finished products)
+const galleryItems = [
+  {
+    src: asRomaLightbox.src,
+    alt: 'AS Roma custom lightbox display',
+    title: 'AS Roma Lightbox',
+    categories: ['gifts', 'custom'],
+  },
+  {
+    src: lightboxLowKey.src,
+    alt: 'Low Key custom lightbox with LED lighting',
+    title: 'Low Key Lightbox',
+    categories: ['business', 'gifts', 'custom'],
+  },
+  {
+    src: keychain.src,
+    alt: 'Custom branded keychain',
+    title: 'Custom Keychain',
+    categories: ['gifts', 'business'],
+  },
+  {
+    images: [colosseum.src, taj.src, thinker.src],
+    alt: 'Architectural monuments and sculptures collection',
+    title: 'Monuments',
+    categories: ['art', 'home'],
+    hasMultiReveal: true,
+    revealHint: 'Hover to explore',
+  },
+  {
+    src: beatlesDecor.src,
+    alt: 'Beatles themed wall decor',
+    title: 'Beatles Wall Art',
+    categories: ['art', 'home'],
+  },
+  {
+    src: filamentPainting.src,
+    srcGlow: filamentPaintingGlow.src, // Add glow version
+    alt: 'Custom filament art painting with glow-in-dark effect',
+    title: 'Filament Painting',
+    categories: ['art', 'gifts', 'custom'],
+    hasRevealEffect: true,
+    revealHint: 'Hover for glow effect',
+  },
+  {
+    src: catBookmark.src,
+    alt: 'Cat sticker and bookmark set',
+    title: 'Cat Bookmark Set',
+    categories: ['gifts', 'art'],
+  },
+  {
+    images: [bunny.src, ghost.src],
+    alt: 'Character tealights collection',
+    title: 'Tealights',
+    categories: ['gifts', 'home'],
+    hasMultiReveal: true,
+    revealHint: 'Hover to see more',
+  },
+  {
+    src: halloweenMask.src,
+    alt: 'Custom Halloween mask',
+    title: 'Halloween Mask',
+    categories: ['gifts', 'custom'],
+  },
+  {
+    images: [cookieCutter1.src, cookieCutter2.src, cookieCutter5.src],
+    alt: 'Custom cookie cutter from multiple angles',
+    title: 'Cookie Cutter',
+    categories: ['home', 'gifts'],
+    hasMultiReveal: true,
+    revealHint: 'Hover to explore',
+  },
+  {
+    src: luxVilleMap.src,
+    srcGlow: luxVille3D.src,
+    alt: 'Luxembourg map - flat design vs 3D printed model',
+    title: 'Luxembourg Map',
+    categories: ['art', 'custom', 'gifts'],
+    hasRevealEffect: true,
+    revealHint: 'Hover for 3D version',
+  },
+  {
+    src: mouse.src,
+    alt: 'Custom wireless mouse design',
+    title: 'Custom Mouse',
+    categories: ['custom'],
+  }
+];
+
+// Category definitions
+const categories = [
+  { id: 'all', name: 'All' },
+  { id: 'gifts', name: 'Gifts & Accessories' },
+  { id: 'business', name: 'Business/Brand Solutions' },
+  { id: 'home', name: 'Home & Kitchen' },
+  { id: 'art', name: 'Art & Decor' },
+  { id: 'custom', name: 'Custom Projects' }
+];
+
+// Calculate item counts per category
+function getCategoryCount(categoryId: string) {
+  if (categoryId === 'all') {
+    return modelProjects.length + galleryItems.length;
+  }
+  const modelCount = modelProjects.filter(item => item.categories.includes(categoryId)).length;
+  const galleryCount = galleryItems.filter(item => item.categories.includes(categoryId)).length;
+  return modelCount + galleryCount;
+}
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero Widget ******************* -->
+  <Hero>
+    <Fragment slot="title">
+      Our Work
+    </Fragment>
+    <Fragment slot="subtitle">
+      From digital design to physical reality — explore our custom 3D modeling capabilities and finished creations
+    </Fragment>
+    
+    <!-- Background Image -->
+    <Fragment slot="bg">
+      <div class="absolute inset-0 overflow-hidden">
+        <img
+          src="/images/Stand_holder.jpg"
+          alt="3D Printed Stand Holder"
+          class="hero-bg-image"
+        />
+        <!-- Dynamic overlay for better text readability in both modes -->
+        <div class="absolute inset-0 hero-overlay-light dark:hero-overlay-dark"></div>
+      </div>
+    </Fragment>
+  </Hero>
+
+  <!-- Category Filter Section *************** -->
+  <section class="py-8 bg-white dark:bg-slate-900 sticky top-0 z-30 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-center gap-3 flex-wrap">
+        <span class="text-sm font-medium text-gray-600 dark:text-gray-400 hidden sm:inline">
+          Filter by:
+        </span>
+        <div class="flex items-center gap-2 flex-wrap justify-center" id="category-filters">
+          {categories.map((category) => (
+            <button
+              data-category={category.id}
+              class="category-filter inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105 hover:shadow-md"
+              class:list={[
+                category.id === 'all' 
+                  ? 'bg-primary text-white shadow-lg' 
+                  : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-700'
+              ]}
+            >
+              <span>{category.name}</span>
+              <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-bold rounded-full bg-white/20">
+                {getCategoryCount(category.id)}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: Custom 3D Modeling *************** -->
+  <section class="py-16 md:py-20 bg-gray-50/50 dark:bg-slate-900/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <!-- Section Header -->
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          Custom 3D Modeling & Design
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          We bring your ideas to life — slide to see the transformation from digital design to printed product
+        </p>
+      </div>
+
+      <!-- Models Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="models-grid">
+        {modelProjects.map((project) => (
+          <div 
+            class="portfolio-item group relative bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            data-categories={JSON.stringify(project.categories)}
+          >
+            <!-- Image Comparison Container -->
+            <div class="aspect-video overflow-hidden">
+              <ImageComparisonSlider
+                id={project.id}
+                title={project.title}
+                description={project.description}
+                beforeImage={project.afterImage}
+                afterImage={project.beforeImage}
+                beforeLabel="Design"
+                afterLabel="Result"
+              />
+            </div>
+            
+            <!-- Content Info -->
+            <div class="p-6">
+              <h3 class="font-semibold text-xl mb-2 text-gray-900 dark:text-gray-100">
+                {project.title}
+              </h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                {project.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Finished Products Gallery *************** -->
+  <section class="py-16 md:py-20 bg-white/80 dark:bg-slate-800/90">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <!-- Section Header -->
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          Gallery of Creations
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          Custom 3D printed products for gifts, branding, art, and more
+        </p>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6" id="gallery-grid">
+        {galleryItems.map((item, index) => (
+          <div 
+            class={`portfolio-item group relative bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${item.hasRevealEffect ? 'reveal-item' : ''} ${item.hasMultiReveal ? 'multi-reveal-item' : ''}`}
+            data-categories={JSON.stringify(item.categories)}
+            data-has-reveal={item.hasRevealEffect ? 'true' : 'false'}
+            data-has-multi={item.hasMultiReveal ? 'true' : 'false'}
+            data-images={item.hasMultiReveal ? JSON.stringify(item.images) : '[]'}
+          >
+            <!-- Image Container -->
+            <div class="aspect-square overflow-hidden relative">
+              {item.hasMultiReveal ? (
+                <>
+                  {/* Multi-image carousel */}
+                  {item.images.map((imgSrc, imgIndex) => (
+                    <img 
+                      src={imgSrc} 
+                      alt={`${item.alt} - view ${imgIndex + 1}`}
+                      class={`carousel-image w-full h-full object-cover transition-all duration-500 absolute inset-0 ${imgIndex === 0 ? 'opacity-100' : 'opacity-0'}`}
+                      data-index={imgIndex}
+                      loading={index < 4 ? 'eager' : 'lazy'}
+                    />
+                  ))}
+                  {/* Navigation dots */}
+                  <div class="nav-dots absolute bottom-3 left-1/2 transform -translate-x-1/2 flex items-center gap-2 bg-black/50 backdrop-blur-sm px-3 py-2 rounded-full z-10">
+                    {item.images.map((_, dotIndex) => (
+                      <div class={`nav-dot w-2 h-2 rounded-full transition-all duration-300 ${dotIndex === 0 ? 'bg-white w-6' : 'bg-white/50'}`} data-dot-index={dotIndex}></div>
+                    ))}
+                  </div>
+                  {/* Reveal hint badge */}
+                  <div class="reveal-hint absolute top-3 right-3 bg-primary/90 text-white text-xs px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm flex items-center gap-1.5 pointer-events-none z-10">
+                    <span class="animate-pulse">✨</span>
+                    <span class="font-medium">{item.revealHint}</span>
+                  </div>
+                </>
+              ) : item.hasRevealEffect ? (
+                <>
+                  {/* Base image (day version) */}
+                  <img 
+                    src={item.src} 
+                    alt={item.alt}
+                    class="reveal-base-image w-full h-full object-cover transition-all duration-500 absolute inset-0"
+                    loading={index < 4 ? 'eager' : 'lazy'}
+                  />
+                  {/* Reveal image (glow version) */}
+                  <img 
+                    src={item.srcGlow} 
+                    alt={`${item.alt} - revealed`}
+                    class="reveal-glow-image w-full h-full object-cover transition-all duration-500 absolute inset-0 opacity-0"
+                    loading="lazy"
+                  />
+                  {/* Reveal hint badge */}
+                  <div class="reveal-hint absolute top-3 right-3 bg-primary/90 text-white text-xs px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm flex items-center gap-1.5 pointer-events-none z-10">
+                    <span class="animate-pulse">✨</span>
+                    <span class="font-medium">{item.revealHint}</span>
+                  </div>
+                </>
+              ) : (
+                <img 
+                  src={item.src} 
+                  alt={item.alt}
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  loading={index < 4 ? 'eager' : 'lazy'}
+                />
+              )}
+            </div>
+            
+            <!-- Content Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                <h3 class="font-semibold text-lg mb-1">
+                  {item.title}
+                </h3>
+                <p class="text-sm text-gray-200">
+                  {item.category}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section *************** -->
+  <section class="py-16 md:py-20 bg-gray-50/50 dark:bg-slate-900/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <!-- Section Header -->
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          How It Works
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300">
+          Simple steps from idea to reality
+        </p>
+      </div>
+
+      <!-- Steps Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <!-- Step 1 -->
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-2xl font-bold mb-6">
+            1
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
+            Share Your Idea
+          </h3>
+          <p class="text-gray-600 dark:text-gray-400">
+            Tell us what you want to create
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-2xl font-bold mb-6">
+            2
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
+            We Design & Print
+          </h3>
+          <p class="text-gray-600 dark:text-gray-400">
+            We create and 3d print your piece
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-2xl font-bold mb-6">
+            3
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
+            You Receive & Enjoy
+          </h3>
+          <p class="text-gray-600 dark:text-gray-400">
+            Get your finished project delivered
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to Action Section *************** -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 dark:from-primary/20 dark:via-secondary/20 dark:to-accent/20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+        Ready to Create Something Special?
+      </h2>
+      <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
+        Transform your ideas into reality — custom gifts, cherished memories, unique jewelry, personalized keepsakes, or anything you can imagine. Let's bring your vision to life!
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href={getPermalink('/contact')}
+          class="inline-flex items-center justify-center px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-all duration-200 shadow-lg hover:shadow-xl"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+          </svg>
+          Start Your Project
+        </a>
+        <a 
+          href="https://www.instagram.com/tattva_3d/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-lg hover:shadow-xl"
+        >
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.40z"/>
+          </svg>
+          Follow on Instagram
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<!-- Category Filtering Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.category-filter');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
+    // Add click handlers to all filter buttons
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const selectedCategory = this.getAttribute('data-category');
+        
+        // Update active button styles
+        filterButtons.forEach(btn => {
+          if (btn === this) {
+            btn.classList.remove('bg-gray-100', 'dark:bg-slate-800', 'text-gray-700', 'dark:text-gray-300');
+            btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
+          } else {
+            btn.classList.remove('bg-primary', 'text-white', 'shadow-lg');
+            btn.classList.add('bg-gray-100', 'dark:bg-slate-800', 'text-gray-700', 'dark:text-gray-300');
+          }
+        });
+        
+        // Filter portfolio items with fade animation
+        portfolioItems.forEach(item => {
+          const itemCategories = JSON.parse(item.getAttribute('data-categories') || '[]');
+          const shouldShow = selectedCategory === 'all' || itemCategories.includes(selectedCategory);
+          
+          if (shouldShow) {
+            // Fade in
+            item.style.opacity = '0';
+            item.style.display = 'block';
+            setTimeout(() => {
+              item.style.transition = 'opacity 0.3s ease-in-out';
+              item.style.opacity = '1';
+            }, 10);
+          } else {
+            // Fade out
+            item.style.transition = 'opacity 0.3s ease-in-out';
+            item.style.opacity = '0';
+            setTimeout(() => {
+              item.style.display = 'none';
+            }, 300);
+          }
+        });
+      });
+    });
+
+    // Mobile tap toggle for reveal items
+    const revealItems = document.querySelectorAll('.reveal-item');
+    revealItems.forEach(item => {
+      // Detect if device is touch-enabled
+      const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      
+      if (isTouchDevice) {
+        item.addEventListener('click', function(e) {
+          // Prevent click from bubbling to parent elements
+          e.preventDefault();
+          
+          // Toggle active class for tap on mobile
+          this.classList.toggle('active');
+          
+          // Remove active class from other reveal items
+          revealItems.forEach(otherItem => {
+            if (otherItem !== this) {
+              otherItem.classList.remove('active');
+            }
+          });
+        });
+      }
+    });
+
+    // Multi-image carousel functionality
+    const multiRevealItems = document.querySelectorAll('.multi-reveal-item');
+    multiRevealItems.forEach(item => {
+      let currentIndex = 0;
+      const images = item.querySelectorAll('.carousel-image');
+      const dots = item.querySelectorAll('.nav-dot');
+      const totalImages = images.length;
+
+      function showImage(index) {
+        // Hide all images
+        images.forEach(img => {
+          img.style.opacity = '0';
+        });
+        
+        // Show current image
+        images[index].style.opacity = '1';
+        
+        // Update dots
+        dots.forEach((dot, dotIndex) => {
+          if (dotIndex === index) {
+            dot.classList.add('bg-white', 'w-6');
+            dot.classList.remove('bg-white/50');
+          } else {
+            dot.classList.remove('bg-white', 'w-6');
+            dot.classList.add('bg-white/50');
+          }
+        });
+      }
+
+      function nextImage() {
+        currentIndex = (currentIndex + 1) % totalImages;
+        showImage(currentIndex);
+      }
+
+      // Hover/Click to cycle through images
+      const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      
+      if (isTouchDevice) {
+        // Mobile: tap to cycle
+        item.addEventListener('click', function(e) {
+          e.preventDefault();
+          nextImage();
+        });
+      } else {
+        // Desktop: hover to cycle
+        item.addEventListener('mouseenter', function() {
+          nextImage();
+        });
+      }
+    });
+  });
+</script>
+
+<!-- Filter Styles -->
+<style>
+  .portfolio-item {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  /* Reveal Effect Styles */
+  .reveal-item:hover .reveal-glow-image,
+  .reveal-item.active .reveal-glow-image {
+    opacity: 1;
+  }
+
+  .reveal-item:hover .reveal-base-image,
+  .reveal-item.active .reveal-base-image {
+    opacity: 0;
+  }
+
+  .reveal-item:hover .reveal-hint,
+  .reveal-item.active .reveal-hint {
+    opacity: 0;
+  }
+
+  .reveal-item {
+    cursor: pointer;
+  }
+
+  /* Smooth fade transition for reveal images */
+  .reveal-base-image,
+  .reveal-glow-image {
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .reveal-hint {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  /* Ensure images don't scale on hover when reveal is active */
+  .reveal-item:hover .reveal-base-image,
+  .reveal-item:hover .reveal-glow-image {
+    transform: none;
+  }
+
+  /* Multi-image carousel styles */
+  .multi-reveal-item {
+    cursor: pointer;
+  }
+
+  .carousel-image {
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .multi-reveal-item:hover .carousel-image {
+    transform: none;
+  }
+
+  .multi-reveal-item:hover .reveal-hint {
+    opacity: 0;
+  }
+
+  .nav-dots {
+    pointer-events: none;
+  }
+
+  .nav-dot {
+    transition: all 0.3s ease-in-out;
+  }
+  
+  #category-filters {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  @media (max-width: 640px) {
+    #category-filters {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      padding-bottom: 0.5rem;
+      scrollbar-width: none; /* Firefox */
+    }
+    
+    #category-filters::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
+    }
+    
+    .category-filter {
+      flex-shrink: 0;
+    }
+  }
+  
+  .category-filter {
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .category-filter:active {
+    transform: scale(0.95);
+  }
+
+  /* Hero background image styling */
+  .hero-bg-image {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Different opacity for light and dark modes */
+  :root .hero-bg-image {
+    opacity: 0.25; /* Light mode - more visible */
+  }
+
+  :root.dark .hero-bg-image {
+    opacity: 0.4; /* Dark mode - more visible to show through dark background */
+  }
+
+  /* Optimize image on mobile */
+  @media (max-width: 768px) {
+    .hero-bg-image {
+      opacity: 0.2 !important; /* Consistent mobile opacity */
+    }
+  }
+
+  /* Enhanced gradient overlays for better text contrast */
+  .hero-overlay-light {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.3) 100%);
+  }
+
+  .hero-overlay-dark {
+    background: linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
+  }
+</style>

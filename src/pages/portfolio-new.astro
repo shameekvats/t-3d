@@ -49,6 +49,20 @@ const productCategories = [
     variationCount: 5,
   },
   {
+    id: 'magnets',
+    title: 'Fridge Magnets',
+    icon: '🧲',
+    heroImage: bunny.src,
+    description: 'Custom fridge magnets for your home or business',
+    tagline: 'Stick your memories on display',
+    variations: [
+      { image: bunny.src, title: 'Character Magnets', description: 'Fun characters for your fridge' },
+      { image: ghost.src, title: 'Seasonal Magnets', description: 'Holiday and seasonal designs' },
+    ],
+    features: ['Custom names', 'Photo magnets', 'Logo magnets', 'Fun shapes', 'Strong magnetic hold'],
+    variationCount: 5,
+  },
+  {
     id: 'bookmarks',
     title: 'Bookmarks',
     icon: '📖',
@@ -105,17 +119,17 @@ const productCategories = [
     variationCount: 2,
   },
   {
-    id: 'lightboxes',
-    title: 'Brand Lightboxes',
+    id: 'lithophanes',
+    title: 'Lithophanes',
     icon: '💡',
     heroImage: asRomaLightbox.src,
-    description: 'Custom illuminated displays for brands, teams, and businesses',
-    tagline: 'Illuminate your brand',
+    description: 'Hidden images revealed by light - magical LED lightboxes',
+    tagline: 'Illuminate your moments',
     variations: [
-      { image: asRomaLightbox.src, title: 'Sports Team Lightbox', description: 'Fan memorabilia and team branding' },
-      { image: lightboxLowKey.src, title: 'Business Lightbox', description: 'Brand displays and promotional items' },
+      { image: asRomaLightbox.src, title: 'Sports Lightbox', description: 'Fan memorabilia illuminated' },
+      { image: lightboxLowKey.src, title: 'Custom Lightbox', description: 'Personal photos as art' },
     ],
-    features: ['Brand logos', 'Team emblems', 'LED frame included', 'Professional display', 'Perfect for offices & stores'],
+    features: ['Any image works', 'LED frame included', 'Hidden when off', 'Reveals with light', 'Perfect gift'],
     variationCount: 2,
   },
   {
@@ -189,12 +203,7 @@ const productCategories = [
       <!-- Product Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {productCategories.map((product) => (
-          <div 
-            class="product-card group" 
-            data-category-id={product.id}
-            data-features={JSON.stringify(product.features)}
-            data-variations={JSON.stringify(product.variations)}
-          >
+          <div class="product-card group" data-category-id={product.id}>
             <!-- Card Image -->
             <div class="relative aspect-[4/3] overflow-hidden rounded-t-xl bg-gray-100 dark:bg-slate-800">
               <img 
@@ -226,7 +235,6 @@ const productCategories = [
               
               <!-- View Details Button -->
               <button 
-                type="button"
                 class="view-details-btn w-full py-3 px-4 bg-gray-100 dark:bg-slate-700 hover:bg-primary hover:text-white dark:hover:bg-primary text-gray-900 dark:text-gray-100 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 group-hover:bg-primary group-hover:text-white"
                 aria-label={`View ${product.title} options`}
               >
@@ -516,128 +524,67 @@ const productCategories = [
   }
 </style>
 
-<script>
+<script define:vars={{ productCategories }}>
   // Modal functionality
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('Modal script loaded');
-    
-    const modal = document.getElementById('product-modal');
-    const modalClose = document.querySelector('.modal-close');
-    const productCards = document.querySelectorAll('.product-card');
+  const modal = document.getElementById('product-modal');
+  const modalClose = document.querySelector('.modal-close');
+  const productCards = document.querySelectorAll('.product-card');
 
-    console.log('Modal element:', modal);
-    console.log('Modal close button:', modalClose);
-    console.log('Product cards found:', productCards.length);
-
-    if (!modal || !modalClose || productCards.length === 0) {
-      console.error('Modal elements not found');
-      return;
-    }
-
-    // Open modal - handle card AND button clicks
-    productCards.forEach((card, index) => {
-      console.log(`Setting up card ${index}`);
+  // Open modal
+  productCards.forEach(card => {
+    card.addEventListener('click', () => {
+      const categoryId = card.dataset.categoryId;
+      const product = productCategories.find(p => p.id === categoryId);
       
-      const openModal = (e) => {
-        console.log('Opening modal for card', index);
-        if (e) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-        
-        const categoryId = card.dataset.categoryId;
-        console.log('Category ID:', categoryId);
-        
-        // Get product data from data attributes
-        const productTitle = card.querySelector('h3')?.textContent || '';
-        const productIcon = card.querySelector('.text-4xl')?.textContent || '';
-        const productTagline = card.querySelector('.text-primary.italic')?.textContent || '';
-        const productDescription = card.querySelector('.text-gray-600')?.textContent || '';
-        
-        console.log('Product title:', productTitle);
-        
-        // Get features from data attribute
-        const featuresData = card.dataset.features;
-        console.log('Features data:', featuresData);
-        const features = featuresData ? JSON.parse(featuresData) : [];
-        console.log('Parsed features:', features);
-        
-        // Get variations from data attribute
-        const variationsData = card.dataset.variations;
-        console.log('Variations data length:', variationsData?.length);
-        const variations = variationsData ? JSON.parse(variationsData) : [];
-        console.log('Parsed variations:', variations.length, 'items');
-        
+      if (product) {
         // Populate modal
-        const modalIcon = document.querySelector('.modal-icon');
-        const modalTitle = document.querySelector('.modal-title');
-        const modalTagline = document.querySelector('.modal-tagline');
-        const modalDescription = document.querySelector('.modal-description');
-        
-        if (modalIcon) modalIcon.textContent = productIcon;
-        if (modalTitle) modalTitle.textContent = productTitle;
-        if (modalTagline) modalTagline.textContent = productTagline;
-        if (modalDescription) modalDescription.textContent = productDescription;
+        document.querySelector('.modal-icon').textContent = product.icon;
+        document.querySelector('.modal-title').textContent = product.title;
+        document.querySelector('.modal-tagline').textContent = product.tagline;
+        document.querySelector('.modal-description').textContent = product.description;
         
         // Populate features
         const featuresList = document.querySelector('.modal-features');
-        if (featuresList) {
-          featuresList.innerHTML = features.map(feature => 
-            `<li>${feature}</li>`
-          ).join('');
-        }
+        featuresList.innerHTML = product.features.map(feature => 
+          `<li>${feature}</li>`
+        ).join('');
         
         // Populate gallery
         const gallery = document.querySelector('.modal-gallery');
-        console.log('Gallery element:', gallery);
-        if (gallery) {
-          const galleryHTML = variations.map(variation => `
-            <div class="modal-gallery-item">
-              <img src="${variation.image}" alt="${variation.title}" />
-              <div class="modal-gallery-item-title">${variation.title}</div>
-              <div class="modal-gallery-item-desc">${variation.description}</div>
-            </div>
-          `).join('');
-          console.log('Gallery HTML length:', galleryHTML.length);
-          gallery.innerHTML = galleryHTML;
-        }
+        gallery.innerHTML = product.variations.map(variation => `
+          <div class="modal-gallery-item">
+            <img src="${variation.image}" alt="${variation.title}" />
+            <div class="modal-gallery-item-title">${variation.title}</div>
+            <div class="modal-gallery-item-desc">${variation.description}</div>
+          </div>
+        `).join('');
         
         // Show modal
-        console.log('Showing modal');
         modal.classList.remove('hidden');
         setTimeout(() => modal.classList.add('active'), 10);
         document.body.style.overflow = 'hidden';
-      };
-      
-      // Add click listener to the card
-      card.addEventListener('click', openModal);
-      
-      // Also add click listener specifically to the button to ensure it works
-      const button = card.querySelector('.view-details-btn');
-      if (button) {
-        button.addEventListener('click', openModal);
       }
     });
+  });
 
-    // Close modal
-    function closeModal() {
-      modal.classList.remove('active');
-      setTimeout(() => {
-        modal.classList.add('hidden');
-        document.body.style.overflow = '';
-      }, 300);
+  // Close modal
+  function closeModal() {
+    modal.classList.remove('active');
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    }, 300);
+  }
+
+  modalClose?.addEventListener('click', closeModal);
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
     }
-
-    modalClose.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('active')) {
-        closeModal();
-      }
-    });
   });
 </script>
