@@ -27,3 +27,7 @@ pnpm-lock.yaml
 WORKSHOP_SETUP.md
 HOW_TO_UPDATE_DATES.md
 FAQ_ANSWERS.md
+# Portfolio backup files
+src/pages/portfolio-old-backup.astro
+src/pages/portfolio-new.astro
+src/pages/portfolio-gallery-backup.astro
