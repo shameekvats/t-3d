@@ -1,166 +1,218 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import Hero from '~/components/widgets/Hero.astro';
+import ImageComparisonSlider from '~/components/widgets/ImageComparisonSlider.astro';
 import { getPermalink } from '~/utils/permalinks';
 
 const metadata = {
-  title: 'Products & Services — tattva-3d',
-  description: 'Discover our range of custom 3D printed products - from personalized keychains to glowing art pieces.',
+  title: 'Portfolio — tattva-3d',
+  description: 'Explore our custom 3D modeling and printing portfolio - from digital designs to finished products.',
 };
 
-// Import images
-import keychainBM from '../assets/images/Models/After_BM_Keychain.jpg';
-import keychain from '../assets/images/Gallery/keychain.JPG';
+// Import 3D Model comparison images (Before/After)
+import warriorsBefore from '../assets/images/Models/Before_Warriors_3d.png';
+import warriorsAfter from '../assets/images/Models/After_Warriors.jpg';
+import keychainBefore from '../assets/images/Models/Before_BM_Keychain_3d.png';
+import keychainAfter from '../assets/images/Models/After_BM_Keychain.jpg';
+import vaseBefore from '../assets/images/Models/Before_Vase_3d.png';
+import vaseAfter from '../assets/images/Models/After_Vase.jpg';
+import membershipBefore from '../assets/images/Models/Before_BM_Membership_3d.png';
+import membershipAfter from '../assets/images/Models/After_BM_Membership.jpg';
+import boxBefore from '../assets/images/Models/Before_Box.png';
+import boxAfter from '../assets/images/Models/After_Box.jpg';
+import ledLampBefore from '../assets/images/Models/Before_LED_Lamp.png';
+import ledLampAfter from '../assets/images/Models/After_LED_Lamp.jpg';
+
+// Import gallery images (Finished products)
+import asRomaLightbox from '../assets/images/Gallery/AS Roma_Lightbox.jpg';
+import bunny from '../assets/images/Gallery/Bunny.jpg';
 import catBookmark from '../assets/images/Gallery/Cat_Sticker_Bookmark.jpeg';
+import colosseum from '../assets/images/Gallery/Colosseum.jpg';
 import cookieCutter1 from '../assets/images/Gallery/Cookie_Cutter1.jpg';
 import cookieCutter2 from '../assets/images/Gallery/Cookie_Cutter2.jpg';
 import cookieCutter5 from '../assets/images/Gallery/Cookie_Cutter5.jpg';
-import luxVilleMap from '../assets/images/Gallery/Lux_Ville1.PNG';
-import luxVille3D from '../assets/images/Gallery/Lux_Ville.jpg';
 import filamentPainting from '../assets/images/Gallery/Filament_Painting.jpg';
 import filamentPaintingGlow from '../assets/images/Gallery/Filament_Painting_Glow.jpg';
-import asRomaLightbox from '../assets/images/Gallery/AS Roma_Lightbox.jpg';
-import lightboxLowKey from '../assets/images/Gallery/Lightbox_LowKey.JPG';
-import ledLamp from '../assets/images/Models/After_LED_Lamp.jpg';
-import mouse from '../assets/images/Gallery/Mouse.jpg';
-import bunny from '../assets/images/Gallery/Bunny.jpg';
 import ghost from '../assets/images/Gallery/Ghost.jpg';
-import colosseum from '../assets/images/Gallery/Colosseum.jpg';
+import halloweenMask from '../assets/images/Gallery/Haloween_Mask.jpg';
+import lightboxLowKey from '../assets/images/Gallery/Lightbox_LowKey.JPG';
+import mouse from '../assets/images/Gallery/Mouse.jpg';
 import taj from '../assets/images/Gallery/Taj1.jpg';
 import thinker from '../assets/images/Gallery/Thinker.jpg';
-import halloweenMask from '../assets/images/Gallery/Haloween_Mask.jpg';
 import beatlesDecor from '../assets/images/Gallery/beatles_Decor.jpeg';
-import vase from '../assets/images/Models/After_Vase.jpg';
+import keychain from '../assets/images/Gallery/keychain.JPG';
+import luxVilleMap from '../assets/images/Gallery/Lux_Ville1.PNG';
+import luxVille3D from '../assets/images/Gallery/Lux_Ville.jpg';
 
-// Product Categories
-const productCategories = [
+// 3D Modeling Projects (Before/After comparisons)
+const modelProjects = [
   {
-    id: 'keychains',
-    title: 'Keychains',
-    icon: '🔑',
-    heroImage: keychainBM.src,
-    description: 'Personalized keychains with names, images, logos, or custom shapes',
-    tagline: 'Carry memories wherever you go',
-    variations: [
-      { image: keychainBM.src, title: 'Logo Keychains', description: 'Brand your business with custom logo keychains' },
-      { image: keychain.src, title: 'Name Keychains', description: 'Personalized with any name or text' },
-    ],
-    features: ['Custom names', 'Faces/Pets images', 'Brand logos', 'Unique shapes', 'NFC-enabled option'],
-    variationCount: 5,
+    id: 'business-keychain',
+    title: 'Business Keychain',
+    description: 'Beyond Music branded keychain from concept to reality',
+    beforeImage: keychainBefore.src,
+    afterImage: keychainAfter.src,
+    categories: ['business', 'gifts'],
   },
   {
-    id: 'bookmarks',
-    title: 'Bookmarks',
-    icon: '📖',
-    heroImage: catBookmark.src,
-    description: 'Unique bookmarks personalized for every reader',
-    tagline: 'Never lose your page in style',
-    variations: [
-      { image: catBookmark.src, title: 'Character Bookmarks', description: 'Fun designs for book lovers' },
-    ],
-    features: ['Custom names', 'Image designs', 'Brand logos', 'Unique shapes', 'Design your own'],
-    variationCount: 4,
+    id: 'warriors-logo',
+    title: 'Warriors Cricket Club Logo',
+    description: 'Custom sports team logo keepsake',
+    beforeImage: warriorsBefore.src,
+    afterImage: warriorsAfter.src,
+    categories: ['gifts', 'art'],
   },
   {
-    id: 'cookie-cutters',
-    title: 'Cookie Cutters',
-    icon: '🍪',
-    heroImage: cookieCutter1.src,
-    description: 'Custom cookie cutters in any shape you can imagine',
-    tagline: 'Bake your creativity',
-    variations: [
-      { image: cookieCutter1.src, title: 'Custom Shapes', description: 'Any design you dream up' },
-      { image: cookieCutter2.src, title: 'Screenshot to Cutter', description: 'Turn images into cookie cutters' },
-      { image: cookieCutter5.src, title: 'Precision Design', description: 'Clean cuts every time' },
-    ],
-    features: ['Any custom shape', 'From screenshots', 'Food-safe material', 'Perfect edges', 'Multiple sizes'],
-    variationCount: 3,
+    id: 'decorative-vase',
+    title: 'Decorative Vase',
+    description: 'Customizable geometric vase design',
+    beforeImage: vaseBefore.src,
+    afterImage: vaseAfter.src,
+    categories: ['home', 'art'],
   },
   {
-    id: '3d-maps',
-    title: '3D Maps',
-    icon: '🗺️',
-    heroImage: luxVille3D.src,
-    description: 'Transform any location into a stunning 3D map for your wall',
-    tagline: 'Frame your favorite places',
-    variations: [
-      { image: luxVilleMap.src, title: 'Flat Map View', description: 'Clean topographic design' },
-      { image: luxVille3D.src, title: '3D Terrain', description: 'Full dimensional landscape' },
-    ],
-    features: ['Any address/area', 'Wall-ready framing', 'Significant locations', 'Memory preservation', 'Multiple scales'],
-    variationCount: 2,
+    id: 'business-card',
+    title: 'Business Membership Card',
+    description: 'Premium textured business cards',
+    beforeImage: membershipBefore.src,
+    afterImage: membershipAfter.src,
+    categories: ['business'],
   },
   {
-    id: 'glow-photos',
-    title: 'Glow Photos',
-    icon: '✨',
-    heroImage: filamentPaintingGlow.src,
-    description: 'Your photos transformed into glowing 3D art',
-    tagline: 'Light up your memories',
-    variations: [
-      { image: filamentPainting.src, title: 'Day View', description: 'Beautiful art in daylight' },
-      { image: filamentPaintingGlow.src, title: 'Glow Effect', description: 'Magical glow in the dark' },
-    ],
-    features: ['Any image conversion', 'Glow-in-dark option', '3D depth effect', 'Wall-ready', 'Unique gift idea'],
-    variationCount: 2,
+    id: 'storage-box',
+    title: 'Storage Box',
+    description: 'Custom designed storage and organization box',
+    beforeImage: boxBefore.src,
+    afterImage: boxAfter.src,
+    categories: ['home', 'gifts'],
   },
   {
-    id: 'lightboxes',
-    title: 'Brand Lightboxes',
-    icon: '💡',
-    heroImage: asRomaLightbox.src,
-    description: 'Custom illuminated displays for brands, teams, and businesses',
-    tagline: 'Illuminate your brand',
-    variations: [
-      { image: asRomaLightbox.src, title: 'Sports Team Lightbox', description: 'Fan memorabilia and team branding' },
-      { image: lightboxLowKey.src, title: 'Business Lightbox', description: 'Brand displays and promotional items' },
-    ],
-    features: ['Brand logos', 'Team emblems', 'LED frame included', 'Professional display', 'Perfect for offices & stores'],
-    variationCount: 2,
-  },
-  {
-    id: 'electronics',
-    title: 'Electronics',
-    icon: '💡',
-    heroImage: ledLamp.src,
-    description: '3D printed functional electronics for your space',
-    tagline: 'Form meets function',
-    variations: [
-      { image: ledLamp.src, title: 'LED Lamps', description: 'Modern lighting solutions' },
-      { image: mouse.src, title: 'Wireless Mouse', description: 'Ergonomic computer peripherals' },
-    ],
-    features: ['LED lamps', 'Wireless mouse', 'Wall clocks (coming)', 'Functional design', 'Modern aesthetics'],
-    variationCount: 3,
-  },
-  {
-    id: 'possibilities',
-    title: 'Endless Possibilities',
-    icon: '🎨',
-    heroImage: colosseum.src,
-    description: 'Explore the limitless potential of 3D printing',
-    tagline: 'If you can imagine it, we can print it',
-    variations: [
-      { image: colosseum.src, title: 'Architecture', description: 'Famous monuments and buildings' },
-      { image: taj.src, title: 'Sculptures', description: 'Artistic reproductions' },
-      { image: thinker.src, title: 'Art Pieces', description: 'Classic and modern art' },
-      { image: halloweenMask.src, title: 'Costumes', description: 'Masks and accessories' },
-      { image: beatlesDecor.src, title: 'Wall Decor', description: 'Custom wall art' },
-      { image: vase.src, title: 'Home Items', description: 'Functional and decorative' },
-    ],
-    features: ['Architectural models', 'Art reproductions', 'Costume pieces', 'Home decor', 'Custom concepts', 'Prototype your ideas'],
-    variationCount: 6,
-  },
+    id: 'led-lamp',
+    title: 'LED Lamp',
+    description: 'Modern LED lamp with custom 3D printed design',
+    beforeImage: ledLampBefore.src,
+    afterImage: ledLampAfter.src,
+    categories: ['home', 'custom'],
+  }
 ];
+
+// Gallery Items (Finished products)
+const galleryItems = [
+  {
+    src: asRomaLightbox.src,
+    alt: 'AS Roma custom lightbox display',
+    title: 'AS Roma Lightbox',
+    categories: ['gifts', 'custom'],
+  },
+  {
+    src: lightboxLowKey.src,
+    alt: 'Low Key custom lightbox with LED lighting',
+    title: 'Low Key Lightbox',
+    categories: ['business', 'gifts', 'custom'],
+  },
+  {
+    src: keychain.src,
+    alt: 'Custom branded keychain',
+    title: 'Custom Keychain',
+    categories: ['gifts', 'business'],
+  },
+  {
+    images: [colosseum.src, taj.src, thinker.src],
+    alt: 'Architectural monuments and sculptures collection',
+    title: 'Monuments',
+    categories: ['art', 'home'],
+    hasMultiReveal: true,
+    revealHint: 'Hover to explore',
+  },
+  {
+    src: beatlesDecor.src,
+    alt: 'Beatles themed wall decor',
+    title: 'Beatles Wall Art',
+    categories: ['art', 'home'],
+  },
+  {
+    src: filamentPainting.src,
+    srcGlow: filamentPaintingGlow.src, // Add glow version
+    alt: 'Custom filament art painting with glow-in-dark effect',
+    title: 'Filament Painting',
+    categories: ['art', 'gifts', 'custom'],
+    hasRevealEffect: true,
+    revealHint: 'Hover for glow effect',
+  },
+  {
+    src: catBookmark.src,
+    alt: 'Cat sticker and bookmark set',
+    title: 'Cat Bookmark Set',
+    categories: ['gifts', 'art'],
+  },
+  {
+    images: [bunny.src, ghost.src],
+    alt: 'Character tealights collection',
+    title: 'Tealights',
+    categories: ['gifts', 'home'],
+    hasMultiReveal: true,
+    revealHint: 'Hover to see more',
+  },
+  {
+    src: halloweenMask.src,
+    alt: 'Custom Halloween mask',
+    title: 'Halloween Mask',
+    categories: ['gifts', 'custom'],
+  },
+  {
+    images: [cookieCutter1.src, cookieCutter2.src, cookieCutter5.src],
+    alt: 'Custom cookie cutter from multiple angles',
+    title: 'Cookie Cutter',
+    categories: ['home', 'gifts'],
+    hasMultiReveal: true,
+    revealHint: 'Hover to explore',
+  },
+  {
+    src: luxVilleMap.src,
+    srcGlow: luxVille3D.src,
+    alt: 'Luxembourg map - flat design vs 3D printed model',
+    title: 'Luxembourg Map',
+    categories: ['art', 'custom', 'gifts'],
+    hasRevealEffect: true,
+    revealHint: 'Hover for 3D version',
+  },
+  {
+    src: mouse.src,
+    alt: 'Custom wireless mouse design',
+    title: 'Custom Mouse',
+    categories: ['custom'],
+  }
+];
+
+// Category definitions
+const categories = [
+  { id: 'all', name: 'All' },
+  { id: 'gifts', name: 'Gifts & Accessories' },
+  { id: 'business', name: 'Business/Brand Solutions' },
+  { id: 'home', name: 'Home & Kitchen' },
+  { id: 'art', name: 'Art & Decor' },
+  { id: 'custom', name: 'Custom Projects' }
+];
+
+// Calculate item counts per category
+function getCategoryCount(categoryId: string) {
+  if (categoryId === 'all') {
+    return modelProjects.length + galleryItems.length;
+  }
+  const modelCount = modelProjects.filter(item => item.categories.includes(categoryId)).length;
+  const galleryCount = galleryItems.filter(item => item.categories.includes(categoryId)).length;
+  return modelCount + galleryCount;
+}
 ---
 
 <Layout metadata={metadata}>
-  <!-- Hero Section -->
+  <!-- Hero Widget ******************* -->
   <Hero>
     <Fragment slot="title">
-      What We Create
+      Our Work
     </Fragment>
     <Fragment slot="subtitle">
-      From personalized keychains to glowing art — discover our range of custom 3D printed products
+      From digital design to physical reality — explore our custom 3D modeling capabilities and finished creations
     </Fragment>
     
     <!-- Background Image -->
@@ -171,314 +223,501 @@ const productCategories = [
           alt="3D Printed Stand Holder"
           class="hero-bg-image"
         />
+        <!-- Dynamic overlay for better text readability in both modes -->
         <div class="absolute inset-0 hero-overlay-light dark:hero-overlay-dark"></div>
       </div>
     </Fragment>
   </Hero>
 
-  <!-- Product Categories Grid -->
-  <section class="py-16 md:py-20 bg-white dark:bg-slate-900">
+  <!-- Category Filter Section *************** -->
+  <section class="py-8 bg-white dark:bg-slate-900 sticky top-0 z-30 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
-      <!-- Section Header -->
-      <div class="text-center mb-12">
-        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-          Browse our product categories and click to explore variations
-        </p>
-      </div>
-
-      <!-- Product Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {productCategories.map((product) => (
-          <div 
-            class="product-card group" 
-            data-category-id={product.id}
-            data-features={JSON.stringify(product.features)}
-            data-variations={JSON.stringify(product.variations)}
-          >
-            <!-- Card Image -->
-            <div class="relative aspect-[4/3] overflow-hidden rounded-t-xl bg-gray-100 dark:bg-slate-800">
-              <img 
-                src={product.heroImage} 
-                alt={product.title}
-                class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500"
-              />
-              <!-- Variation Count Badge -->
-              <div class="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-semibold shadow-lg">
-                {product.variationCount} options
-              </div>
-              <!-- Icon Badge -->
-              <div class="absolute top-4 left-4 text-4xl">
-                {product.icon}
-              </div>
-            </div>
-
-            <!-- Card Content -->
-            <div class="bg-white dark:bg-slate-800 p-6 rounded-b-xl shadow-md group-hover:shadow-xl transition-shadow duration-300">
-              <h3 class="text-2xl font-bold mb-2 text-gray-900 dark:text-gray-100 group-hover:text-primary transition-colors">
-                {product.title}
-              </h3>
-              <p class="text-sm text-primary font-medium mb-3 italic">
-                {product.tagline}
-              </p>
-              <p class="text-gray-600 dark:text-gray-400 mb-4">
-                {product.description}
-              </p>
-              
-              <!-- View Details Button -->
-              <button 
-                type="button"
-                class="view-details-btn w-full py-3 px-4 bg-gray-100 dark:bg-slate-700 hover:bg-primary hover:text-white dark:hover:bg-primary text-gray-900 dark:text-gray-100 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 group-hover:bg-primary group-hover:text-white"
-                aria-label={`View ${product.title} options`}
-              >
-                <span>Explore Options</span>
-                <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <!-- CTA Section -->
-      <div class="mt-16 text-center">
-        <div class="bg-gradient-to-r from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 rounded-2xl p-8 md:p-12">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
-            Have a Custom Idea?
-          </h2>
-          <p class="text-lg text-gray-600 dark:text-gray-300 mb-6 max-w-2xl mx-auto">
-            Don't see exactly what you're looking for? We love bringing unique ideas to life. Share your vision with us!
-          </p>
-          <a 
-            href={getPermalink('/contact')}
-            class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg"
-          >
-            <span>Get in Touch</span>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-            </svg>
-          </a>
+      <div class="flex items-center justify-center gap-3 flex-wrap">
+        <span class="text-sm font-medium text-gray-600 dark:text-gray-400 hidden sm:inline">
+          Filter by:
+        </span>
+        <div class="flex items-center gap-2 flex-wrap justify-center" id="category-filters">
+          {categories.map((category) => (
+            <button
+              data-category={category.id}
+              class="category-filter inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105 hover:shadow-md"
+              class:list={[
+                category.id === 'all' 
+                  ? 'bg-primary text-white shadow-lg' 
+                  : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-slate-700'
+              ]}
+            >
+              <span>{category.name}</span>
+              <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-bold rounded-full bg-white/20">
+                {getCategoryCount(category.id)}
+              </span>
+            </button>
+          ))}
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Modal Container -->
-  <div id="product-modal" class="modal-overlay hidden">
-    <div class="modal-container">
-      <div class="modal-content">
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <div class="flex items-center gap-3">
-            <span class="modal-icon text-4xl"></span>
-            <h2 class="modal-title text-3xl font-bold text-gray-900 dark:text-gray-100"></h2>
-          </div>
-          <button class="modal-close" aria-label="Close modal">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-          </button>
-        </div>
+  <!-- Section 1: Custom 3D Modeling *************** -->
+  <section class="py-16 md:py-20 bg-gray-50/50 dark:bg-slate-900/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <!-- Section Header -->
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          Custom 3D Modeling & Design
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          We bring your ideas to life — slide to see the transformation from digital design to printed product
+        </p>
+      </div>
 
-        <!-- Modal Body -->
-        <div class="modal-body">
-          <p class="modal-tagline text-lg text-primary font-medium italic mb-4"></p>
-          <p class="modal-description text-gray-600 dark:text-gray-400 mb-8"></p>
-
-          <!-- Features List -->
-          <div class="mb-8">
-            <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Options Available:</h3>
-            <ul class="modal-features grid grid-cols-1 md:grid-cols-2 gap-3"></ul>
-          </div>
-
-          <!-- Variations Gallery -->
-          <div>
-            <h3 class="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">Examples:</h3>
-            <div class="modal-gallery grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
-          </div>
-        </div>
-
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-          <a 
-            href={getPermalink('/contact')}
-            class="w-full md:w-auto inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
+      <!-- Models Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="models-grid">
+        {modelProjects.map((project) => (
+          <div 
+            class="portfolio-item group relative bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+            data-categories={JSON.stringify(project.categories)}
           >
-            <span>Order This Product</span>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-            </svg>
-          </a>
+            <!-- Image Comparison Container -->
+            <div class="aspect-video overflow-hidden">
+              <ImageComparisonSlider
+                id={project.id}
+                title={project.title}
+                description={project.description}
+                beforeImage={project.afterImage}
+                afterImage={project.beforeImage}
+                beforeLabel="Design"
+                afterLabel="Result"
+              />
+            </div>
+            
+            <!-- Content Info -->
+            <div class="p-6">
+              <h3 class="font-semibold text-xl mb-2 text-gray-900 dark:text-gray-100">
+                {project.title}
+              </h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                {project.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2: Finished Products Gallery *************** -->
+  <section class="py-16 md:py-20 bg-white/80 dark:bg-slate-800/90">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      
+      <!-- Section Header -->
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          Gallery of Creations
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+          Custom 3D printed products for gifts, branding, art, and more
+        </p>
+      </div>
+
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-6" id="gallery-grid">
+        {galleryItems.map((item, index) => (
+          <div 
+            class={`portfolio-item group relative bg-white dark:bg-slate-800 rounded-xl shadow-md overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${item.hasRevealEffect ? 'reveal-item' : ''} ${item.hasMultiReveal ? 'multi-reveal-item' : ''}`}
+            data-categories={JSON.stringify(item.categories)}
+            data-has-reveal={item.hasRevealEffect ? 'true' : 'false'}
+            data-has-multi={item.hasMultiReveal ? 'true' : 'false'}
+            data-images={item.hasMultiReveal ? JSON.stringify(item.images) : '[]'}
+          >
+            <!-- Image Container -->
+            <div class="aspect-square overflow-hidden relative">
+              {item.hasMultiReveal ? (
+                <>
+                  {/* Multi-image carousel */}
+                  {item.images.map((imgSrc, imgIndex) => (
+                    <img 
+                      src={imgSrc} 
+                      alt={`${item.alt} - view ${imgIndex + 1}`}
+                      class={`carousel-image w-full h-full object-cover transition-all duration-500 absolute inset-0 ${imgIndex === 0 ? 'opacity-100' : 'opacity-0'}`}
+                      data-index={imgIndex}
+                      loading={index < 4 ? 'eager' : 'lazy'}
+                    />
+                  ))}
+                  {/* Navigation dots */}
+                  <div class="nav-dots absolute bottom-3 left-1/2 transform -translate-x-1/2 flex items-center gap-2 bg-black/50 backdrop-blur-sm px-3 py-2 rounded-full z-10">
+                    {item.images.map((_, dotIndex) => (
+                      <div class={`nav-dot w-2 h-2 rounded-full transition-all duration-300 ${dotIndex === 0 ? 'bg-white w-6' : 'bg-white/50'}`} data-dot-index={dotIndex}></div>
+                    ))}
+                  </div>
+                  {/* Reveal hint badge */}
+                  <div class="reveal-hint absolute top-3 right-3 bg-primary/90 text-white text-xs px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm flex items-center gap-1.5 pointer-events-none z-10">
+                    <span class="animate-pulse">✨</span>
+                    <span class="font-medium">{item.revealHint}</span>
+                  </div>
+                </>
+              ) : item.hasRevealEffect ? (
+                <>
+                  {/* Base image (day version) */}
+                  <img 
+                    src={item.src} 
+                    alt={item.alt}
+                    class="reveal-base-image w-full h-full object-cover transition-all duration-500 absolute inset-0"
+                    loading={index < 4 ? 'eager' : 'lazy'}
+                  />
+                  {/* Reveal image (glow version) */}
+                  <img 
+                    src={item.srcGlow} 
+                    alt={`${item.alt} - revealed`}
+                    class="reveal-glow-image w-full h-full object-cover transition-all duration-500 absolute inset-0 opacity-0"
+                    loading="lazy"
+                  />
+                  {/* Reveal hint badge */}
+                  <div class="reveal-hint absolute top-3 right-3 bg-primary/90 text-white text-xs px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm flex items-center gap-1.5 pointer-events-none z-10">
+                    <span class="animate-pulse">✨</span>
+                    <span class="font-medium">{item.revealHint}</span>
+                  </div>
+                </>
+              ) : (
+                <img 
+                  src={item.src} 
+                  alt={item.alt}
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  loading={index < 4 ? 'eager' : 'lazy'}
+                />
+              )}
+            </div>
+            
+            <!-- Content Overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+                <h3 class="font-semibold text-lg mb-1">
+                  {item.title}
+                </h3>
+                <p class="text-sm text-gray-200">
+                  {item.category}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section *************** -->
+  <section class="py-16 md:py-20 bg-gray-50/50 dark:bg-slate-900/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <!-- Section Header -->
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+          How It Works
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300">
+          Simple steps from idea to reality
+        </p>
+      </div>
+
+      <!-- Steps Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+        <!-- Step 1 -->
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-2xl font-bold mb-6">
+            1
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
+            Share Your Idea
+          </h3>
+          <p class="text-gray-600 dark:text-gray-400">
+            Tell us what you want to create
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-2xl font-bold mb-6">
+            2
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
+            We Design & Print
+          </h3>
+          <p class="text-gray-600 dark:text-gray-400">
+            We create and 3d print your piece
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="text-center">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 text-2xl font-bold mb-6">
+            3
+          </div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">
+            You Receive & Enjoy
+          </h3>
+          <p class="text-gray-600 dark:text-gray-400">
+            Get your finished project delivered
+          </p>
         </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Call to Action Section *************** -->
+  <section class="py-16 md:py-20 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 dark:from-primary/20 dark:via-secondary/20 dark:to-accent/20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">
+        Ready to Create Something Special?
+      </h2>
+      <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
+        Transform your ideas into reality — custom gifts, cherished memories, unique jewelry, personalized keepsakes, or anything you can imagine. Let's bring your vision to life!
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a 
+          href={getPermalink('/contact')}
+          class="inline-flex items-center justify-center px-8 py-3 bg-primary text-white font-medium rounded-lg hover:bg-primary/90 transition-all duration-200 shadow-lg hover:shadow-xl"
+        >
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+          </svg>
+          Start Your Project
+        </a>
+        <a 
+          href="https://www.instagram.com/tattva_3d/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-8 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-medium rounded-lg hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-lg hover:shadow-xl"
+        >
+          <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.40z"/>
+          </svg>
+          Follow on Instagram
+        </a>
+      </div>
+    </div>
+  </section>
 </Layout>
 
+<!-- Category Filtering Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterButtons = document.querySelectorAll('.category-filter');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
+    // Add click handlers to all filter buttons
+    filterButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const selectedCategory = this.getAttribute('data-category');
+        
+        // Update active button styles
+        filterButtons.forEach(btn => {
+          if (btn === this) {
+            btn.classList.remove('bg-gray-100', 'dark:bg-slate-800', 'text-gray-700', 'dark:text-gray-300');
+            btn.classList.add('bg-primary', 'text-white', 'shadow-lg');
+          } else {
+            btn.classList.remove('bg-primary', 'text-white', 'shadow-lg');
+            btn.classList.add('bg-gray-100', 'dark:bg-slate-800', 'text-gray-700', 'dark:text-gray-300');
+          }
+        });
+        
+        // Filter portfolio items with fade animation
+        portfolioItems.forEach(item => {
+          const itemCategories = JSON.parse(item.getAttribute('data-categories') || '[]');
+          const shouldShow = selectedCategory === 'all' || itemCategories.includes(selectedCategory);
+          
+          if (shouldShow) {
+            // Fade in
+            item.style.opacity = '0';
+            item.style.display = 'block';
+            setTimeout(() => {
+              item.style.transition = 'opacity 0.3s ease-in-out';
+              item.style.opacity = '1';
+            }, 10);
+          } else {
+            // Fade out
+            item.style.transition = 'opacity 0.3s ease-in-out';
+            item.style.opacity = '0';
+            setTimeout(() => {
+              item.style.display = 'none';
+            }, 300);
+          }
+        });
+      });
+    });
+
+    // Mobile tap toggle for reveal items
+    const revealItems = document.querySelectorAll('.reveal-item');
+    revealItems.forEach(item => {
+      // Detect if device is touch-enabled
+      const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      
+      if (isTouchDevice) {
+        item.addEventListener('click', function(e) {
+          // Prevent click from bubbling to parent elements
+          e.preventDefault();
+          
+          // Toggle active class for tap on mobile
+          this.classList.toggle('active');
+          
+          // Remove active class from other reveal items
+          revealItems.forEach(otherItem => {
+            if (otherItem !== this) {
+              otherItem.classList.remove('active');
+            }
+          });
+        });
+      }
+    });
+
+    // Multi-image carousel functionality
+    const multiRevealItems = document.querySelectorAll('.multi-reveal-item');
+    multiRevealItems.forEach(item => {
+      let currentIndex = 0;
+      const images = item.querySelectorAll('.carousel-image');
+      const dots = item.querySelectorAll('.nav-dot');
+      const totalImages = images.length;
+
+      function showImage(index) {
+        // Hide all images
+        images.forEach(img => {
+          img.style.opacity = '0';
+        });
+        
+        // Show current image
+        images[index].style.opacity = '1';
+        
+        // Update dots
+        dots.forEach((dot, dotIndex) => {
+          if (dotIndex === index) {
+            dot.classList.add('bg-white', 'w-6');
+            dot.classList.remove('bg-white/50');
+          } else {
+            dot.classList.remove('bg-white', 'w-6');
+            dot.classList.add('bg-white/50');
+          }
+        });
+      }
+
+      function nextImage() {
+        currentIndex = (currentIndex + 1) % totalImages;
+        showImage(currentIndex);
+      }
+
+      // Hover/Click to cycle through images
+      const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      
+      if (isTouchDevice) {
+        // Mobile: tap to cycle
+        item.addEventListener('click', function(e) {
+          e.preventDefault();
+          nextImage();
+        });
+      } else {
+        // Desktop: hover to cycle
+        item.addEventListener('mouseenter', function() {
+          nextImage();
+        });
+      }
+    });
+  });
+</script>
+
+<!-- Filter Styles -->
 <style>
-  /* Product Card Styles */
-  .product-card {
-    cursor: pointer;
-    transition: transform 0.3s ease;
+  .portfolio-item {
+    transition: opacity 0.3s ease-in-out;
   }
 
-  .product-card:hover {
-    transform: translateY(-4px);
-  }
-
-  /* Modal Styles */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(4px);
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .modal-overlay.active {
-    display: flex;
+  /* Reveal Effect Styles */
+  .reveal-item:hover .reveal-glow-image,
+  .reveal-item.active .reveal-glow-image {
     opacity: 1;
   }
 
-  .modal-container {
-    width: 100%;
-    max-width: 1200px;
-    max-height: 90vh;
-    transform: scale(0.9);
-    transition: transform 0.3s ease;
+  .reveal-item:hover .reveal-base-image,
+  .reveal-item.active .reveal-base-image {
+    opacity: 0;
   }
 
-  .modal-overlay.active .modal-container {
-    transform: scale(1);
+  .reveal-item:hover .reveal-hint,
+  .reveal-item.active .reveal-hint {
+    opacity: 0;
   }
 
-  .modal-content {
-    background: white;
-    border-radius: 1rem;
-    overflow: hidden;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    max-height: 90vh;
-    display: flex;
-    flex-direction: column;
+  .reveal-item {
+    cursor: pointer;
   }
 
-  :global(.dark) .modal-content {
-    background: rgb(30 41 59);
+  /* Smooth fade transition for reveal images */
+  .reveal-base-image,
+  .reveal-glow-image {
+    transition: opacity 0.5s ease-in-out;
   }
 
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2rem;
-    border-bottom: 1px solid #e5e7eb;
-    flex-shrink: 0;
+  .reveal-hint {
+    transition: opacity 0.3s ease-in-out;
   }
 
-  :global(.dark) .modal-header {
-    border-bottom-color: rgb(51 65 85);
+  /* Ensure images don't scale on hover when reveal is active */
+  .reveal-item:hover .reveal-base-image,
+  .reveal-item:hover .reveal-glow-image {
+    transform: none;
   }
 
-  .modal-close {
-    padding: 0.5rem;
-    border-radius: 0.5rem;
-    transition: all 0.2s;
-    color: #6b7280;
+  /* Multi-image carousel styles */
+  .multi-reveal-item {
+    cursor: pointer;
   }
 
-  .modal-close:hover {
-    background: #f3f4f6;
-    color: #111827;
+  .carousel-image {
+    transition: opacity 0.5s ease-in-out;
   }
 
-  :global(.dark) .modal-close:hover {
-    background: rgb(51 65 85);
-    color: white;
+  .multi-reveal-item:hover .carousel-image {
+    transform: none;
   }
 
-  .modal-body {
-    padding: 2rem;
-    overflow-y: auto;
-    flex: 1;
+  .multi-reveal-item:hover .reveal-hint {
+    opacity: 0;
   }
 
-  .modal-footer {
-    padding: 1.5rem 2rem;
-    border-top: 1px solid #e5e7eb;
-    display: flex;
-    justify-content: flex-end;
-    flex-shrink: 0;
+  .nav-dots {
+    pointer-events: none;
   }
 
-  :global(.dark) .modal-footer {
-    border-top-color: rgb(51 65 85);
+  .nav-dot {
+    transition: all 0.3s ease-in-out;
   }
-
-  .modal-features li {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem;
-    background: #f3f4f6;
-    border-radius: 0.5rem;
-    color: #374151;
+  
+  #category-filters {
+    -webkit-overflow-scrolling: touch;
   }
-
-  :global(.dark) .modal-features li {
-    background: rgb(51 65 85);
-    color: rgb(209 213 219);
+  
+  @media (max-width: 640px) {
+    #category-filters {
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      padding-bottom: 0.5rem;
+      scrollbar-width: none; /* Firefox */
+    }
+    
+    #category-filters::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
+    }
+    
+    .category-filter {
+      flex-shrink: 0;
+    }
   }
-
-  .modal-features li::before {
-    content: '✓';
-    color: rgb(var(--color-primary));
-    font-weight: bold;
-    font-size: 1.25rem;
+  
+  .category-filter {
+    cursor: pointer;
+    user-select: none;
   }
-
-  .modal-gallery-item {
-    border-radius: 0.75rem;
-    overflow: hidden;
-    background: #f9fafb;
-  }
-
-  :global(.dark) .modal-gallery-item {
-    background: rgb(51 65 85);
-  }
-
-  .modal-gallery-item img {
-    width: 100%;
-    aspect-ratio: 4/3;
-    object-fit: cover;
-  }
-
-  .modal-gallery-item-title {
-    padding: 1rem;
-    font-weight: 600;
-    color: #111827;
-  }
-
-  :global(.dark) .modal-gallery-item-title {
-    color: rgb(243 244 246);
-  }
-
-  .modal-gallery-item-desc {
-    padding: 0 1rem 1rem;
-    font-size: 0.875rem;
-    color: #6b7280;
-  }
-
-  :global(.dark) .modal-gallery-item-desc {
-    color: rgb(156 163 175);
+  
+  .category-filter:active {
+    transform: scale(0.95);
   }
 
   /* Hero background image styling */
@@ -493,20 +732,23 @@ const productCategories = [
     transition: opacity 0.3s ease;
   }
 
+  /* Different opacity for light and dark modes */
   :root .hero-bg-image {
-    opacity: 0.25;
+    opacity: 0.25; /* Light mode - more visible */
   }
 
   :root.dark .hero-bg-image {
-    opacity: 0.4;
+    opacity: 0.4; /* Dark mode - more visible to show through dark background */
   }
 
+  /* Optimize image on mobile */
   @media (max-width: 768px) {
     .hero-bg-image {
-      opacity: 0.2 !important;
+      opacity: 0.2 !important; /* Consistent mobile opacity */
     }
   }
 
+  /* Enhanced gradient overlays for better text contrast */
   .hero-overlay-light {
     background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.3) 100%);
   }
@@ -515,129 +757,3 @@ const productCategories = [
     background: linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
   }
 </style>
-
-<script>
-  // Modal functionality
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('Modal script loaded');
-    
-    const modal = document.getElementById('product-modal');
-    const modalClose = document.querySelector('.modal-close');
-    const productCards = document.querySelectorAll('.product-card');
-
-    console.log('Modal element:', modal);
-    console.log('Modal close button:', modalClose);
-    console.log('Product cards found:', productCards.length);
-
-    if (!modal || !modalClose || productCards.length === 0) {
-      console.error('Modal elements not found');
-      return;
-    }
-
-    // Open modal - handle card AND button clicks
-    productCards.forEach((card, index) => {
-      console.log(`Setting up card ${index}`);
-      
-      const openModal = (e) => {
-        console.log('Opening modal for card', index);
-        if (e) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-        
-        const categoryId = card.dataset.categoryId;
-        console.log('Category ID:', categoryId);
-        
-        // Get product data from data attributes
-        const productTitle = card.querySelector('h3')?.textContent || '';
-        const productIcon = card.querySelector('.text-4xl')?.textContent || '';
-        const productTagline = card.querySelector('.text-primary.italic')?.textContent || '';
-        const productDescription = card.querySelector('.text-gray-600')?.textContent || '';
-        
-        console.log('Product title:', productTitle);
-        
-        // Get features from data attribute
-        const featuresData = card.dataset.features;
-        console.log('Features data:', featuresData);
-        const features = featuresData ? JSON.parse(featuresData) : [];
-        console.log('Parsed features:', features);
-        
-        // Get variations from data attribute
-        const variationsData = card.dataset.variations;
-        console.log('Variations data length:', variationsData?.length);
-        const variations = variationsData ? JSON.parse(variationsData) : [];
-        console.log('Parsed variations:', variations.length, 'items');
-        
-        // Populate modal
-        const modalIcon = document.querySelector('.modal-icon');
-        const modalTitle = document.querySelector('.modal-title');
-        const modalTagline = document.querySelector('.modal-tagline');
-        const modalDescription = document.querySelector('.modal-description');
-        
-        if (modalIcon) modalIcon.textContent = productIcon;
-        if (modalTitle) modalTitle.textContent = productTitle;
-        if (modalTagline) modalTagline.textContent = productTagline;
-        if (modalDescription) modalDescription.textContent = productDescription;
-        
-        // Populate features
-        const featuresList = document.querySelector('.modal-features');
-        if (featuresList) {
-          featuresList.innerHTML = features.map(feature => 
-            `<li>${feature}</li>`
-          ).join('');
-        }
-        
-        // Populate gallery
-        const gallery = document.querySelector('.modal-gallery');
-        console.log('Gallery element:', gallery);
-        if (gallery) {
-          const galleryHTML = variations.map(variation => `
-            <div class="modal-gallery-item">
-              <img src="${variation.image}" alt="${variation.title}" />
-              <div class="modal-gallery-item-title">${variation.title}</div>
-              <div class="modal-gallery-item-desc">${variation.description}</div>
-            </div>
-          `).join('');
-          console.log('Gallery HTML length:', galleryHTML.length);
-          gallery.innerHTML = galleryHTML;
-        }
-        
-        // Show modal
-        console.log('Showing modal');
-        modal.classList.remove('hidden');
-        setTimeout(() => modal.classList.add('active'), 10);
-        document.body.style.overflow = 'hidden';
-      };
-      
-      // Add click listener to the card
-      card.addEventListener('click', openModal);
-      
-      // Also add click listener specifically to the button to ensure it works
-      const button = card.querySelector('.view-details-btn');
-      if (button) {
-        button.addEventListener('click', openModal);
-      }
-    });
-
-    // Close modal
-    function closeModal() {
-      modal.classList.remove('active');
-      setTimeout(() => {
-        modal.classList.add('hidden');
-        document.body.style.overflow = '';
-      }, 300);
-    }
-
-    modalClose.addEventListener('click', closeModal);
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-
-    // Close on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('active')) {
-        closeModal();
-      }
-    });
-  });
-</script>
