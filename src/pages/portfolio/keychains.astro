@@ -1,0 +1,142 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { getPermalink } from '~/utils/permalinks';
+import { Image } from 'astro:assets';
+
+// Import images
+import thumb from '~/assets/images/Gallery/keychain/1_keychain.JPG';
+import img1 from '~/assets/images/Gallery/keychain/PHOTO-2025-09-21-11-54-36.jpg';
+import img2 from '~/assets/images/Gallery/keychain/b9944521-07f2-4d41-b7f3-069a7550b53c.JPG';
+import img3 from '~/assets/images/Gallery/keychain/f43fe093-2fd4-4eda-8315-e32f757ec098.JPG';
+import img4 from '~/assets/images/Gallery/keychain/IMG_4973.jpg';
+import img5 from '~/assets/images/Gallery/keychain/IMG_5103.jpg';
+
+const metadata = {
+  title: 'Keychains - 3D Printed Custom Keychains',
+};
+
+const items = [
+  { image: thumb, title: 'Personalized Name Keychain', description: 'Custom names or text on keychains' },
+  { image: img1, title: 'Image Keychain', description: 'Turn your photos into keychains' },
+  { image: img2, title: 'Designer Keychain', description: 'Multiple designs with names and logos' },
+  { image: img3, title: 'Personalized Keychain', description: 'Custom text and design elements' },
+  { image: img4, title: 'NFC-Enabled Keychain', description: 'Share contacts with a tap' },
+  { image: img5, title: 'Custom Shape and Logo with NFC', description: 'Unique shapes with NFC technology' },
+];
+---
+
+<Layout metadata={metadata}>
+  <!-- Header Section -->
+  <section class="pt-24 pb-12 bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <!-- Breadcrumb -->
+      <nav class="mb-6 text-sm">
+        <a href={getPermalink('/')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Home</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <a href={getPermalink('/portfolio')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Portfolio</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <span class="text-gray-900 dark:text-gray-100 font-semibold">Keychains</span>
+      </nav>
+
+      <!-- Page Header -->
+      <div class="flex items-center gap-4 mb-6">
+        <div class="text-6xl">🔑</div>
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">
+            Keychains
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-400 mt-2">
+            Custom 3D printed keychains - functional art you carry everywhere
+          </p>
+        </div>
+      </div>
+
+      <!-- Features -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+          <span class="text-2xl">🎨</span>
+          <span class="text-sm font-medium">20+ Colors</span>
+        </div>
+        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+          <span class="text-2xl">✍️</span>
+          <span class="text-sm font-medium">Custom Text</span>
+        </div>
+        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+          <span class="text-2xl">📱</span>
+          <span class="text-sm font-medium">NFC Option</span>
+        </div>
+        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+          <span class="text-2xl">⚡</span>
+          <span class="text-sm font-medium">2-3 Day Turnaround</span>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
+        Transform your ideas into durable, lightweight keychains. Perfect for gifts, business branding, event memorabilia, or everyday use. Add NFC technology to make your keychain a smart business card!
+      </p>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+  <section class="py-16 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Examples</h2>
+      
+      <!-- Gallery Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {items.map((item) => (
+          <div class="group relative bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300">
+            <div class="aspect-square overflow-hidden bg-gray-100 dark:bg-slate-700">
+              <Image 
+                src={item.image} 
+                alt={item.title}
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                widths={[400, 768]}
+                sizes="(max-width: 768px) 100vw, 400px"
+              />
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-lg text-gray-900 dark:text-gray-100 mb-1">
+                {item.title}
+              </h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                {item.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- CTA Section -->
+      <div class="bg-gradient-to-r from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 rounded-2xl p-10 text-center">
+        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Ready to Create Your Custom Keychain?
+        </h3>
+        <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
+          Share your design ideas, logo, or text. We'll bring it to life in 2-3 days!
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href={getPermalink('/contact')}
+            class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
+          >
+            <span>Order Now</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </a>
+          <a 
+            href={getPermalink('/portfolio')}
+            class="inline-flex items-center justify-center gap-2 border-2 border-gray-300 dark:border-gray-600 hover:border-primary dark:hover:border-primary text-gray-900 dark:text-gray-100 font-bold py-4 px-8 rounded-lg transition-all duration-300"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            <span>Back to Portfolio</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

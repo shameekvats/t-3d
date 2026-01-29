@@ -1,0 +1,130 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { getPermalink } from '~/utils/permalinks';
+import { Image } from 'astro:assets';
+
+// Import images
+import thumb from '~/assets/images/Gallery/others/1_Thinker.jpg';
+import img1 from '~/assets/images/Gallery/others/Colosseum.jpg';
+import img2 from '~/assets/images/Gallery/others/Taj1.jpg';
+import img3 from '~/assets/images/Gallery/others/IMG_4136.jpg';
+
+const metadata = {
+  title: 'Custom Creations - Unique 3D Printed Art',
+};
+
+const items = [
+  { image: thumb, title: 'The Thinker Sculpture', description: 'Classic art reproduction' },
+  { image: img1, title: 'Colosseum Model', description: 'Architectural wonder' },
+  { image: img2, title: 'Taj Mahal Replica', description: 'Iconic landmark model' },
+  { image: img3, title: 'Custom Creation', description: 'Your unique design' },
+];
+---
+
+<Layout metadata={metadata}>
+  <section class="pt-24 pb-12 bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <nav class="mb-6 text-sm">
+        <a href={getPermalink('/')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Home</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <a href={getPermalink('/portfolio')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Portfolio</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <span class="text-gray-900 dark:text-gray-100 font-semibold">Custom Creations</span>
+      </nav>
+
+      <div class="flex items-center gap-4 mb-6">
+        <div class="text-6xl">🎨</div>
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">
+            Custom Creations
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-400 mt-2">
+            From sculptures to decor - if you can dream it, we can print it
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+          <span class="text-2xl">🏛️</span>
+          <span class="text-sm font-medium">Sculptures</span>
+        </div>
+        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+          <span class="text-2xl">🏗️</span>
+          <span class="text-sm font-medium">Architecture</span>
+        </div>
+        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+          <span class="text-2xl">🎭</span>
+          <span class="text-sm font-medium">Art Pieces</span>
+        </div>
+        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+          <span class="text-2xl">✨</span>
+          <span class="text-sm font-medium">Your Vision</span>
+        </div>
+      </div>
+
+      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
+        The possibilities are endless! From famous sculptures and architectural landmarks to completely unique designs - we love bringing creative visions to life. Perfect for collectors, educators, businesses, or anyone with a unique idea.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Examples</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {items.map((item) => (
+          <div class="group relative bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300">
+            <div class="aspect-square overflow-hidden bg-gray-100 dark:bg-slate-700">
+              <Image 
+                src={item.image} 
+                alt={item.title}
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                widths={[400, 768]}
+                sizes="(max-width: 768px) 100vw, 400px"
+              />
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-lg text-gray-900 dark:text-gray-100 mb-1">
+                {item.title}
+              </h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                {item.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="bg-gradient-to-r from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 rounded-2xl p-10 text-center">
+        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Have a Unique Vision?
+        </h3>
+        <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
+          Don't see your idea here? That's what we do best! Share your vision - sculptures, replicas, art, decor, prototypes, or anything you can imagine.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href={getPermalink('/contact')}
+            class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
+          >
+            <span>Let's Discuss Your Project</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </a>
+          <a 
+            href={getPermalink('/portfolio')}
+            class="inline-flex items-center justify-center gap-2 border-2 border-gray-300 dark:border-gray-600 hover:border-primary dark:hover:border-primary text-gray-900 dark:text-gray-100 font-bold py-4 px-8 rounded-lg transition-all duration-300"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            <span>Back to Portfolio</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

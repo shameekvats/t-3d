@@ -1,0 +1,126 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { getPermalink } from '~/utils/permalinks';
+import { Image } from 'astro:assets';
+
+// Import images
+import thumb from '~/assets/images/Gallery/maps_cityscapes/1_Lux_Ville.jpg';
+import img1 from '~/assets/images/Gallery/maps_cityscapes/IMG_4173.JPG';
+
+const metadata = {
+  title: '3D Maps & Cityscapes - Topographical Maps',
+};
+
+const items = [
+  { image: thumb, title: 'Cityscape Model', description: 'Detailed 3D city model' },
+  { image: img1, title: 'Topographical Map', description: 'Terrain elevation details' },
+];
+---
+
+<Layout metadata={metadata}>
+  <section class="pt-24 pb-12 bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <nav class="mb-6 text-sm">
+        <a href={getPermalink('/')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Home</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <a href={getPermalink('/portfolio')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Portfolio</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <span class="text-gray-900 dark:text-gray-100 font-semibold">Maps & Cityscapes</span>
+      </nav>
+
+      <div class="flex items-center gap-4 mb-6">
+        <div class="text-6xl">🗺️</div>
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">
+            3D Maps & Cityscapes
+          </h1>
+          <p class="text-xl text-gray-600 dark:text-gray-400 mt-2">
+            Stunning 3D models of your favorite places with accurate terrain
+          </p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+          <span class="text-2xl">🏔️</span>
+          <span class="text-sm font-medium">Real Terrain Data</span>
+        </div>
+        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+          <span class="text-2xl">🏙️</span>
+          <span class="text-sm font-medium">City Models</span>
+        </div>
+        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+          <span class="text-2xl">📍</span>
+          <span class="text-sm font-medium">Any Location</span>
+        </div>
+        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+          <span class="text-2xl">🎁</span>
+          <span class="text-sm font-medium">Unique Gifts</span>
+        </div>
+      </div>
+
+      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
+        Bring geography to life with 3D topographical maps and cityscape models. Perfect for displaying your favorite hiking spots, hometown, travel destinations, or places with special meaning.
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Examples</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {items.map((item) => (
+          <div class="group relative bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300">
+            <div class="aspect-square overflow-hidden bg-gray-100 dark:bg-slate-700">
+              <Image 
+                src={item.image} 
+                alt={item.title}
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                widths={[400, 768]}
+                sizes="(max-width: 768px) 100vw, 400px"
+              />
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-lg text-gray-900 dark:text-gray-100 mb-1">
+                {item.title}
+              </h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                {item.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="bg-gradient-to-r from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 rounded-2xl p-10 text-center">
+        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Create Your 3D Map
+        </h3>
+        <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
+          Tell us the location - we'll create an accurate 3D topographical model of any place on Earth!
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a 
+            href={getPermalink('/contact')}
+            class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
+          >
+            <span>Order Now</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+            </svg>
+          </a>
+          <a 
+            href={getPermalink('/portfolio')}
+            class="inline-flex items-center justify-center gap-2 border-2 border-gray-300 dark:border-gray-600 hover:border-primary dark:hover:border-primary text-gray-900 dark:text-gray-100 font-bold py-4 px-8 rounded-lg transition-all duration-300"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            <span>Back to Portfolio</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
