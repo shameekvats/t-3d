@@ -13,6 +13,9 @@ export default defineConfig({
   site: 'https://t-3d.me', // ← CHANGED: Your custom domain
   base: '/', // ← CHANGED: Root path for custom domain
   output: 'static',
+  image: {
+    remotePatterns: [{ protocol: 'https' }],
+  },
   redirects: {
     '/gallery': '/portfolio',
     '/3d-models': '/portfolio',
