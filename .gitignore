@@ -31,3 +31,7 @@ FAQ_ANSWERS.md
 src/pages/portfolio-old-backup.astro
 src/pages/portfolio-new.astro
 src/pages/portfolio-gallery-backup.astro
+
+# Ignore HEIC source photos
+*.HEIC
+*.heic
