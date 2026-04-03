@@ -4,20 +4,18 @@ import { getPermalink } from '~/utils/permalinks';
 import { Image } from 'astro:assets';
 
 // Import images
-import thumb from '~/assets/images/Gallery/electronics/clock.jpg';
-import img1 from '~/assets/images/Gallery/electronics/A_ROMA.JPG';
-import img2 from '~/assets/images/Gallery/electronics/B_Roma.JPG';
+import thumb from '~/assets/images/Gallery/electronics/iPhoneDock.jpg';
 import img3 from '~/assets/images/Gallery/electronics/lightbox.jpg';
 import img4 from '~/assets/images/Gallery/electronics/mouse.JPG';
+import img5 from '~/assets/images/Gallery/electronics/clock.jpg';
 
 const metadata = {
   title: 'Electronics - Functional 3D Printed Products',
 };
 
 const items = [
-  { image: thumb, title: 'Custom Clock', description: '3D printed clock with custom style' },
-  { image: img1, title: 'AS Roma Lightbox - Off', description: 'Brand lightbox without LEDs' },
-  { image: img2, title: 'AS Roma Lightbox - Lit', description: 'Same lightbox with LEDs on' },
+  { image: thumb, title: 'iPhone Dock Wireless Charger', description: 'Wireless charging dock for iPhone' },
+  { image: img5, title: 'Custom Clock', description: '3D printed clock with custom style' },
   { image: img3, title: 'Custom Lightbox', description: 'Personalized LED lightbox' },
   { image: img4, title: 'Wireless Mouse', description: 'Fully functional Bluetooth mouse' },
 ];
@@ -48,6 +46,10 @@ const items = [
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+          <span class="text-2xl">📱</span>
+          <span class="text-sm font-medium">Wireless Charging</span>
+        </div>
+        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
           <span class="text-2xl">⏰</span>
           <span class="text-sm font-medium">Custom Clocks</span>
         </div>
@@ -59,14 +61,10 @@ const items = [
           <span class="text-2xl">📦</span>
           <span class="text-sm font-medium">Custom Lightboxes</span>
         </div>
-        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-          <span class="text-2xl">⚙️</span>
-          <span class="text-sm font-medium">Functional Tech</span>
-        </div>
       </div>
 
       <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
-        Functional 3D prints for daily use and branding. This gallery focuses on custom clocks, wireless mouse designs, and personalized lightboxes.
+        Functional 3D prints for daily use and branding. This gallery focuses on wireless charging docks, custom clocks, wireless mouse designs, and personalized lightboxes.
       </p>
     </div>
   </section>
@@ -104,7 +102,7 @@ const items = [
           Need Electronics + Custom Branding?
         </h3>
         <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
-          Looking for custom clocks, lightboxes, or wireless accessories? Let's build a practical design that fits your idea.
+          Looking for wireless charging docks, custom clocks, lightboxes, or wireless accessories? Let's build a practical design that fits your idea.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a 
