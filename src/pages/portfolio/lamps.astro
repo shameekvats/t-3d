@@ -4,20 +4,18 @@ import { getPermalink } from '~/utils/permalinks';
 import { Image } from 'astro:assets';
 
 // Import images
-import thumb from '~/assets/images/Gallery/others/1_Thinker.jpg';
-import img1 from '~/assets/images/Gallery/others/Colosseum.jpg';
-import img2 from '~/assets/images/Gallery/others/Taj1.jpg';
-import img3 from '~/assets/images/Gallery/others/IMG_4136.jpg';
+import thumb from '~/assets/images/Gallery/electronics/1_lamp.jpg';
+import img1 from '~/assets/images/Gallery/electronics/Bunny.jpg';
+import img2 from '~/assets/images/Gallery/electronics/Ghost.jpg';
 
 const metadata = {
-  title: 'Custom Creations - Unique 3D Printed Art',
+  title: 'Lamps - Decorative 3D Printed Lighting',
 };
 
 const items = [
-  { image: thumb, title: 'The Thinker Sculpture', description: 'Classic art reproduction' },
-  { image: img1, title: 'Colosseum Model', description: 'Architectural wonder' },
-  { image: img2, title: 'Taj Mahal Replica', description: 'Iconic landmark model' },
-  { image: img3, title: 'Custom Creation', description: 'Your unique design' },
+  { image: thumb, title: 'LED Lamp', description: 'Custom designed decorative lamp' },
+  { image: img1, title: 'Bunny Night Light', description: 'Soft glowing lamp for desks and bedside tables' },
+  { image: img2, title: 'Ghost Lamp', description: 'Fun character-style decorative night lamp' },
 ];
 ---
 
@@ -29,42 +27,42 @@ const items = [
         <span class="mx-2 text-gray-400">/</span>
         <a href={getPermalink('/portfolio')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Portfolio</a>
         <span class="mx-2 text-gray-400">/</span>
-        <span class="text-gray-900 dark:text-gray-100 font-semibold">Custom Creations</span>
+        <span class="text-gray-900 dark:text-gray-100 font-semibold">Lamps</span>
       </nav>
 
       <div class="flex items-center gap-4 mb-6">
-        <div class="text-6xl">🎨</div>
+        <div class="text-6xl">💡</div>
         <div>
           <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">
-            Custom Creations
+            Lamps
           </h1>
           <p class="text-xl text-gray-600 dark:text-gray-400 mt-2">
-            From sculptures to decor - if you can dream it, we can print it
+            Decorative 3D printed lamps for homes, gifts, and ambient lighting
           </p>
         </div>
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-          <span class="text-2xl">🏛️</span>
-          <span class="text-sm font-medium">Sculptures</span>
+          <span class="text-2xl">💡</span>
+          <span class="text-sm font-medium">Ambient Light</span>
         </div>
         <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-          <span class="text-2xl">🏗️</span>
-          <span class="text-sm font-medium">Architecture</span>
+          <span class="text-2xl">🏠</span>
+          <span class="text-sm font-medium">Home Decor</span>
         </div>
         <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-          <span class="text-2xl">🎭</span>
-          <span class="text-sm font-medium">Art Pieces</span>
+          <span class="text-2xl">🎁</span>
+          <span class="text-sm font-medium">Gift Friendly</span>
         </div>
         <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
           <span class="text-2xl">✨</span>
-          <span class="text-sm font-medium">Your Vision</span>
+          <span class="text-sm font-medium">Custom Styles</span>
         </div>
       </div>
 
       <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
-        The possibilities are endless! From famous sculptures and architectural landmarks to completely unique designs - we love bringing creative visions to life. Perfect for collectors, educators, businesses, or anyone with a unique idea.
+        Add character to your space with 3D printed lamps and night lights. Choose playful designs or custom shapes for cozy ambient lighting.
       </p>
     </div>
   </section>
@@ -99,17 +97,17 @@ const items = [
 
       <div class="bg-gradient-to-r from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 rounded-2xl p-10 text-center">
         <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-          Have a Unique Vision?
+          Want a Custom Lamp Design?
         </h3>
         <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
-          Don't see your idea here? That's what we do best! Share your vision - sculptures, replicas, art, decor, prototypes, or anything you can imagine.
+          Share your style, size, and idea. We can create decorative lamps and night lights tailored to your space.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a 
             href={getPermalink('/contact')}
             class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
           >
-            <span>Let's Discuss Your Project</span>
+            <span>Order Now</span>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
             </svg>

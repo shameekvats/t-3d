@@ -4,26 +4,22 @@ import { getPermalink } from '~/utils/permalinks';
 import { Image } from 'astro:assets';
 
 // Import images
-import thumb from '~/assets/images/Gallery/electronics/1_lamp.jpg';
+import thumb from '~/assets/images/Gallery/electronics/clock.jpg';
 import img1 from '~/assets/images/Gallery/electronics/A_ROMA.JPG';
 import img2 from '~/assets/images/Gallery/electronics/B_Roma.JPG';
 import img3 from '~/assets/images/Gallery/electronics/lightbox.jpg';
 import img4 from '~/assets/images/Gallery/electronics/mouse.JPG';
-import img5 from '~/assets/images/Gallery/electronics/Bunny.jpg';
-import img6 from '~/assets/images/Gallery/electronics/clock.jpg';
 
 const metadata = {
-  title: 'Electronics & Lightboxes - Tech-Integrated 3D Prints',
+  title: 'Electronics - Functional 3D Printed Products',
 };
 
 const items = [
-  { image: thumb, title: 'LED Lamp', description: 'Custom designed LED lighting' },
+  { image: thumb, title: 'Custom Clock', description: '3D printed clock with custom style' },
   { image: img1, title: 'AS Roma Lightbox - Off', description: 'Brand lightbox without LEDs' },
   { image: img2, title: 'AS Roma Lightbox - Lit', description: 'Same lightbox with LEDs on' },
   { image: img3, title: 'Custom Lightbox', description: 'Personalized LED lightbox' },
   { image: img4, title: 'Wireless Mouse', description: 'Fully functional Bluetooth mouse' },
-  { image: img5, title: 'Bunny Night Light', description: 'Decorative LED night light' },
-  { image: img6, title: 'Custom Clock', description: '3D printed clock design' },
 ];
 ---
 
@@ -35,33 +31,33 @@ const items = [
         <span class="mx-2 text-gray-400">/</span>
         <a href={getPermalink('/portfolio')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Portfolio</a>
         <span class="mx-2 text-gray-400">/</span>
-        <span class="text-gray-900 dark:text-gray-100 font-semibold">Electronics & Lightboxes</span>
+        <span class="text-gray-900 dark:text-gray-100 font-semibold">Electronics</span>
       </nav>
 
       <div class="flex items-center gap-4 mb-6">
         <div class="text-6xl">💡</div>
         <div>
           <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">
-            Electronics & Lightboxes
+            Electronics
           </h1>
           <p class="text-xl text-gray-600 dark:text-gray-400 mt-2">
-            Tech-integrated designs - lamps, lightboxes, and smart accessories
+            Functional 3D printed products with electronics integration
           </p>
         </div>
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
         <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-          <span class="text-2xl">💡</span>
-          <span class="text-sm font-medium">LED Integration</span>
+          <span class="text-2xl">⏰</span>
+          <span class="text-sm font-medium">Custom Clocks</span>
         </div>
         <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-          <span class="text-2xl">🎨</span>
-          <span class="text-sm font-medium">Custom Designs</span>
+          <span class="text-2xl">🖱️</span>
+          <span class="text-sm font-medium">Wireless Mouse</span>
         </div>
         <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-          <span class="text-2xl">🏢</span>
-          <span class="text-sm font-medium">Brand Lightboxes</span>
+          <span class="text-2xl">📦</span>
+          <span class="text-sm font-medium">Custom Lightboxes</span>
         </div>
         <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
           <span class="text-2xl">⚙️</span>
@@ -70,7 +66,7 @@ const items = [
       </div>
 
       <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
-        Combine 3D printing with electronics for functional art. LED lamps, brand lightboxes, smart accessories, and custom tech integrations. Perfect for businesses, events, or unique home decor.
+        Functional 3D prints for daily use and branding. This gallery focuses on custom clocks, wireless mouse designs, and personalized lightboxes.
       </p>
     </div>
   </section>
@@ -105,10 +101,10 @@ const items = [
 
       <div class="bg-gradient-to-r from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 rounded-2xl p-10 text-center">
         <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-          Need Tech-Integrated Designs?
+          Need Electronics + Custom Branding?
         </h3>
         <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
-          Looking for brand lightboxes, custom lamps, or tech accessories? Let's bring your idea to life with lights and functionality!
+          Looking for custom clocks, lightboxes, or wireless accessories? Let's build a practical design that fits your idea.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a 

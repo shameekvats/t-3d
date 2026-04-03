@@ -6,13 +6,13 @@ import { Image } from 'astro:assets';
 
 // Import category thumbnail images
 import keychainImg from '~/assets/images/Gallery/keychain/1_keychain.JPG';
-import bookmarkImg from '~/assets/images/Gallery/bookmarks/1_IMG_1438.jpg';
+import bookmarkImg from '~/assets/images/Gallery/bookmarks/IMG_5479.jpg';
 import cookieImg from '~/assets/images/Gallery/cookie_cutter/1_IMG_4620.jpg';
 import mapImg from '~/assets/images/Gallery/maps_cityscapes/1_Lux_Ville.jpg';
 import glowImg from '~/assets/images/Gallery/3d_photo/1_A_IMG_4199.jpg';
-import electronicsImg from '~/assets/images/Gallery/electronics/1_lamp.jpg';
+import electronicsImg from '~/assets/images/Gallery/electronics/clock.jpg';
+import lampsImg from '~/assets/images/Gallery/electronics/1_lamp.jpg';
 import magnetImg from '~/assets/images/Gallery/fridge_magnets/1_IMG_4307.jpg';
-import customImg from '~/assets/images/Gallery/others/1_Thinker.jpg';
 
 const metadata = {
   title: 'Portfolio - 3D Printed Products',
@@ -66,12 +66,21 @@ const categories = [
   },
   {
     id: 'electronics',
-    title: 'Electronics & Lightboxes',
-    icon: '💡',
-    description: 'LED lamps, lightboxes, smart accessories, and tech-integrated designs',
+    title: 'Electronics',
+    icon: '⚙️',
+    description: 'Custom clocks, wireless mouse designs, and personalized lightboxes',
     image: electronicsImg,
-    variationCount: 7,
+    variationCount: 5,
     slug: 'electronics',
+  },
+  {
+    id: 'lamps',
+    title: 'Lamps',
+    icon: '💡',
+    description: 'Decorative and functional 3D printed lamps for homes, gifts, and displays',
+    image: lampsImg,
+    variationCount: 3,
+    slug: 'lamps',
   },
   {
     id: 'fridge-magnets',
@@ -81,15 +90,6 @@ const categories = [
     image: magnetImg,
     variationCount: 3,
     slug: 'fridge-magnets',
-  },
-  {
-    id: 'custom',
-    title: 'Custom Creations',
-    icon: '🎨',
-    description: 'From sculptures to decor - if you can dream it, we can print it',
-    image: customImg,
-    variationCount: 4,
-    slug: 'custom',
   },
 ];
 ---
