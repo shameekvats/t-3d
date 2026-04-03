@@ -35,3 +35,6 @@ src/pages/portfolio-gallery-backup.astro
 # Ignore HEIC source photos
 *.HEIC
 *.heic
+
+# Local TODO list (not for public repo)
+TODO.md
