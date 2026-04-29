@@ -17,7 +17,7 @@ const translations = {
     'home.tagline': 'Welcome to tattva-3d',
     'home.title': '3d Prints on Demand',
     'home.subtitle': 'Transform your ideas into unique 3d printed gifts, branding materials, and creative keepsakes.',
-    'home.cta.portfolio': 'View Portfolio',
+    'home.cta.portfolio': 'View Catalog',
     'home.cta.contact': 'Get Started',
     'home.features.tagline': 'What we create',
     'home.features.title': 'Unique 3d prints for every occasion',
@@ -199,6 +199,12 @@ const translations = {
     'maps.price.color': '€30',
     'maps.spec.location.label': 'Location Required',
     'maps.spec.location.note': 'Share a place name, coordinates, or a rough area. We source the terrain data and handle everything else.',
+    'maps.spec.size.label': 'Dimensions',
+    'maps.spec.size': '150 × 150 mm',
+    'maps.i1.price': '€30', 'maps.i1.priceLabel': 'Colored',
+    'maps.i2.price': '€20', 'maps.i2.priceLabel': 'White',
+    'maps.i3.price': '€20', 'maps.i3.priceLabel': 'White',
+    'maps.i4.price': '€20', 'maps.i4.priceLabel': 'White',
     'maps.order.cta': 'Order Your Custom Map',
 
     // Glow photos page
@@ -286,7 +292,7 @@ const translations = {
     'order.submit': 'Send Order Request',
     'order.sending': 'Sending...',
     'order.contact.note': 'Questions? Email us at',
-    'order.back': 'Back to Portfolio',
+    'order.back': 'Back to Catalog',
     'order.error': 'Sorry, there was an error. Please try again or email us directly.',
 
     // Order thank-you
@@ -436,7 +442,7 @@ const translations = {
     'home.tagline': 'Bienvenue chez tattva-3d',
     'home.title': 'Impressions 3D sur Demande',
     'home.subtitle': "Transformez vos idées en cadeaux uniques imprimés en 3D, articles de marque et créations personnelles.",
-    'home.cta.portfolio': 'Voir le Portfolio',
+    'home.cta.portfolio': 'Voir le Catalogue',
     'home.cta.contact': 'Commencer',
     'home.features.tagline': 'Ce que nous créons',
     'home.features.title': 'Des impressions 3D uniques pour chaque occasion',
@@ -618,6 +624,12 @@ const translations = {
     'maps.price.color': '30 €',
     'maps.spec.location.label': 'Lieu Requis',
     'maps.spec.location.note': "Partagez un nom de lieu, des coordonnées ou une zone approximative. Nous gérons les données terrain et tout le reste.",
+    'maps.spec.size.label': 'Dimensions',
+    'maps.spec.size': '150 × 150 mm',
+    'maps.i1.price': '30 €', 'maps.i1.priceLabel': 'Coloré',
+    'maps.i2.price': '20 €', 'maps.i2.priceLabel': 'Blanc',
+    'maps.i3.price': '20 €', 'maps.i3.priceLabel': 'Blanc',
+    'maps.i4.price': '20 €', 'maps.i4.priceLabel': 'Blanc',
     'maps.order.cta': 'Commander Votre Carte Personnalisée',
 
     // Glow photos page
@@ -705,7 +717,7 @@ const translations = {
     'order.submit': 'Envoyer la Demande',
     'order.sending': 'Envoi en cours...',
     'order.contact.note': 'Des questions ? Écrivez-nous à',
-    'order.back': 'Retour au Portfolio',
+    'order.back': 'Retour au Catalogue',
     'order.error': "Désolé, une erreur s'est produite. Veuillez réessayer ou nous écrire directement.",
 
     // Order thank-you

@@ -11,7 +11,7 @@ export function getHeaderData(lang: Lang = 'en') {
   return {
     links: [
       { text: nav.home, href: getLocalizedUrl('/', lang) },
-      { text: nav.portfolio, href: getLocalizedUrl('/portfolio', lang) },
+      { text: nav.portfolio, href: getLocalizedUrl('/catalog', lang) },
       { text: nav.workshop, href: getLocalizedUrl('/workshop', lang), badge: lang === 'fr' ? 'GRATUIT' : 'FREE' },
       { text: nav.contact, href: getLocalizedUrl('/contact', lang) },
     ],
@@ -30,7 +30,7 @@ export function getFooterData(lang: Lang = 'en') {
         title: labels.brand,
         links: [
           { text: lang === 'fr' ? 'Accueil' : 'Home', href: getLocalizedUrl('/', lang) },
-          { text: lang === 'fr' ? 'Catalogue' : 'Catalog', href: getLocalizedUrl('/portfolio', lang) },
+          { text: lang === 'fr' ? 'Catalogue' : 'Catalog', href: getLocalizedUrl('/catalog', lang) },
           { text: lang === 'fr' ? 'Atelier' : 'Workshop', href: getLocalizedUrl('/workshop', lang) },
           { text: 'Contact', href: getLocalizedUrl('/contact', lang) },
         ],

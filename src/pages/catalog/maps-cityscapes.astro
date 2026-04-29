@@ -13,10 +13,10 @@ const metadata = {
 };
 
 const items = [
-  { image: thumb, title: 'Luxembourg City', description: 'Colored cityscape — dense urban terrain in full detail' },
-  { image: img1, title: 'Topographical Map', description: 'Single-color relief with precise elevation layers' },
-  { image: img2, title: 'Spilimbergo', description: 'White cityscape with architectural street detail' },
-  { image: img3, title: 'Trieste', description: 'Coastal terrain and city elevation model' },
+  { image: thumb, title: 'Luxembourg City', description: 'Colored cityscape — dense urban terrain in full detail', price: '€30', label: 'Colored' },
+  { image: img1, title: 'Topographical Map', description: 'Single-color relief with precise elevation layers', price: '€20', label: 'White' },
+  { image: img2, title: 'Spilimbergo', description: 'White cityscape with architectural street detail', price: '€20', label: 'White' },
+  { image: img3, title: 'Trieste', description: 'Coastal terrain and city elevation model', price: '€20', label: 'White' },
 ];
 ---
 
@@ -26,7 +26,7 @@ const items = [
       <nav class="mb-6 text-sm">
         <a href={getPermalink('/')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Home</a>
         <span class="mx-2 text-gray-400">/</span>
-        <a href={getPermalink('/portfolio')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Catalog</a>
+        <a href={getPermalink('/catalog')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Catalog</a>
         <span class="mx-2 text-gray-400">/</span>
         <span class="text-gray-900 dark:text-gray-100 font-semibold">3D Maps & Cityscapes</span>
       </nav>
@@ -79,6 +79,12 @@ const items = [
             </div>
           </div>
 
+          <!-- Dimensions -->
+          <div class="flex items-center justify-between px-4 py-2 mb-6 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
+            <span class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">Dimensions</span>
+            <span class="text-sm font-bold text-gray-700 dark:text-gray-300">150 × 150 mm</span>
+          </div>
+
           <!-- Location required note -->
           <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/50 rounded-lg p-4 mb-6">
             <div class="flex items-start gap-2">
@@ -117,7 +123,7 @@ const items = [
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {items.map((item) => (
           <div class="group relative bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300">
-            <div class="aspect-square overflow-hidden bg-gray-100 dark:bg-slate-700">
+            <div class="relative aspect-square bg-gray-100 dark:bg-slate-700">
               <Image
                 src={item.image}
                 alt={item.title}
@@ -125,6 +131,10 @@ const items = [
                 widths={[400, 768]}
                 sizes="(max-width: 768px) 100vw, 400px"
               />
+              <div class="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white rounded-lg px-2.5 py-1.5 text-center leading-tight pointer-events-none">
+                <div class="text-lg font-extrabold">{item.price}</div>
+                <div class="text-[10px] font-medium uppercase tracking-wide opacity-80">{item.label}</div>
+              </div>
             </div>
             <div class="p-4">
               <h3 class="font-bold text-lg text-gray-900 dark:text-gray-100 mb-1">{item.title}</h3>
@@ -150,7 +160,7 @@ const items = [
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
           </a>
           <a
-            href={getPermalink('/portfolio')}
+            href={getPermalink('/catalog')}
             class="inline-flex items-center justify-center gap-2 border-2 border-gray-300 dark:border-gray-600 hover:border-primary dark:hover:border-primary text-gray-900 dark:text-gray-100 font-bold py-4 px-8 rounded-lg transition-all duration-300"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>

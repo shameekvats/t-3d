@@ -14,10 +14,10 @@ const t = useTranslations(lang);
 const metadata = { title: 'Cartes 3D & Maquettes Urbaines — tattva-3d' };
 
 const items = [
-  { image: thumb, title: t('maps.i1.title'), description: t('maps.i1.desc') },
-  { image: img1,  title: t('maps.i2.title'), description: t('maps.i2.desc') },
-  { image: img2,  title: t('maps.i3.title'), description: t('maps.i3.desc') },
-  { image: img3,  title: t('maps.i4.title'), description: t('maps.i4.desc') },
+  { image: thumb, title: t('maps.i1.title'), description: t('maps.i1.desc'), price: t('maps.i1.price'), label: t('maps.i1.priceLabel') },
+  { image: img1,  title: t('maps.i2.title'), description: t('maps.i2.desc'), price: t('maps.i2.price'), label: t('maps.i2.priceLabel') },
+  { image: img2,  title: t('maps.i3.title'), description: t('maps.i3.desc'), price: t('maps.i3.price'), label: t('maps.i3.priceLabel') },
+  { image: img3,  title: t('maps.i4.title'), description: t('maps.i4.desc'), price: t('maps.i4.price'), label: t('maps.i4.priceLabel') },
 ];
 ---
 
@@ -27,7 +27,7 @@ const items = [
       <nav class="mb-6 text-sm">
         <a href={getLocalizedUrl('/', lang)} class="text-gray-600 dark:text-gray-400 hover:text-primary">{t('portfolio.breadcrumb.home')}</a>
         <span class="mx-2 text-gray-400">/</span>
-        <a href={getLocalizedUrl('/portfolio', lang)} class="text-gray-600 dark:text-gray-400 hover:text-primary">{t('portfolio.breadcrumb.portfolio')}</a>
+        <a href={getLocalizedUrl('/catalog', lang)} class="text-gray-600 dark:text-gray-400 hover:text-primary">{t('portfolio.breadcrumb.portfolio')}</a>
         <span class="mx-2 text-gray-400">/</span>
         <span class="text-gray-900 dark:text-gray-100 font-semibold">{t('maps.title')}</span>
       </nav>
@@ -71,6 +71,12 @@ const items = [
             </div>
           </div>
 
+          <!-- Dimensions -->
+          <div class="flex items-center justify-between px-4 py-2 mb-6 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
+            <span class="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">{t('maps.spec.size.label')}</span>
+            <span class="text-sm font-bold text-gray-700 dark:text-gray-300">{t('maps.spec.size')}</span>
+          </div>
+
           <!-- Location required note -->
           <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/50 rounded-lg p-4 mb-6">
             <div class="flex items-start gap-2">
@@ -108,8 +114,12 @@ const items = [
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {items.map((item) => (
           <div class="group relative bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300">
-            <div class="aspect-square overflow-hidden bg-gray-100 dark:bg-slate-700">
+            <div class="relative aspect-square bg-gray-100 dark:bg-slate-700">
               <Image src={item.image} alt={item.title} class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" widths={[400, 768]} sizes="(max-width: 768px) 100vw, 400px" />
+              <div class="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white rounded-lg px-2.5 py-1.5 text-center leading-tight pointer-events-none">
+                <div class="text-lg font-extrabold">{item.price}</div>
+                <div class="text-[10px] font-medium uppercase tracking-wide opacity-80">{item.label}</div>
+              </div>
             </div>
             <div class="p-4">
               <h3 class="font-bold text-lg text-gray-900 dark:text-gray-100 mb-1">{item.title}</h3>
@@ -131,7 +141,7 @@ const items = [
             <span>{t('maps.order.cta')}</span>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
           </a>
-          <a href={getLocalizedUrl('/portfolio', lang)} class="inline-flex items-center justify-center gap-2 border-2 border-gray-300 dark:border-gray-600 hover:border-primary text-gray-900 dark:text-gray-100 font-bold py-4 px-8 rounded-lg transition-all duration-300">
+          <a href={getLocalizedUrl('/catalog', lang)} class="inline-flex items-center justify-center gap-2 border-2 border-gray-300 dark:border-gray-600 hover:border-primary text-gray-900 dark:text-gray-100 font-bold py-4 px-8 rounded-lg transition-all duration-300">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
             <span>{t('portfolio.backToPortfolio')}</span>
           </a>
