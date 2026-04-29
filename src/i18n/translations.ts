@@ -203,8 +203,8 @@ const translations = {
     'maps.spec.size': '150 × 150 mm',
     'maps.i1.price': '€30', 'maps.i1.priceLabel': 'Colored',
     'maps.i2.price': '€20', 'maps.i2.priceLabel': 'White',
-    'maps.i3.price': '€20', 'maps.i3.priceLabel': 'White',
-    'maps.i4.price': '€20', 'maps.i4.priceLabel': 'White',
+    'maps.i3.price': '€30', 'maps.i3.priceLabel': 'Colored',
+    'maps.i4.price': '€30', 'maps.i4.priceLabel': 'Colored',
     'maps.order.cta': 'Order Your Custom Map',
 
     // Glow photos page
@@ -628,8 +628,8 @@ const translations = {
     'maps.spec.size': '150 × 150 mm',
     'maps.i1.price': '30 €', 'maps.i1.priceLabel': 'Coloré',
     'maps.i2.price': '20 €', 'maps.i2.priceLabel': 'Blanc',
-    'maps.i3.price': '20 €', 'maps.i3.priceLabel': 'Blanc',
-    'maps.i4.price': '20 €', 'maps.i4.priceLabel': 'Blanc',
+    'maps.i3.price': '30 €', 'maps.i3.priceLabel': 'Coloré',
+    'maps.i4.price': '30 €', 'maps.i4.priceLabel': 'Coloré',
     'maps.order.cta': 'Commander Votre Carte Personnalisée',
 
     // Glow photos page
