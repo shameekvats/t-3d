@@ -1,0 +1,235 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import { useTranslations, getLocalizedUrl } from '~/i18n/utils';
+
+const lang = 'fr';
+const t = useTranslations(lang);
+
+const metadata = {
+  title: "Atelier d'Impression 3D Gratuit — tattva-3d",
+  description: "Rejoignez notre atelier pratique d'impression 3D. De l'idée à l'objet réel — fabriqué par vous. Aucune expérience requise. Dès 12 ans.",
+};
+---
+
+<Layout metadata={metadata}>
+  <Hero>
+    <Fragment slot="title">{t('workshop.title')}</Fragment>
+    <Fragment slot="subtitle">{t('workshop.subtitle')}</Fragment>
+    <Fragment slot="bg">
+      <div class="absolute inset-0 overflow-hidden">
+        <video autoplay muted loop playsinline class="hero-video">
+          <source src="/movies/print_plate_25fps.mp4" type="video/mp4" />
+        </video>
+        <div class="absolute inset-0 hero-overlay-light dark:hero-overlay-dark"></div>
+      </div>
+    </Fragment>
+  </Hero>
+
+  <!-- What You'll Learn -->
+  <section class="py-16 md:py-20 bg-white dark:bg-slate-900">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">{t('workshop.learn.title')}</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">{t('workshop.learn.subtitle')}</p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {[
+          { icon: 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z', title: t('workshop.learn.basics.title'), desc: t('workshop.learn.basics.desc') },
+          { icon: 'M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z', title: t('workshop.learn.keychains.title'), desc: t('workshop.learn.keychains.desc') },
+          { icon: 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z', title: t('workshop.learn.images.title'), desc: t('workshop.learn.images.desc') },
+          { icon: 'M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7', title: t('workshop.learn.jewelry.title'), desc: t('workshop.learn.jewelry.desc') },
+          { icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z', title: t('workshop.learn.workflow.title'), desc: t('workshop.learn.workflow.desc') },
+        ].map(({ icon, title, desc }) => (
+          <div class="text-center p-6 bg-gray-50 dark:bg-slate-800 rounded-xl">
+            <div class="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+              <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d={icon} />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">{title}</h3>
+            <p class="text-gray-600 dark:text-gray-400">{desc}</p>
+          </div>
+        ))}
+        <div class="text-center p-6 bg-primary/5 dark:bg-primary/10 rounded-xl border-2 border-primary/20">
+          <div class="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-primary">{t('workshop.learn.ages.title')}</h3>
+          <p class="text-gray-600 dark:text-gray-400">{t('workshop.learn.ages.desc')}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Workshop Details -->
+  <section class="py-16 md:py-20 bg-gray-50/50 dark:bg-slate-900/50">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">{t('workshop.details.title')}</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <div class="text-center p-8 bg-white dark:bg-slate-800 rounded-xl shadow-md">
+          <div class="text-4xl mb-4">📅</div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">{t('workshop.details.when.title')}</h3>
+          <p class="text-gray-600 dark:text-gray-400 mb-2">{t('workshop.details.when.day')}</p>
+          <p class="text-lg font-medium text-gray-900 dark:text-gray-100">{t('workshop.details.when.time')}</p>
+        </div>
+        <div class="text-center p-8 bg-white dark:bg-slate-800 rounded-xl shadow-md">
+          <div class="text-4xl mb-4">📍</div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">{t('workshop.details.where.title')}</h3>
+          <p class="text-gray-600 dark:text-gray-400">{t('workshop.details.where.city')}</p>
+          <p class="text-sm text-gray-500 dark:text-gray-500 mt-2">{t('workshop.details.where.note')}</p>
+        </div>
+        <div class="text-center p-8 bg-white dark:bg-slate-800 rounded-xl shadow-md border-2 border-primary">
+          <div class="text-4xl mb-4">💰</div>
+          <h3 class="text-xl font-semibold mb-3 text-gray-900 dark:text-gray-100">{t('workshop.details.price.title')}</h3>
+          <p class="text-3xl font-bold text-primary mb-2">{t('workshop.details.price.value')}</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400">{t('workshop.details.price.note')}</p>
+        </div>
+      </div>
+
+      <div class="max-w-2xl mx-auto bg-white dark:bg-slate-800 rounded-xl shadow-md p-8">
+        <h3 class="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-gray-100">{t('workshop.bring.title')}</h3>
+        <ul class="space-y-3 text-gray-600 dark:text-gray-400">
+          {[t('workshop.bring.laptop'), t('workshop.bring.ideas')].map((item) => (
+            <li class="flex items-start">
+              <svg class="w-6 h-6 text-primary mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span><strong>{item}</strong></span>
+            </li>
+          ))}
+          <li class="flex items-start">
+            <svg class="w-6 h-6 text-primary mr-3 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span><strong class="text-primary">{t('workshop.bring.yourself')}</strong></span>
+          </li>
+        </ul>
+        <div class="mt-6 p-4 bg-gray-50 dark:bg-slate-900 rounded-lg">
+          <p class="text-sm text-gray-600 dark:text-gray-400 text-center whitespace-pre-line">{t('workshop.bring.note')}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Registration Form -->
+  <section class="py-16 md:py-20 bg-white dark:bg-slate-900" id="register">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">{t('workshop.register.title')}</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300">{t('workshop.register.subtitle')}</p>
+      </div>
+
+      <form action="https://formspree.io/f/xqeezkka" method="POST" class="bg-gray-50 dark:bg-slate-800 rounded-xl shadow-lg p-8">
+        <input type="hidden" name="_subject" value="Nouvelle Inscription Atelier" />
+        <input type="hidden" name="_next" value={getLocalizedUrl('/workshop/thank-you', lang)} />
+        <input type="text" name="_gotcha" style="display:none" />
+
+        <div class="mb-6">
+          <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">👤 {t('workshop.register.name')} <span class="text-red-500">*</span></label>
+          <input type="text" id="name" name="name" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors" placeholder={t('workshop.register.namePlaceholder')} />
+        </div>
+
+        <div class="mb-6">
+          <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">📧 {t('workshop.register.email')} <span class="text-red-500">*</span></label>
+          <input type="email" id="email" name="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors" placeholder="votre.email@exemple.com" />
+        </div>
+
+        <div class="mb-6">
+          <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">📱 {t('workshop.register.phone')} <span class="text-gray-400">{t('workshop.register.phone.opt')}</span></label>
+          <input type="tel" id="phone" name="phone" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors" placeholder="+352 123 456 789" />
+        </div>
+
+        <div class="mb-6">
+          <label for="workshop-date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">📅 {t('workshop.register.date')} <span class="text-red-500">*</span></label>
+          <select id="workshop-date" name="workshop-date" required class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+            <option value="">{t('workshop.register.dateDefault')}</option>
+            <option value="2026-03-28">Samedi, 28 mars 2026</option>
+            <option value="2026-04-04">Samedi, 4 avril 2026</option>
+            <option value="2026-04-11">Samedi, 11 avril 2026</option>
+            <option value="2026-04-18">Samedi, 18 avril 2026</option>
+            <option value="2026-04-25">Samedi, 25 avril 2026</option>
+          </select>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">🖨️ {t('workshop.register.exp')} <span class="text-gray-400">{t('workshop.register.phone.opt')}</span></label>
+          <div class="space-y-3">
+            {[['never', t('workshop.register.exp.never')], ['a-little', t('workshop.register.exp.little')], ['basics', t('workshop.register.exp.basics')]].map(([val, label]) => (
+              <label class="flex items-center p-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary cursor-pointer transition-colors">
+                <input type="radio" name="experience" value={val} class="w-4 h-4 text-primary focus:ring-primary" />
+                <span class="ml-3 text-gray-700 dark:text-gray-300">{label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">✨ {t('workshop.register.excited')} <span class="text-gray-400">{t('workshop.register.phone.opt')}</span></label>
+          <div class="space-y-3">
+            {[
+              ['keychain', t('workshop.register.excited.keychain')],
+              ['jewelry', t('workshop.register.excited.jewelry')],
+              ['image-to-3d', t('workshop.register.excited.image')],
+              ['cookie-cutter', t('workshop.register.excited.cookie')],
+              ['bookmarks', t('workshop.register.excited.bookmark')],
+              ['brand-merchandise', t('workshop.register.excited.brand')],
+              ['exploring', t('workshop.register.excited.exploring')],
+            ].map(([val, label]) => (
+              <label class="flex items-center p-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary cursor-pointer transition-colors">
+                <input type="radio" name="excited-about" value={val} class="w-4 h-4 text-primary focus:ring-primary" />
+                <span class="ml-3 text-gray-700 dark:text-gray-300">{label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">💡 {t('workshop.register.idea')} <span class="text-gray-400">{t('workshop.register.phone.opt')}</span></label>
+          <div class="space-y-3">
+            {[['yes', t('workshop.register.idea.yes')], ['no', t('workshop.register.idea.no')]].map(([val, label]) => (
+              <label class="flex items-center p-3 rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary cursor-pointer transition-colors">
+                <input type="radio" name="has-idea" value={val} class="w-4 h-4 text-primary focus:ring-primary" />
+                <span class="ml-3 text-gray-700 dark:text-gray-300">{label}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <label for="referral-source" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">🔍 {t('workshop.register.referral')} <span class="text-gray-400">{t('workshop.register.phone.opt')}</span></label>
+          <select id="referral-source" name="referral-source" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-slate-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-primary focus:border-transparent transition-colors">
+            <option value="">{t('workshop.register.referralDefault')}</option>
+            <option value="instagram">{t('workshop.register.referral.instagram')}</option>
+            <option value="website">{t('workshop.register.referral.website')}</option>
+            <option value="word-of-mouth">{t('workshop.register.referral.word')}</option>
+          </select>
+        </div>
+
+        <button type="submit" class="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg flex items-center justify-center gap-2">
+          <span>{t('workshop.register.submit')}</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </button>
+
+        <p class="mt-4 text-sm text-gray-500 dark:text-gray-400 text-center">{t('workshop.register.consent')}</p>
+      </form>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero-video { width: 100vw; height: 100vh; object-fit: cover; position: absolute; top: 0; left: 0; z-index: -1; transition: opacity 0.3s ease; }
+  :root .hero-video { opacity: 0.25; }
+  :root.dark .hero-video { opacity: 0.4; }
+  @media (max-width: 768px) { .hero-video { opacity: 0.2 !important; } }
+  .hero-overlay-light { background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.3) 100%); }
+  .hero-overlay-dark { background: linear-gradient(135deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%); }
+  input[type="radio"]:checked + span { color: rgb(var(--color-primary)); font-weight: 500; }
+  input[type="radio"]:checked { accent-color: rgb(var(--color-primary)); }
+</style>

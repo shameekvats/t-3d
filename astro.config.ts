@@ -13,6 +13,13 @@ export default defineConfig({
   site: 'https://t-3d.me', // ← CHANGED: Your custom domain
   base: '/', // ← CHANGED: Root path for custom domain
   output: 'static',
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'fr'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   image: {
     remotePatterns: [{ protocol: 'https' }],
   },
