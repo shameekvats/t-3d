@@ -1,0 +1,205 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { useTranslations, getLocalizedUrl } from '~/i18n/utils';
+
+const lang = 'fr';
+const t = useTranslations(lang);
+
+const metadata = {
+  title: 'Passer une Commande — tattva-3d',
+  description: 'Commandez des produits imprimés en 3D sur mesure chez tattva-3d.',
+};
+
+const inputClass = "w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white";
+---
+
+<Layout metadata={metadata}>
+  <section class="pt-24 pb-20 bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <nav class="mb-8 text-sm">
+        <a href={getLocalizedUrl('/', lang)} class="text-gray-600 dark:text-gray-400 hover:text-primary">{t('portfolio.breadcrumb.home')}</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <a href={getLocalizedUrl('/portfolio', lang)} class="text-gray-600 dark:text-gray-400 hover:text-primary">{t('portfolio.breadcrumb.portfolio')}</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <span class="text-gray-900 dark:text-gray-100 font-semibold">{t('order.title')}</span>
+      </nav>
+
+      <div class="text-center mb-10">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-gray-100">{t('order.title')}</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300">{t('order.subtitle')}</p>
+      </div>
+
+      <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8">
+        <form action="https://formspree.io/f/mzzazwro" method="POST" id="orderForm">
+          <input type="hidden" name="_subject" value="Nouvelle Commande — tattva-3d" />
+
+          <!-- Product -->
+          <div class="mb-6">
+            <label for="product" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t('order.product')} *</label>
+            <select id="product" name="product" required class={inputClass}>
+              <option value="">{t('order.product.placeholder')}</option>
+              <option value="3D Glow Photos">{t('order.product.glowphotos')}</option>
+              <option value="Keychains">{t('order.product.keychains')}</option>
+              <option value="Bookmarks">{t('order.product.bookmarks')}</option>
+              <option value="Electronics">{t('order.product.electronics')}</option>
+              <option value="3D Maps & Cityscapes">{t('order.product.maps')}</option>
+              <option value="Fridge Magnets">{t('order.product.magnets')}</option>
+              <option value="Cookie Cutters">{t('order.product.cookies')}</option>
+              <option value="Lamps">{t('order.product.lamps')}</option>
+              <option value="Other / Custom">{t('order.product.other')}</option>
+            </select>
+          </div>
+
+          <!-- Name + Email -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t('order.name')} *</label>
+              <input type="text" id="name" name="name" required class={inputClass} placeholder={t('order.namePlaceholder')} />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t('order.email')} *</label>
+              <input type="email" id="email" name="email" required class={inputClass} placeholder={t('order.emailPlaceholder')} />
+            </div>
+          </div>
+
+          <!-- Phone + Quantity -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                {t('order.phone')} <span class="text-gray-400 font-normal">{t('order.phone.opt')}</span>
+              </label>
+              <input type="tel" id="phone" name="phone" class={inputClass} placeholder="+352 ..." />
+            </div>
+            <div>
+              <label for="quantity" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t('order.quantity')} *</label>
+              <input type="number" id="quantity" name="quantity" min="1" value="1" required class={inputClass} />
+            </div>
+          </div>
+
+          <!-- Project Details -->
+          <div class="mb-6">
+            <label for="details" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t('order.details')} *</label>
+            <textarea id="details" name="details" rows="4" required class={inputClass + " resize-vertical"} placeholder={t('order.detailsPlaceholder')}></textarea>
+          </div>
+
+          <!-- File Sharing -->
+          <div class="mb-6 p-4 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
+            <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">{t('order.files.title')}</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">{t('order.files.subtitle')}</p>
+            <div class="space-y-3">
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="radio" name="file_sharing" value="email" class="mt-0.5 text-primary focus:ring-primary" />
+                <span class="text-sm text-gray-700 dark:text-gray-300">{t('order.files.email')}</span>
+              </label>
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="radio" name="file_sharing" value="cloud" id="cloudRadio" class="mt-0.5 text-primary focus:ring-primary" />
+                <span class="text-sm text-gray-700 dark:text-gray-300">{t('order.files.cloud')}</span>
+              </label>
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="radio" name="file_sharing" value="none" checked class="mt-0.5 text-primary focus:ring-primary" />
+                <span class="text-sm text-gray-700 dark:text-gray-300">{t('order.files.none')}</span>
+              </label>
+            </div>
+            <div id="cloudLinkSection" class="hidden mt-4">
+              <label for="cloud_link" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t('order.files.cloudLink')}</label>
+              <input type="url" id="cloud_link" name="cloud_link" class={inputClass} placeholder={t('order.files.cloudLinkPlaceholder')} />
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div class="mb-8">
+            <label for="notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              {t('order.notes')} <span class="text-gray-400 font-normal">{t('order.notes.opt')}</span>
+            </label>
+            <textarea id="notes" name="notes" rows="3" class={inputClass + " resize-vertical"} placeholder={t('order.notesPlaceholder')}></textarea>
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            id="submitBtn"
+            class="w-full inline-flex items-center justify-center px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition duration-200 shadow-lg hover:shadow-xl disabled:opacity-50"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+            </svg>
+            <span id="btnText">{t('order.submit')}</span>
+          </button>
+        </form>
+
+        <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-center">
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {t('order.contact.note')} <a href="mailto:t-3d@ik.me" class="text-primary hover:underline font-medium">t-3d@ik.me</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-6 text-center">
+        <a href={getLocalizedUrl('/portfolio', lang)} class="text-sm text-gray-500 dark:text-gray-400 hover:text-primary">
+          ← {t('order.back')}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const params = new URLSearchParams(window.location.search);
+  const productParam = params.get('product');
+  if (productParam) {
+    const productMap: Record<string, string> = {
+      'glow-photos': '3D Glow Photos',
+      'keychains': 'Keychains',
+      'bookmarks': 'Bookmarks',
+      'electronics': 'Electronics',
+      'maps-cityscapes': '3D Maps & Cityscapes',
+      'fridge-magnets': 'Fridge Magnets',
+      'cookie-cutters': 'Cookie Cutters',
+      'lamps': 'Lamps',
+    };
+    const productSelect = document.getElementById('product') as HTMLSelectElement | null;
+    if (productSelect && productMap[productParam]) {
+      productSelect.value = productMap[productParam];
+    }
+  }
+
+  const cloudLinkSection = document.getElementById('cloudLinkSection');
+  document.querySelectorAll('input[name="file_sharing"]').forEach((radio) => {
+    radio.addEventListener('change', function (e) {
+      const target = e.target as HTMLInputElement;
+      cloudLinkSection?.classList.toggle('hidden', target.value !== 'cloud');
+    });
+  });
+
+  const orderForm = document.getElementById('orderForm') as HTMLFormElement | null;
+  const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null;
+  const btnText = document.getElementById('btnText');
+
+  orderForm?.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    if (!submitBtn || !btnText) return;
+    submitBtn.disabled = true;
+    btnText.textContent = 'Envoi en cours...';
+
+    try {
+      const response = await fetch(orderForm.action, {
+        method: 'POST',
+        body: new FormData(orderForm),
+        headers: { Accept: 'application/json' },
+      });
+      if (response.ok) {
+        window.location.href = '/fr/order/thank-you';
+      } else {
+        alert("Désolé, une erreur s'est produite. Veuillez réessayer ou nous écrire à t-3d@ik.me");
+        submitBtn.disabled = false;
+        btnText.textContent = 'Envoyer la Demande';
+      }
+    } catch {
+      alert("Désolé, une erreur s'est produite. Veuillez réessayer ou nous écrire à t-3d@ik.me");
+      submitBtn.disabled = false;
+      btnText.textContent = 'Envoyer la Demande';
+    }
+  });
+});
+</script>

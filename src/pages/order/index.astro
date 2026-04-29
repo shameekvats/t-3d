@@ -1,0 +1,206 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { getPermalink } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'Place an Order — tattva-3d',
+  description: 'Order custom 3D printed products from tattva-3d.',
+};
+
+const inputClass = "w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white";
+---
+
+<Layout metadata={metadata}>
+  <section class="pt-24 pb-20 bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <nav class="mb-8 text-sm">
+        <a href={getPermalink('/')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Home</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <a href={getPermalink('/portfolio')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Portfolio</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <span class="text-gray-900 dark:text-gray-100 font-semibold">Place an Order</span>
+      </nav>
+
+      <div class="text-center mb-10">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-gray-100">Place an Order</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300">Fill in your details and we'll get back to you to confirm.</p>
+      </div>
+
+      <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8">
+        <!-- To use a dedicated order form endpoint, create a new form at formspree.io and replace the action URL below -->
+        <form action="https://formspree.io/f/mzzazwro" method="POST" id="orderForm">
+          <input type="hidden" name="_subject" value="New Order Request — tattva-3d" />
+
+          <!-- Product -->
+          <div class="mb-6">
+            <label for="product" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Product *</label>
+            <select id="product" name="product" required class={inputClass}>
+              <option value="">Select a product...</option>
+              <option value="3D Glow Photos">3D Glow Photos</option>
+              <option value="Keychains">Keychains</option>
+              <option value="Bookmarks">Bookmarks</option>
+              <option value="Electronics">Electronics</option>
+              <option value="3D Maps & Cityscapes">3D Maps &amp; Cityscapes</option>
+              <option value="Fridge Magnets">Fridge Magnets</option>
+              <option value="Cookie Cutters">Cookie Cutters</option>
+              <option value="Lamps">Lamps</option>
+              <option value="Other / Custom">Other / Custom</option>
+            </select>
+          </div>
+
+          <!-- Name + Email -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name *</label>
+              <input type="text" id="name" name="name" required class={inputClass} placeholder="Your name" />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address *</label>
+              <input type="email" id="email" name="email" required class={inputClass} placeholder="your.email@example.com" />
+            </div>
+          </div>
+
+          <!-- Phone + Quantity -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Phone Number <span class="text-gray-400 font-normal">(optional)</span>
+              </label>
+              <input type="tel" id="phone" name="phone" class={inputClass} placeholder="+352 ..." />
+            </div>
+            <div>
+              <label for="quantity" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Quantity *</label>
+              <input type="number" id="quantity" name="quantity" min="1" value="1" required class={inputClass} />
+            </div>
+          </div>
+
+          <!-- Project Details -->
+          <div class="mb-6">
+            <label for="details" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Project Details *</label>
+            <textarea id="details" name="details" rows="4" required class={inputClass + " resize-vertical"} placeholder="Describe your order: colors, dimensions, custom text, special requirements..."></textarea>
+          </div>
+
+          <!-- File Sharing -->
+          <div class="mb-6 p-4 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
+            <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">File Sharing</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">Some products (like Glow Photos) require a high-resolution photo.</p>
+            <div class="space-y-3">
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="radio" name="file_sharing" value="email" class="mt-0.5 text-primary focus:ring-primary" />
+                <span class="text-sm text-gray-700 dark:text-gray-300">I'll email the file(s) to <strong>t-3d@ik.me</strong> after submitting</span>
+              </label>
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="radio" name="file_sharing" value="cloud" id="cloudRadio" class="mt-0.5 text-primary focus:ring-primary" />
+                <span class="text-sm text-gray-700 dark:text-gray-300">I have a cloud link (Google Drive, Dropbox, etc.)</span>
+              </label>
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="radio" name="file_sharing" value="none" checked class="mt-0.5 text-primary focus:ring-primary" />
+                <span class="text-sm text-gray-700 dark:text-gray-300">No files needed for my order</span>
+              </label>
+            </div>
+            <div id="cloudLinkSection" class="hidden mt-4">
+              <label for="cloud_link" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Cloud Link</label>
+              <input type="url" id="cloud_link" name="cloud_link" class={inputClass} placeholder="https://drive.google.com/..." />
+            </div>
+          </div>
+
+          <!-- Notes -->
+          <div class="mb-8">
+            <label for="notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              Additional Notes <span class="text-gray-400 font-normal">(optional)</span>
+            </label>
+            <textarea id="notes" name="notes" rows="3" class={inputClass + " resize-vertical"} placeholder="Anything else you'd like us to know?"></textarea>
+          </div>
+
+          <!-- Submit -->
+          <button
+            type="submit"
+            id="submitBtn"
+            class="w-full inline-flex items-center justify-center px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition duration-200 shadow-lg hover:shadow-xl disabled:opacity-50"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+            </svg>
+            <span id="btnText">Send Order Request</span>
+          </button>
+        </form>
+
+        <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-center">
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            Questions? Email us at <a href="mailto:t-3d@ik.me" class="text-primary hover:underline font-medium">t-3d@ik.me</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-6 text-center">
+        <a href={getPermalink('/portfolio')} class="text-sm text-gray-500 dark:text-gray-400 hover:text-primary">
+          ← Back to Portfolio
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Pre-fill product from URL param
+  const params = new URLSearchParams(window.location.search);
+  const productParam = params.get('product');
+  if (productParam) {
+    const productMap: Record<string, string> = {
+      'glow-photos': '3D Glow Photos',
+      'keychains': 'Keychains',
+      'bookmarks': 'Bookmarks',
+      'electronics': 'Electronics',
+      'maps-cityscapes': '3D Maps & Cityscapes',
+      'fridge-magnets': 'Fridge Magnets',
+      'cookie-cutters': 'Cookie Cutters',
+      'lamps': 'Lamps',
+    };
+    const productSelect = document.getElementById('product') as HTMLSelectElement | null;
+    if (productSelect && productMap[productParam]) {
+      productSelect.value = productMap[productParam];
+    }
+  }
+
+  // Cloud link toggle
+  const cloudLinkSection = document.getElementById('cloudLinkSection');
+  document.querySelectorAll('input[name="file_sharing"]').forEach((radio) => {
+    radio.addEventListener('change', function (e) {
+      const target = e.target as HTMLInputElement;
+      cloudLinkSection?.classList.toggle('hidden', target.value !== 'cloud');
+    });
+  });
+
+  // Form submission
+  const orderForm = document.getElementById('orderForm') as HTMLFormElement | null;
+  const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null;
+  const btnText = document.getElementById('btnText');
+
+  orderForm?.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    if (!submitBtn || !btnText) return;
+    submitBtn.disabled = true;
+    btnText.textContent = 'Sending...';
+
+    try {
+      const response = await fetch(orderForm.action, {
+        method: 'POST',
+        body: new FormData(orderForm),
+        headers: { Accept: 'application/json' },
+      });
+      if (response.ok) {
+        window.location.href = '/order/thank-you';
+      } else {
+        alert('Sorry, there was an error. Please try again or email us at t-3d@ik.me');
+        submitBtn.disabled = false;
+        btnText.textContent = 'Send Order Request';
+      }
+    } catch {
+      alert('Sorry, there was an error. Please try again or email us at t-3d@ik.me');
+      submitBtn.disabled = false;
+      btnText.textContent = 'Send Order Request';
+    }
+  });
+});
+</script>
