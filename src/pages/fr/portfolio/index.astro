@@ -31,14 +31,14 @@ import magnetImg from '~/assets/images/Gallery/fridge_magnets/1_IMG_4307.jpg';
 const lang = 'fr';
 const t = useTranslations(lang);
 
-const metadata = { title: 'Portfolio — tattva-3d' };
+const metadata = { title: 'Catalogue — tattva-3d' };
 
 const categories = [
   { id: 'lamps', title: t('category.lamps.title'), icon: '💡', description: t('category.lamps.description'), image: lampsImg, slug: 'lamps' },
   { id: 'keychains', title: t('category.keychains.title'), icon: '🔑', description: t('category.keychains.description'), image: keychainImg, gridImages: [keychain1, keychain2, keychain3, keychain4], slug: 'keychains' },
   { id: 'bookmarks', title: t('category.bookmarks.title'), icon: '📖', description: t('category.bookmarks.description'), image: bookmarkImg, gridImages: [bookmark1, bookmark2, bookmark3, bookmark4], slug: 'bookmarks' },
   { id: 'electronics', title: t('category.electronics.title'), icon: '⚙️', description: t('category.electronics.description'), image: electronicsImg, gridImages: [electronics1, electronics2, electronics3, electronics4], slug: 'electronics' },
-  { id: 'maps', title: t('category.maps.title'), icon: '🗺️', description: t('category.maps.description'), image: mapImg, slug: 'maps-cityscapes' },
+  { id: 'maps', title: t('category.maps.title'), icon: '🗺️', description: t('category.maps.description'), image: mapImg, priceFrom: 20, slug: 'maps-cityscapes' },
   { id: 'glow-photos', title: t('category.glowphotos.title'), icon: '✨', description: t('category.glowphotos.description'), image: glowImg, gridImages: [glow1, glow2], priceFrom: 15, slug: 'glow-photos' },
   { id: 'fridge-magnets', title: t('category.magnets.title'), icon: '🧲', description: t('category.magnets.description'), image: magnetImg, slug: 'fridge-magnets' },
   { id: 'cookie-cutters', title: t('category.cookies.title'), icon: '🍪', description: t('category.cookies.description'), image: cookieImg, slug: 'cookie-cutters' },
@@ -77,7 +77,7 @@ const categories = [
                 </div>
               )}
               {category.priceFrom && (
-                <div class="absolute top-3 right-3 z-10 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+                <div class="absolute top-3 right-3 z-10 bg-primary text-white text-sm font-bold px-3 py-2 rounded-full shadow-lg">
                   {t('portfolio.priceFrom')} {category.priceFrom} €
                 </div>
               )}

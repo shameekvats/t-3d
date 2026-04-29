@@ -9,7 +9,7 @@ const translations = {
   en: {
     // Navigation
     'nav.home': 'Home',
-    'nav.portfolio': 'Portfolio',
+    'nav.portfolio': 'Catalog',
     'nav.workshop': 'Workshop',
     'nav.contact': 'Contact',
 
@@ -34,8 +34,8 @@ const translations = {
     'home.cta2.start': 'Start Your Project',
 
     // Portfolio index
-    'portfolio.title': 'Our Portfolio',
-    'portfolio.subtitle': 'Explore our collection of 3D printed products. Click any category to see variations and examples.',
+    'portfolio.title': 'Our Catalog',
+    'portfolio.subtitle': 'Explore our catalog of custom 3D printed products. Click any category to see examples, pricing, and ordering options.',
     'portfolio.viewGallery': 'View Gallery',
     'portfolio.cta.title': 'Have a Unique Idea?',
     'portfolio.cta.subtitle': "Don't see what you're looking for? We specialize in bringing custom ideas to life. Let's discuss your project!",
@@ -61,9 +61,9 @@ const translations = {
 
     // Shared portfolio sub-page strings
     'portfolio.breadcrumb.home': 'Home',
-    'portfolio.breadcrumb.portfolio': 'Portfolio',
+    'portfolio.breadcrumb.portfolio': 'Catalog',
     'portfolio.examples': 'Examples',
-    'portfolio.backToPortfolio': 'Back to Portfolio',
+    'portfolio.backToPortfolio': 'Back to Catalog',
     'portfolio.orderNow': 'Order Now',
     'portfolio.priceFrom': 'Starting at',
 
@@ -174,22 +174,32 @@ const translations = {
 
     // Maps page
     'maps.title': '3D Maps & Cityscapes',
-    'maps.subtitle': 'Stunning 3D models of your favorite places with accurate terrain',
-    'maps.description': 'Bring geography to life with 3D topographical maps and cityscape models. Perfect for displaying your favorite hiking spots, hometown, travel destinations, or places with special meaning.',
-    'maps.f1': 'Real Terrain Data',
-    'maps.f2': 'City Models',
-    'maps.f3': 'Any Location',
-    'maps.f4': 'Unique Gifts',
-    'maps.cta.title': 'Create Your 3D Map',
-    'maps.cta.subtitle': "Tell us the location — we'll create an accurate 3D topographical model of any place on Earth!",
+    'maps.subtitle': 'Own any corner of the world in stunning 3D relief',
+    'maps.description': "Turn any place on Earth into a beautiful 3D art piece. The mountain range you hiked, the city you grew up in, a dream destination, or a spot with a special memory — we source the real terrain data and print it with precision. A truly one-of-a-kind gift.",
+    'maps.f1': 'Real Satellite Data',
+    'maps.f2': 'Any Location',
+    'maps.f3': 'White or Colored',
+    'maps.f4': 'Unique Gift',
+    'maps.cta.title': 'Order Your Custom 3D Map',
+    'maps.cta.subtitle': "Tell us the place — a name, coordinates, or a rough area is all we need. We handle the data and the printing.",
     'maps.i1.title': 'Cityscape Model',
     'maps.i1.desc': 'Detailed 3D city model',
     'maps.i2.title': 'Topographical Map',
     'maps.i2.desc': 'Terrain elevation details',
     'maps.i3.title': 'Spilimbergo Cityscape',
     'maps.i3.desc': 'Custom city model with architectural detail',
-    'maps.i4.title': 'Trieste Topographical Map',
-    'maps.i4.desc': 'Coastal terrain and city elevation model',
+    'maps.i4.title': 'Trieste',
+    'maps.i4.desc': 'Coastal terrain and city elevation',
+
+    // Maps product specs
+    'maps.price.label': 'Pricing',
+    'maps.price.white.label': 'White / Single Color',
+    'maps.price.white': '€20',
+    'maps.price.color.label': 'Colored',
+    'maps.price.color': '€30',
+    'maps.spec.location.label': 'Location Required',
+    'maps.spec.location.note': 'Share a place name, coordinates, or a rough area. We source the terrain data and handle everything else.',
+    'maps.order.cta': 'Order Your Custom Map',
 
     // Glow photos page
     'glow.title': '3D Glow Photos',
@@ -418,7 +428,7 @@ const translations = {
   fr: {
     // Navigation
     'nav.home': 'Accueil',
-    'nav.portfolio': 'Portfolio',
+    'nav.portfolio': 'Catalogue',
     'nav.workshop': 'Atelier',
     'nav.contact': 'Contact',
 
@@ -443,8 +453,8 @@ const translations = {
     'home.cta2.start': 'Démarrer Votre Projet',
 
     // Portfolio index
-    'portfolio.title': 'Notre Portfolio',
-    'portfolio.subtitle': 'Explorez notre collection de produits imprimés en 3D. Cliquez sur une catégorie pour voir les variantes et exemples.',
+    'portfolio.title': 'Notre Catalogue',
+    'portfolio.subtitle': 'Explorez notre catalogue de produits imprimés en 3D. Cliquez sur une catégorie pour voir les exemples, les tarifs et les options de commande.',
     'portfolio.viewGallery': 'Voir la Galerie',
     'portfolio.cta.title': 'Vous avez une idée unique ?',
     'portfolio.cta.subtitle': "Vous ne trouvez pas ce que vous cherchez ? Nous sommes spécialisés dans la réalisation d'idées sur mesure. Parlons de votre projet !",
@@ -470,9 +480,9 @@ const translations = {
 
     // Shared portfolio sub-page strings
     'portfolio.breadcrumb.home': 'Accueil',
-    'portfolio.breadcrumb.portfolio': 'Portfolio',
+    'portfolio.breadcrumb.portfolio': 'Catalogue',
     'portfolio.examples': 'Exemples',
-    'portfolio.backToPortfolio': 'Retour au Portfolio',
+    'portfolio.backToPortfolio': 'Retour au Catalogue',
     'portfolio.orderNow': 'Commander',
     'portfolio.priceFrom': 'À partir de',
 
@@ -583,22 +593,32 @@ const translations = {
 
     // Maps page
     'maps.title': 'Cartes 3D & Maquettes Urbaines',
-    'maps.subtitle': "Superbes modèles 3D de vos endroits préférés avec un terrain précis",
-    'maps.description': "Donnez vie à la géographie avec des cartes topographiques 3D et des maquettes urbaines. Parfaites pour afficher vos randonnées préférées, votre ville natale, destinations de voyage ou lieux chargés de sens.",
-    'maps.f1': 'Données Terrain Réelles',
-    'maps.f2': 'Maquettes Urbaines',
-    'maps.f3': "N'importe Quel Lieu",
-    'maps.f4': 'Cadeaux Uniques',
-    'maps.cta.title': 'Créez Votre Carte 3D',
-    'maps.cta.subtitle': "Dites-nous le lieu — nous créerons un modèle topographique 3D précis de n'importe quel endroit sur Terre !",
+    'maps.subtitle': "Possédez n'importe quel coin du monde en superbe relief 3D",
+    'maps.description': "Transformez n'importe quel endroit sur Terre en une superbe œuvre d'art 3D. La chaîne de montagnes que vous avez randonnée, la ville où vous avez grandi, une destination de rêve ou un lieu plein de souvenirs — nous sourceons les données terrain et imprimons avec précision. Un cadeau unique et incomparable.",
+    'maps.f1': 'Données Satellite Réelles',
+    'maps.f2': "N'importe Quel Lieu",
+    'maps.f3': 'Blanc ou Coloré',
+    'maps.f4': 'Cadeau Unique',
+    'maps.cta.title': 'Commandez Votre Carte 3D Personnalisée',
+    'maps.cta.subtitle': "Dites-nous le lieu — un nom, des coordonnées ou une zone approximative suffit. Nous gérons les données et l'impression.",
     'maps.i1.title': 'Maquette Urbaine',
     'maps.i1.desc': 'Modèle 3D de ville détaillé',
     'maps.i2.title': 'Carte Topographique',
     'maps.i2.desc': "Détails d'élévation du terrain",
     'maps.i3.title': 'Maquette de Spilimbergo',
     'maps.i3.desc': 'Modèle urbain avec détail architectural',
-    'maps.i4.title': 'Carte Topographique de Trieste',
-    'maps.i4.desc': "Modèle d'élévation côtier et urbain",
+    'maps.i4.title': 'Trieste',
+    'maps.i4.desc': "Terrain côtier et élévation de la ville",
+
+    // Maps product specs
+    'maps.price.label': 'Tarification',
+    'maps.price.white.label': 'Blanc / Couleur Unique',
+    'maps.price.white': '20 €',
+    'maps.price.color.label': 'Coloré',
+    'maps.price.color': '30 €',
+    'maps.spec.location.label': 'Lieu Requis',
+    'maps.spec.location.note': "Partagez un nom de lieu, des coordonnées ou une zone approximative. Nous gérons les données terrain et tout le reste.",
+    'maps.order.cta': 'Commander Votre Carte Personnalisée',
 
     // Glow photos page
     'glow.title': 'Photos 3D Lumineuses',

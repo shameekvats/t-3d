@@ -34,7 +34,7 @@ import lampsImg from '~/assets/images/Gallery/lamps/mini-lamps.jpg';
 import magnetImg from '~/assets/images/Gallery/fridge_magnets/1_IMG_4307.jpg';
 
 const metadata = {
-  title: 'Portfolio - 3D Printed Products',
+  title: 'Catalog - 3D Printed Products',
 };
 
 const categories = [
@@ -84,6 +84,7 @@ const categories = [
     description: 'Stunning 3D topographical maps and cityscape models of your favorite places',
     image: mapImg,
     variationCount: 2,
+    priceFrom: 20,
     slug: 'maps-cityscapes',
   },
   {
@@ -121,10 +122,10 @@ const categories = [
 <Layout metadata={metadata}>
   <Hero>
     <Fragment slot="title">
-      Our Portfolio
+      Our Catalog
     </Fragment>
     <Fragment slot="subtitle">
-      Explore our collection of 3D printed products. Click any category to see variations and examples.
+      Explore our catalog of custom 3D printed products. Click any category to see examples, pricing, and ordering options.
     </Fragment>
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/20"></div>
@@ -161,7 +162,7 @@ const categories = [
                 </div>
               )}
               {category.priceFrom && (
-                <div class="absolute top-3 right-3 z-10 bg-primary text-white text-xs font-bold px-3 py-1.5 rounded-full shadow-lg">
+                <div class="absolute top-3 right-3 z-10 bg-primary text-white text-sm font-bold px-3 py-2 rounded-full shadow-lg">
                   From €{category.priceFrom}
                 </div>
               )}

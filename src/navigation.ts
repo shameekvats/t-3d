@@ -4,8 +4,8 @@ import type { Lang } from './i18n/translations';
 
 export function getHeaderData(lang: Lang = 'en') {
   const nav = {
-    en: { home: 'Home', portfolio: 'Portfolio', workshop: 'Workshop', contact: 'Contact' },
-    fr: { home: 'Accueil', portfolio: 'Portfolio', workshop: 'Atelier', contact: 'Contact' },
+    en: { home: 'Home', portfolio: 'Catalog', workshop: 'Workshop', contact: 'Contact' },
+    fr: { home: 'Accueil', portfolio: 'Catalogue', workshop: 'Atelier', contact: 'Contact' },
   }[lang];
 
   return {
@@ -30,7 +30,7 @@ export function getFooterData(lang: Lang = 'en') {
         title: labels.brand,
         links: [
           { text: lang === 'fr' ? 'Accueil' : 'Home', href: getLocalizedUrl('/', lang) },
-          { text: 'Portfolio', href: getLocalizedUrl('/portfolio', lang) },
+          { text: lang === 'fr' ? 'Catalogue' : 'Catalog', href: getLocalizedUrl('/portfolio', lang) },
           { text: lang === 'fr' ? 'Atelier' : 'Workshop', href: getLocalizedUrl('/workshop', lang) },
           { text: 'Contact', href: getLocalizedUrl('/contact', lang) },
         ],

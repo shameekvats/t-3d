@@ -78,8 +78,10 @@ const inputClass = "w-full px-4 py-3 border border-gray-300 dark:border-gray-600
 
           <!-- Project Details -->
           <div class="mb-6">
-            <label for="details" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">{t('order.details')} *</label>
-            <textarea id="details" name="details" rows="4" required class={inputClass + " resize-vertical"} placeholder={t('order.detailsPlaceholder')}></textarea>
+            <label for="details" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              {t('order.details')} <span class="text-gray-400 font-normal">{t('order.notes.opt')}</span>
+            </label>
+            <textarea id="details" name="details" rows="4" class={inputClass + " resize-vertical"} placeholder={t('order.detailsPlaceholder')}></textarea>
           </div>
 
           <!-- File Sharing -->
