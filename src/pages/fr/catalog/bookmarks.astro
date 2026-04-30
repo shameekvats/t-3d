@@ -37,27 +37,90 @@ const items = [
         <span class="mx-2 text-gray-400">/</span>
         <span class="text-gray-900 dark:text-gray-100 font-semibold">{t('bookmarks.title')}</span>
       </nav>
-      <div class="flex items-center gap-4 mb-6">
-        <div class="text-6xl">📖</div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
         <div>
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">{t('bookmarks.title')}</h1>
-          <p class="text-xl text-gray-600 dark:text-gray-400 mt-2">{t('bookmarks.subtitle')}</p>
+          <div class="flex items-center gap-4 mb-6">
+            <div class="text-6xl">📖</div>
+            <div>
+              <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">{t('bookmarks.title')}</h1>
+              <p class="text-xl text-gray-600 dark:text-gray-400 mt-2">{t('bookmarks.subtitle')}</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 mb-6">
+            {[['🌙', t('bookmarks.f1')], ['🎨', t('bookmarks.f2')], ['📸', t('bookmarks.f3')], ['💝', t('bookmarks.f4')]].map(([icon, label]) => (
+              <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+                <span class="text-2xl">{icon}</span><span class="text-sm font-medium">{label}</span>
+              </div>
+            ))}
+          </div>
+
+          <p class="text-lg text-gray-600 dark:text-gray-400">{t('bookmarks.description')}</p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-slate-700">
+          <div class="pb-6 mb-6 border-b border-gray-200 dark:border-slate-700">
+            <p class="text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-4 text-center">{t('bookmarks.price.label')}</p>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{t('bookmarks.price.basic.label')}</span>
+                <span class="text-2xl font-extrabold text-primary">{t('bookmarks.price.basic')}</span>
+              </div>
+              <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{t('bookmarks.price.two.label')}</span>
+                <span class="text-2xl font-extrabold text-primary">{t('bookmarks.price.two')}</span>
+              </div>
+              <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{t('bookmarks.price.photo.label')}</span>
+                <span class="text-2xl font-extrabold text-primary">{t('bookmarks.price.photo')}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/50 rounded-lg p-4 mb-4">
+            <div class="flex items-start gap-2">
+              <span class="text-lg mt-0.5">🌙</span>
+              <div>
+                <p class="text-xs font-semibold text-amber-800 dark:text-amber-300 mb-0.5">{t('bookmarks.glow.label')}</p>
+                <p class="text-xs text-amber-700 dark:text-amber-400">{t('bookmarks.glow.note')}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700/50 rounded-lg p-4 mb-6">
+            <div class="flex items-start gap-2">
+              <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+              </svg>
+              <div>
+                <p class="text-xs font-semibold text-blue-800 dark:text-blue-300 mb-0.5">{t('bookmarks.custom.label')}</p>
+                <p class="text-xs text-blue-700 dark:text-blue-400">{t('bookmarks.custom.note')}</p>
+              </div>
+            </div>
+          </div>
+
+          <a
+            href={getLocalizedUrl('/order', lang) + '?product=bookmarks'}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block w-full text-center bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg mb-3"
+          >
+            {t('bookmarks.order.cta')}
+          </a>
+
+          <p class="text-center text-sm text-gray-500 dark:text-gray-400">
+            {t('order.contact.note')} <a href="mailto:t-3d@ik.me" class="text-primary hover:underline font-medium">t-3d@ik.me</a>
+          </p>
         </div>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        {[['📚', t('bookmarks.f1')], ['✨', t('bookmarks.f2')], ['🎨', t('bookmarks.f3')], ['💝', t('bookmarks.f4')]].map(([icon, label]) => (
-          <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-            <span class="text-2xl">{icon}</span><span class="text-sm font-medium">{label}</span>
-          </div>
-        ))}
-      </div>
-      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">{t('bookmarks.description')}</p>
     </div>
   </section>
 
   <section class="py-16 bg-white dark:bg-slate-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">{t('portfolio.examples')}</h2>
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {items.map((item) => (
           <div class="group relative bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300">
@@ -71,12 +134,18 @@ const items = [
           </div>
         ))}
       </div>
+
       <div class="bg-gradient-to-r from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 rounded-2xl p-10 text-center">
         <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('bookmarks.cta.title')}</h3>
         <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">{t('bookmarks.cta.subtitle')}</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a href={getLocalizedUrl('/contact', lang)} class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105">
-            <span>{t('portfolio.orderNow')}</span>
+          <a
+            href={getLocalizedUrl('/order', lang) + '?product=bookmarks'}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
+          >
+            <span>{t('bookmarks.order.cta')}</span>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
           </a>
           <a href={getLocalizedUrl('/catalog', lang)} class="inline-flex items-center justify-center gap-2 border-2 border-gray-300 dark:border-gray-600 hover:border-primary text-gray-900 dark:text-gray-100 font-bold py-4 px-8 rounded-lg transition-all duration-300">

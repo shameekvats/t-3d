@@ -3,21 +3,18 @@ import Layout from '~/layouts/PageLayout.astro';
 import { getPermalink } from '~/utils/permalinks';
 import { Image } from 'astro:assets';
 
-// Import images
 import thumb from '~/assets/images/Gallery/electronics/iPhoneDock.jpg';
 import img3 from '~/assets/images/Gallery/electronics/lightbox.jpg';
 import img4 from '~/assets/images/Gallery/electronics/mouse.JPG';
 import img5 from '~/assets/images/Gallery/electronics/clock.jpg';
 
-const metadata = {
-  title: 'Electronics - Functional 3D Printed Products',
-};
+const metadata = { title: 'Electronics — tattva-3d' };
 
 const items = [
   { image: thumb, title: 'iPhone Dock Wireless Charger', description: 'Wireless charging dock for iPhone' },
-  { image: img5, title: 'Custom Clock', description: '3D printed clock with custom style' },
-  { image: img3, title: 'Custom Lightbox', description: 'Personalized LED lightbox' },
-  { image: img4, title: 'Wireless Mouse', description: 'Fully functional Bluetooth mouse' },
+  { image: img5,  title: 'Custom Clock', description: '3D printed clock with custom style' },
+  { image: img3,  title: 'Custom Lightbox', description: 'Personalized LED lightbox' },
+  { image: img4,  title: 'Wireless Mouse', description: 'Fully functional Bluetooth mouse' },
 ];
 ---
 
@@ -32,53 +29,82 @@ const items = [
         <span class="text-gray-900 dark:text-gray-100 font-semibold">Electronics</span>
       </nav>
 
-      <div class="flex items-center gap-4 mb-6">
-        <div class="text-6xl">💡</div>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
         <div>
-          <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">
-            Electronics
-          </h1>
-          <p class="text-xl text-gray-600 dark:text-gray-400 mt-2">
-            Functional 3D printed products with electronics integration
+          <div class="flex items-center gap-4 mb-6">
+            <div class="text-6xl">⚙️</div>
+            <div>
+              <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">Electronics</h1>
+              <p class="text-xl text-gray-600 dark:text-gray-400 mt-2">Functional 3D printed products with electronics integration</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3 mb-6">
+            <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+              <span class="text-2xl">📱</span><span class="text-sm font-medium">Wireless Charging</span>
+            </div>
+            <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+              <span class="text-2xl">✨</span><span class="text-sm font-medium">Custom Light Box</span>
+            </div>
+            <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+              <span class="text-2xl">⏰</span><span class="text-sm font-medium">Custom Clock</span>
+            </div>
+            <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
+              <span class="text-2xl">⚡</span><span class="text-sm font-medium">Functional Design</span>
+            </div>
+          </div>
+
+          <p class="text-lg text-gray-600 dark:text-gray-400">
+            Where 3D printing meets real functionality. Our electronics range includes wireless charging standby docks, personalised LED lightboxes, and custom wall or desk clocks. Practical objects that look great and work every day.
+          </p>
+        </div>
+
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-slate-700">
+          <div class="pb-6 mb-6 border-b border-gray-200 dark:border-slate-700">
+            <p class="text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-4 text-center">Pricing</p>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Wireless Charger Dock</span>
+                <span class="text-2xl font-extrabold text-primary">€20</span>
+              </div>
+              <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Custom Light Box</span>
+                <span class="text-2xl font-extrabold text-primary">€20</span>
+              </div>
+              <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Custom Clock</span>
+                <span class="text-2xl font-extrabold text-primary">€10</span>
+              </div>
+            </div>
+          </div>
+
+          <a
+            href="/order?product=electronics"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="block w-full text-center bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg mb-3"
+          >
+            Order Now — From €10
+          </a>
+
+          <p class="text-center text-sm text-gray-500 dark:text-gray-400">
+            Questions? <a href="mailto:t-3d@ik.me" class="text-primary hover:underline font-medium">t-3d@ik.me</a>
           </p>
         </div>
       </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-          <span class="text-2xl">📱</span>
-          <span class="text-sm font-medium">Wireless Charging</span>
-        </div>
-        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-          <span class="text-2xl">⏰</span>
-          <span class="text-sm font-medium">Custom Clocks</span>
-        </div>
-        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-          <span class="text-2xl">🖱️</span>
-          <span class="text-sm font-medium">Wireless Mouse</span>
-        </div>
-        <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
-          <span class="text-2xl">📦</span>
-          <span class="text-sm font-medium">Custom Lightboxes</span>
-        </div>
-      </div>
-
-      <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
-        Functional 3D prints for daily use and branding. This gallery focuses on wireless charging docks, custom clocks, wireless mouse designs, and personalized lightboxes.
-      </p>
     </div>
   </section>
 
   <section class="py-16 bg-white dark:bg-slate-900">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Examples</h2>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {items.map((item) => (
           <div class="group relative bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300">
             <div class="aspect-square overflow-hidden bg-gray-100 dark:bg-slate-700">
-              <Image 
-                src={item.image} 
+              <Image
+                src={item.image}
                 alt={item.title}
                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 widths={[400, 768]}
@@ -86,41 +112,33 @@ const items = [
               />
             </div>
             <div class="p-4">
-              <h3 class="font-bold text-lg text-gray-900 dark:text-gray-100 mb-1">
-                {item.title}
-              </h3>
-              <p class="text-sm text-gray-600 dark:text-gray-400">
-                {item.description}
-              </p>
+              <h3 class="font-bold text-lg text-gray-900 dark:text-gray-100 mb-1">{item.title}</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
             </div>
           </div>
         ))}
       </div>
 
       <div class="bg-gradient-to-r from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 rounded-2xl p-10 text-center">
-        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
-          Need Electronics + Custom Branding?
-        </h3>
+        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">Need Electronics + Custom Branding?</h3>
         <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">
-          Looking for wireless charging docks, custom clocks, lightboxes, or wireless accessories? Let's build a practical design that fits your idea.
+          Charger dock, lightbox, or clock — tell us what you need and we'll build a practical design around it.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <a 
-            href={getPermalink('/contact')}
+          <a
+            href="/order?product=electronics"
+            target="_blank"
+            rel="noopener noreferrer"
             class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
           >
-            <span>Order Now</span>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-            </svg>
+            <span>Order Now — From €10</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
           </a>
-          <a 
+          <a
             href={getPermalink('/catalog')}
             class="inline-flex items-center justify-center gap-2 border-2 border-gray-300 dark:border-gray-600 hover:border-primary dark:hover:border-primary text-gray-900 dark:text-gray-100 font-bold py-4 px-8 rounded-lg transition-all duration-300"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-            </svg>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
             <span>Back to Catalog</span>
           </a>
         </div>
