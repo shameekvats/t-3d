@@ -14,13 +14,13 @@ import img6 from '~/assets/images/Gallery/bookmarks/IMG_5480.jpg';
 const metadata = { title: 'Bookmarks — tattva-3d' };
 
 const items = [
-  { image: thumb, title: 'Image Bookmark', description: 'Turn your photos into bookmarks' },
-  { image: img1,  title: 'Cat Sticker Bookmark', description: 'Playful animal themed design' },
-  { image: img2,  title: 'Name Bookmark', description: 'Personalized with your name' },
-  { image: img3,  title: 'Logo Bookmark', description: 'Business or brand logos' },
-  { image: img4,  title: 'Quote Bookmark', description: 'Featuring inspirational quotes' },
-  { image: img5,  title: 'Personalized Bookmark', description: 'Custom text and designs' },
-  { image: img6,  title: 'Gift Bookmark', description: 'Perfect for book lovers' },
+  { image: thumb, title: 'Image Bookmark', description: 'Turn your photos into bookmarks', price: '€10' },
+  { image: img1,  title: 'Cat Sticker Bookmark', description: 'Playful animal themed design', price: '€7.50' },
+  { image: img2,  title: 'Name Bookmark', description: 'Personalized with your name', price: '€5' },
+  { image: img3,  title: 'Logo Bookmark', description: 'Business or brand logos', price: '€7.50' },
+  { image: img4,  title: 'Quote Bookmark', description: 'Featuring inspirational quotes', price: '€7.50' },
+  { image: img5,  title: 'Personalized Bookmark', description: 'Custom text and designs', price: '€7.50' },
+  { image: img6,  title: 'Gift Bookmark', description: 'Perfect for book lovers', price: '€10' },
 ];
 ---
 
@@ -130,7 +130,7 @@ const items = [
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {items.map((item) => (
           <div class="group relative bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300">
-            <div class="aspect-square overflow-hidden bg-gray-100 dark:bg-slate-700">
+            <div class="relative aspect-square overflow-hidden bg-gray-100 dark:bg-slate-700">
               <Image
                 src={item.image}
                 alt={item.title}
@@ -138,6 +138,11 @@ const items = [
                 widths={[400, 768]}
                 sizes="(max-width: 768px) 100vw, 400px"
               />
+              {item.price && (
+                <span class="absolute bottom-2 left-2 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full">
+                  {item.price}
+                </span>
+              )}
             </div>
             <div class="p-4">
               <h3 class="font-bold text-lg text-gray-900 dark:text-gray-100 mb-1">{item.title}</h3>

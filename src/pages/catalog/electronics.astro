@@ -11,10 +11,10 @@ import img5 from '~/assets/images/Gallery/electronics/clock.jpg';
 const metadata = { title: 'Electronics — tattva-3d' };
 
 const items = [
-  { image: thumb, title: 'iPhone Dock Wireless Charger', description: 'Wireless charging dock for iPhone' },
-  { image: img5,  title: 'Custom Clock', description: '3D printed clock with custom style' },
-  { image: img3,  title: 'Custom Lightbox', description: 'Personalized LED lightbox' },
-  { image: img4,  title: 'Wireless Mouse', description: 'Fully functional Bluetooth mouse' },
+  { image: thumb, title: 'iPhone Standby Dock', description: 'Wireless charging dock for iPhone', price: '€20' },
+  { image: img5,  title: 'Custom Clock', description: '3D printed clock with custom style', price: '€10' },
+  { image: img3,  title: 'Custom Lightbox', description: 'Personalized LED lightbox — max 150×150×150 mm', price: '€20' },
+  { image: img4,  title: 'Wireless Bluetooth Mouse', description: 'Fully functional Bluetooth mouse', price: '€30' },
 ];
 ---
 
@@ -64,11 +64,18 @@ const items = [
             <p class="text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-4 text-center">Pricing</p>
             <div class="space-y-3">
               <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
-                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Wireless Charger Dock</span>
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Wireless Bluetooth Mouse</span>
+                <span class="text-2xl font-extrabold text-primary">€30</span>
+              </div>
+              <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
+                <div>
+                  <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Custom Lightbox</span>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Max 150×150×150 mm</p>
+                </div>
                 <span class="text-2xl font-extrabold text-primary">€20</span>
               </div>
               <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
-                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">Custom Light Box</span>
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">iPhone Standby Dock</span>
                 <span class="text-2xl font-extrabold text-primary">€20</span>
               </div>
               <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
@@ -102,7 +109,7 @@ const items = [
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
         {items.map((item) => (
           <div class="group relative bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300">
-            <div class="aspect-square overflow-hidden bg-gray-100 dark:bg-slate-700">
+            <div class="relative aspect-square overflow-hidden bg-gray-100 dark:bg-slate-700">
               <Image
                 src={item.image}
                 alt={item.title}
@@ -110,6 +117,11 @@ const items = [
                 widths={[400, 768]}
                 sizes="(max-width: 768px) 100vw, 400px"
               />
+              {item.price && (
+                <span class="absolute bottom-2 left-2 bg-black/60 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full">
+                  {item.price}
+                </span>
+              )}
             </div>
             <div class="p-4">
               <h3 class="font-bold text-lg text-gray-900 dark:text-gray-100 mb-1">{item.title}</h3>
