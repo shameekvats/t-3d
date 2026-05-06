@@ -26,6 +26,7 @@ export default defineConfig({
   redirects: {
     '/gallery': '/portfolio',
     '/3d-models': '/portfolio',
+    '/about': '/',
   },
   integrations: [
     tailwind({
@@ -75,7 +76,7 @@ export const SITE = {
   site: 'https://t-3d.me', // ← CHANGED: Your custom domain
   base: '/', // ← CHANGED: Root path for custom domain
   trailingSlash: false,
-  googleSiteVerificationId: '',
+  googleSiteVerificationId: '7BP559-kvcXtG6PUq64np72RrwD4KrDAuE0uz5_KiJI',
 };
 
 export const I18N = {
@@ -88,7 +89,7 @@ export const METADATA = {
     default: 'tattva-3d — 3d Printing on demand',
     template: '%s — tattva-3d'
   },
-  description: "Custom 3d printing services! From concept to creation - unique prints for gifts, business items, and creative projects.",
+  description: "Custom 3D printing service in Luxembourg. We create personalised gifts, business items, and creative keepsakes on demand.",
   robots: {
     index: true,
     follow: true,
