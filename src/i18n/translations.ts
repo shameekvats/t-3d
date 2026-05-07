@@ -200,10 +200,13 @@ const translations = {
     'lamps.cta.subtitle': 'Share your style and space — mini or full-size, we\'ll create the perfect ambient piece.',
     'lamps.i1.title': 'Mini Lamps',
     'lamps.i1.desc': 'Compact decorative lamp series',
+    'lamps.i1.dims': '80 × 80 × 100 mm (±20 mm)',
     'lamps.i2.title': 'Mini Lamp — Circular',
     'lamps.i2.desc': 'Circular lamp design with a warm glow',
+    'lamps.i2.dims': '100 × 100 × 99 mm',
     'lamps.i3.title': 'LED Lamp',
     'lamps.i3.desc': 'Custom designed decorative lamp',
+    'lamps.i3.dims': '100 × 100 × 200 mm',
 
     // Maps page
     'maps.title': '3D Maps & Cityscapes',
@@ -662,10 +665,13 @@ const translations = {
     'lamps.cta.subtitle': "Partagez votre style et votre espace — mini ou grand format, nous créons la pièce d'ambiance parfaite.",
     'lamps.i1.title': 'Mini Lampes',
     'lamps.i1.desc': 'Série de lampes décoratives compactes',
+    'lamps.i1.dims': '80 × 80 × 100 mm (±20 mm)',
     'lamps.i2.title': 'Mini Lampe — Circulaire',
     'lamps.i2.desc': 'Design circulaire avec une lumière chaleureuse',
+    'lamps.i2.dims': '100 × 100 × 99 mm',
     'lamps.i3.title': 'Lampe LED',
     'lamps.i3.desc': 'Lampe décorative au design sur mesure',
+    'lamps.i3.dims': '100 × 100 × 200 mm',
 
     // Maps page
     'maps.title': 'Cartes 3D & Maquettes Urbaines',
