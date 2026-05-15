@@ -27,6 +27,8 @@ export default defineConfig({
     '/gallery': '/portfolio',
     '/3d-models': '/portfolio',
     '/about': '/',
+    '/catalog/electronics': '/catalog',
+    '/fr/catalog/electronics': '/fr/catalog',
   },
   integrations: [
     tailwind({

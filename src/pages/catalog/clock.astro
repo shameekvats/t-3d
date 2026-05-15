@@ -93,7 +93,7 @@ const items = [
       <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">Examples</h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        {items.map((item) => (
+        {items.map((item, index) => (
           <div class="group relative bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300">
             <div class="relative aspect-square bg-gray-100 dark:bg-slate-700">
               <Image
@@ -103,7 +103,7 @@ const items = [
                 widths={[400, 768]}
                 sizes="(max-width: 768px) 100vw, 400px"
               />
-              {item.price && (
+              {index === 0 && item.price && (
                 <div class="absolute top-3 right-3 bg-black/70 backdrop-blur-sm text-white rounded-lg px-2.5 py-1.5 text-center leading-tight pointer-events-none">
                   <div class="text-lg font-extrabold">{item.price}</div>
                 </div>
