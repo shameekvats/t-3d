@@ -3,11 +3,9 @@ import Layout from '~/layouts/PageLayout.astro';
 import { Image } from 'astro:assets';
 import { useTranslations, getLocalizedUrl } from '~/i18n/utils';
 
-import thumb from '~/assets/images/Gallery/cookie_cutter/1_IMG_4620.jpg';
-import img1 from '~/assets/images/Gallery/cookie_cutter/cookie_cutter1.png';
-import img2 from '~/assets/images/Gallery/cookie_cutter/IMG_4587.jpg';
-import img3 from '~/assets/images/Gallery/cookie_cutter/IMG_4604.jpg';
-import img4 from '~/assets/images/Gallery/cookie_cutter/IMG_9169.JPG';
+import img1 from '~/assets/images/Gallery/cookie_cutter/Image_1.png';
+import img2 from '~/assets/images/Gallery/cookie_cutter/Image_2.png';
+import img3 from '~/assets/images/Gallery/cookie_cutter/Image_3.png';
 
 const lang = 'fr';
 const t = useTranslations(lang);
@@ -18,11 +16,9 @@ const metadata = {
 };
 
 const items = [
-  { image: thumb, title: t('cookies.i1.title'), description: t('cookies.i1.desc') },
-  { image: img1,  title: t('cookies.i2.title'), description: t('cookies.i2.desc') },
-  { image: img2,  title: t('cookies.i3.title'), description: t('cookies.i3.desc') },
-  { image: img3,  title: t('cookies.i4.title'), description: t('cookies.i4.desc') },
-  { image: img4,  title: t('cookies.i5.title'), description: t('cookies.i5.desc') },
+  { image: img1, title: t('cookies.i1.title'), description: t('cookies.i1.desc') },
+  { image: img2, title: t('cookies.i2.title'), description: t('cookies.i2.desc') },
+  { image: img3, title: t('cookies.i3.title'), description: t('cookies.i3.desc') },
 ];
 ---
 
@@ -102,7 +98,7 @@ const items = [
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <h2 class="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-8">{t('portfolio.examples')}</h2>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-4">
         {items.map((item) => (
           <div class="group relative bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-all duration-300">
             <div class="aspect-square overflow-hidden bg-gray-100 dark:bg-slate-700">
@@ -115,6 +111,8 @@ const items = [
           </div>
         ))}
       </div>
+
+      <p class="text-xs text-gray-400 dark:text-gray-500 mb-8">{t('cookies.disclaimer')}</p>
 
       <div class="bg-gradient-to-r from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 rounded-2xl p-10 text-center">
         <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('cookies.cta.title')}</h3>
