@@ -3,22 +3,22 @@ import Layout from '~/layouts/PageLayout.astro';
 import { Image } from 'astro:assets';
 import { useTranslations, getLocalizedUrl } from '~/i18n/utils';
 
-import img1 from '~/assets/images/Gallery/wireless_mouse/Image_1.png';
-import img2 from '~/assets/images/Gallery/wireless_mouse/Image_2.png';
-import img3 from '~/assets/images/Gallery/wireless_mouse/Image_3.png';
+import img1 from '~/assets/images/Gallery/iPhone_dock/Image1.png';
+import img2 from '~/assets/images/Gallery/iPhone_dock/Image2.png';
+import img3 from '~/assets/images/Gallery/iPhone_dock/Image3.png';
 
 const lang = 'fr';
 const t = useTranslations(lang);
 
 const metadata = {
-  title: 'Souris Sans Fil Imprimée en 3D au Luxembourg — tattva-3d',
-  description: 'Souris Bluetooth entièrement fonctionnelle imprimée en 3D au Luxembourg. Design personnalisé, construction ergonomique — disponible sur commande à 30 €.',
+  title: 'Support iPhone Mode StandBy Imprimé en 3D au Luxembourg — tattva-3d',
+  description: 'Support iPhone StandBy avec charge sans fil imprimé en 3D au Luxembourg. Compatible MagSafe — disponible sur commande à 20 €.',
 };
 
 const items = [
-  { image: img1, title: t('wireless-mouse.i1.title'), description: t('wireless-mouse.i1.desc') },
-  { image: img2, title: t('wireless-mouse.i2.title'), description: t('wireless-mouse.i2.desc') },
-  { image: img3, title: t('wireless-mouse.i3.title'), description: t('wireless-mouse.i3.desc') },
+  { image: img1, title: t('iphone-dock.i1.title'), description: t('iphone-dock.i1.desc') },
+  { image: img2, title: t('iphone-dock.i2.title'), description: t('iphone-dock.i2.desc') },
+  { image: img3, title: t('iphone-dock.i3.title'), description: t('iphone-dock.i3.desc') },
 ];
 ---
 
@@ -30,48 +30,48 @@ const items = [
         <span class="mx-2 text-gray-400">/</span>
         <a href={getLocalizedUrl('/catalog', lang)} class="text-gray-600 dark:text-gray-400 hover:text-primary">{t('portfolio.breadcrumb.portfolio')}</a>
         <span class="mx-2 text-gray-400">/</span>
-        <span class="text-gray-900 dark:text-gray-100 font-semibold">{t('wireless-mouse.title')}</span>
+        <span class="text-gray-900 dark:text-gray-100 font-semibold">{t('iphone-dock.title')}</span>
       </nav>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
         <div>
           <div class="flex items-center gap-4 mb-6">
-            <div class="text-6xl">🖱️</div>
+            <div class="text-6xl">📱</div>
             <div>
-              <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">{t('wireless-mouse.title')}</h1>
-              <p class="text-xl text-gray-600 dark:text-gray-400 mt-2">{t('wireless-mouse.subtitle')}</p>
+              <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">{t('iphone-dock.title')}</h1>
+              <p class="text-xl text-gray-600 dark:text-gray-400 mt-2">{t('iphone-dock.subtitle')}</p>
             </div>
           </div>
 
           <div class="grid grid-cols-2 gap-3 mb-6">
-            {[['📡', t('wireless-mouse.f1')], ['🖨️', t('wireless-mouse.f2')], ['✋', t('wireless-mouse.f3')], ['🎨', t('wireless-mouse.f4')]].map(([icon, label]) => (
+            {[['⚡', t('iphone-dock.f1')], ['🌙', t('iphone-dock.f2')], ['🖨️', t('iphone-dock.f3')], ['🎨', t('iphone-dock.f4')]].map(([icon, label]) => (
               <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                 <span class="text-2xl">{icon}</span><span class="text-sm font-medium">{label}</span>
               </div>
             ))}
           </div>
 
-          <p class="text-lg text-gray-600 dark:text-gray-400">{t('wireless-mouse.description')}</p>
+          <p class="text-lg text-gray-600 dark:text-gray-400">{t('iphone-dock.description')}</p>
         </div>
 
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-slate-700">
           <div class="pb-6 mb-6 border-b border-gray-200 dark:border-slate-700">
-            <p class="text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-4 text-center">{t('wireless-mouse.price.label')}</p>
+            <p class="text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-4 text-center">{t('iphone-dock.price.label')}</p>
             <div class="space-y-3">
               <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
-                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{t('wireless-mouse.price.mouse.label')}</span>
-                <span class="text-2xl font-extrabold text-primary">{t('wireless-mouse.price.mouse')}</span>
+                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{t('iphone-dock.price.dock.label')}</span>
+                <span class="text-2xl font-extrabold text-primary">{t('iphone-dock.price.dock')}</span>
               </div>
             </div>
           </div>
 
           <a
-            href={getLocalizedUrl('/order', lang) + '?product=wireless-mouse'}
+            href={getLocalizedUrl('/order', lang) + '?product=iphone-dock'}
             target="_blank"
             rel="noopener noreferrer"
             class="block w-full text-center bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg mb-3"
           >
-            {t('wireless-mouse.order.cta')}
+            {t('iphone-dock.order.cta')}
           </a>
 
           <p class="text-center text-sm text-gray-500 dark:text-gray-400">
@@ -103,16 +103,16 @@ const items = [
       <p class="text-xs text-gray-400 dark:text-gray-500 mb-8">{t('cookies.disclaimer')}</p>
 
       <div class="bg-gradient-to-r from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 rounded-2xl p-10 text-center">
-        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('wireless-mouse.cta.title')}</h3>
-        <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">{t('wireless-mouse.cta.subtitle')}</p>
+        <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('iphone-dock.cta.title')}</h3>
+        <p class="text-lg text-gray-600 dark:text-gray-400 mb-6 max-w-2xl mx-auto">{t('iphone-dock.cta.subtitle')}</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a
-            href={getLocalizedUrl('/order', lang) + '?product=wireless-mouse'}
+            href={getLocalizedUrl('/order', lang) + '?product=iphone-dock'}
             target="_blank"
             rel="noopener noreferrer"
             class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105"
           >
-            <span>{t('wireless-mouse.order.cta')}</span>
+            <span>{t('iphone-dock.order.cta')}</span>
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
           </a>
           <a href={getLocalizedUrl('/catalog', lang)} class="inline-flex items-center justify-center gap-2 border-2 border-gray-300 dark:border-gray-600 hover:border-primary text-gray-900 dark:text-gray-100 font-bold py-4 px-8 rounded-lg transition-all duration-300">
