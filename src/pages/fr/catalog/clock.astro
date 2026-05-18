@@ -12,7 +12,7 @@ const t = useTranslations(lang);
 
 const metadata = {
   title: 'Horloge Personnalisée Imprimée en 3D au Luxembourg — tattva-3d',
-  description: 'Horloges murales et de bureau imprimées en 3D au Luxembourg. Designs uniques disponibles sur commande à partir de 10 €.',
+  description: 'Horloges murales et de bureau imprimées en 3D au Luxembourg. Designs uniques disponibles sur commande. Contactez-nous pour un devis.',
 };
 
 const items = [
@@ -55,16 +55,6 @@ const items = [
         </div>
 
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-8 border border-gray-100 dark:border-slate-700">
-          <div class="pb-6 mb-6 border-b border-gray-200 dark:border-slate-700">
-            <p class="text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-4 text-center">{t('clock.price.label')}</p>
-            <div class="space-y-3">
-              <div class="flex items-center justify-between px-4 py-3 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
-                <span class="text-sm font-medium text-gray-700 dark:text-gray-300">{t('clock.price.clock.label')}</span>
-                <span class="text-2xl font-extrabold text-primary">{t('clock.price.clock')}</span>
-              </div>
-            </div>
-          </div>
-
           <a
             href={getLocalizedUrl('/order', lang) + '?product=clock'}
             target="_blank"
@@ -99,8 +89,6 @@ const items = [
           </div>
         ))}
       </div>
-
-      <p class="text-xs text-gray-400 dark:text-gray-500 mb-8">{t('cookies.disclaimer')}</p>
 
       <div class="bg-gradient-to-r from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 rounded-2xl p-10 text-center">
         <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">{t('clock.cta.title')}</h3>

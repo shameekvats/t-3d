@@ -35,16 +35,16 @@ const metadata = {
 };
 
 const categories = [
-  { id: 'lamps', title: t('category.lamps.title'), icon: '💡', description: t('category.lamps.description'), image: lampsImg, priceFrom: 10, slug: 'lamps' },
-  { id: 'keychains', title: t('category.keychains.title'), icon: '🔑', description: t('category.keychains.description'), image: keychainImg, gridImages: [keychain1, keychain2, keychain3, keychain4], priceFrom: 5, slug: 'keychains' },
-  { id: 'bookmarks', title: t('category.bookmarks.title'), icon: '📖', description: t('category.bookmarks.description'), image: bookmarkImg, gridImages: [bookmark1, bookmark2, bookmark3, bookmark4], priceFrom: 5, slug: 'bookmarks' },
-  { id: 'maps', title: t('category.maps.title'), icon: '🗺️', description: t('category.maps.description'), image: mapImg, priceFrom: 20, slug: 'maps-cityscapes' },
-  { id: 'glow-photos', title: t('category.glowphotos.title'), icon: '✨', description: t('category.glowphotos.description'), image: glowImg, gridImages: [glow1, glow2], priceFrom: 15, slug: 'glow-photos' },
-  { id: 'fridge-magnets', title: t('category.magnets.title'), icon: '🧲', description: t('category.magnets.description'), image: magnetImg, priceFrom: 7.5, slug: 'fridge-magnets' },
-  { id: 'cookie-cutters', title: t('category.cookies.title'), icon: '🍪', description: t('category.cookies.description'), image: cookieImg, priceFrom: 5, slug: 'cookie-cutters' },
-  { id: 'clock', title: t('category.clock.title'), icon: '⏰', description: t('category.clock.description'), image: clockImg, priceFrom: 10, slug: 'clock' },
-  { id: 'iphone-dock', title: t('category.iphone-dock.title'), icon: '📱', description: t('category.iphone-dock.description'), image: iPhoneDockImg, priceFrom: 20, slug: 'iphone-dock' },
-  { id: 'wireless-mouse', title: t('category.wireless-mouse.title'), icon: '🖱️', description: t('category.wireless-mouse.description'), image: wirelessMouseImg, priceFrom: 30, slug: 'wireless-mouse' },
+  { id: 'lamps', title: t('category.lamps.title'), icon: '💡', description: t('category.lamps.description'), image: lampsImg, slug: 'lamps' },
+  { id: 'keychains', title: t('category.keychains.title'), icon: '🔑', description: t('category.keychains.description'), image: keychainImg, gridImages: [keychain1, keychain2, keychain3, keychain4], slug: 'keychains' },
+  { id: 'bookmarks', title: t('category.bookmarks.title'), icon: '📖', description: t('category.bookmarks.description'), image: bookmarkImg, gridImages: [bookmark1, bookmark2, bookmark3, bookmark4], slug: 'bookmarks' },
+  { id: 'maps', title: t('category.maps.title'), icon: '🗺️', description: t('category.maps.description'), image: mapImg, slug: 'maps-cityscapes' },
+  { id: 'glow-photos', title: t('category.glowphotos.title'), icon: '✨', description: t('category.glowphotos.description'), image: glowImg, gridImages: [glow1, glow2], slug: 'glow-photos' },
+  { id: 'fridge-magnets', title: t('category.magnets.title'), icon: '🧲', description: t('category.magnets.description'), image: magnetImg, slug: 'fridge-magnets' },
+  { id: 'cookie-cutters', title: t('category.cookies.title'), icon: '🍪', description: t('category.cookies.description'), image: cookieImg, slug: 'cookie-cutters' },
+  { id: 'clock', title: t('category.clock.title'), icon: '⏰', description: t('category.clock.description'), image: clockImg, slug: 'clock' },
+  { id: 'iphone-dock', title: t('category.iphone-dock.title'), icon: '📱', description: t('category.iphone-dock.description'), image: iPhoneDockImg, slug: 'iphone-dock' },
+  { id: 'wireless-mouse', title: t('category.wireless-mouse.title'), icon: '🖱️', description: t('category.wireless-mouse.description'), image: wirelessMouseImg, slug: 'wireless-mouse' },
 ];
 ---
 
@@ -77,11 +77,6 @@ const categories = [
                     widths={[400, 768]}
                     sizes="(max-width: 768px) 100vw, 400px"
                   />
-                </div>
-              )}
-              {category.priceFrom && (
-                <div class="absolute top-3 right-3 z-10 bg-primary text-white text-sm font-bold px-3 py-2 rounded-full shadow-lg">
-                  {t('portfolio.priceFrom')} {category.priceFrom} €
                 </div>
               )}
             </div>
