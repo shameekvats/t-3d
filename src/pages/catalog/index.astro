@@ -43,7 +43,6 @@ const categories = [
     description: 'Decorative and functional 3D printed lamps for homes, gifts, and displays',
     image: lampsImg,
     variationCount: 3,
-    priceFrom: 10,
     slug: 'lamps',
   },
   {
@@ -54,7 +53,6 @@ const categories = [
     image: keychainImg,
     gridImages: [keychain1, keychain2, keychain3, keychain4],
     variationCount: 6,
-    priceFrom: 5,
     slug: 'keychains',
   },
   {
@@ -65,7 +63,6 @@ const categories = [
     image: bookmarkImg,
     gridImages: [bookmark1, bookmark2, bookmark3, bookmark4],
     variationCount: 7,
-    priceFrom: 5,
     slug: 'bookmarks',
   },
   {
@@ -75,7 +72,6 @@ const categories = [
     description: 'Stunning 3D topographical maps and cityscape models of your favorite places',
     image: mapImg,
     variationCount: 2,
-    priceFrom: 20,
     slug: 'maps-cityscapes',
   },
   {
@@ -86,7 +82,6 @@ const categories = [
     image: glowImg,
     gridImages: [glow1, glow2],
     variationCount: 5,
-    priceFrom: 15,
     slug: 'glow-photos',
   },
   {
@@ -96,7 +91,6 @@ const categories = [
     description: 'Custom fridge magnets in any design - perfect for gifts and branding',
     image: magnetImg,
     variationCount: 3,
-    priceFrom: 7.5,
     slug: 'fridge-magnets',
   },
   {
@@ -106,7 +100,6 @@ const categories = [
     description: 'Food-safe cookie cutters in any shape — min. 5 pieces per order',
     image: cookieImg,
     variationCount: 5,
-    priceFrom: 5,
     slug: 'cookie-cutters',
   },
   {
@@ -116,7 +109,6 @@ const categories = [
     description: '3D printed wall and desk clocks in any style or color',
     image: clockImg,
     variationCount: 1,
-    priceFrom: 10,
     slug: 'clock',
   },
   {
@@ -126,7 +118,6 @@ const categories = [
     description: '3D printed wireless charging dock designed for iPhone StandBy mode',
     image: iPhoneDockImg,
     variationCount: 1,
-    priceFrom: 20,
     slug: 'iphone-dock',
   },
   {
@@ -136,7 +127,6 @@ const categories = [
     description: 'Fully functional 3D printed Bluetooth wireless mouse in any color',
     image: wirelessMouseImg,
     variationCount: 1,
-    priceFrom: 30,
     slug: 'wireless-mouse',
   },
 ];
@@ -148,7 +138,7 @@ const categories = [
       Our Catalog
     </Fragment>
     <Fragment slot="subtitle">
-      Explore our catalog of custom 3D printed products. Click any category to see examples, pricing, and ordering options.
+      Explore our catalog of custom 3D printed products. Click any category to see examples and get in touch for a quote.
     </Fragment>
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/20"></div>
@@ -182,11 +172,6 @@ const categories = [
                     widths={[400, 768]}
                     sizes="(max-width: 768px) 100vw, 400px"
                   />
-                </div>
-              )}
-              {category.priceFrom && (
-                <div class="absolute top-3 right-3 z-10 bg-primary text-white text-sm font-bold px-3 py-2 rounded-full shadow-lg">
-                  From €{category.priceFrom}
                 </div>
               )}
             </div>
