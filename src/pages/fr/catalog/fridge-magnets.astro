@@ -3,9 +3,8 @@ import Layout from '~/layouts/PageLayout.astro';
 import { Image } from 'astro:assets';
 import { useTranslations, getLocalizedUrl } from '~/i18n/utils';
 
-import thumb from '~/assets/images/Gallery/fridge_magnets/1_IMG_4307.jpg';
-import img1 from '~/assets/images/Gallery/fridge_magnets/IMG_4137.jpg';
-import img2 from '~/assets/images/Gallery/fridge_magnets/IMG_4140.jpg';
+import thumb from '~/assets/images/Gallery/fridge_magnets/face.png';
+import img1 from '~/assets/images/Gallery/fridge_magnets/bm.png';
 
 const lang = 'fr';
 const t = useTranslations(lang);
@@ -18,7 +17,6 @@ const metadata = {
 const items = [
   { image: thumb, title: t('magnets.i1.title'), description: t('magnets.i1.desc') },
   { image: img1,  title: t('magnets.i2.title'), description: t('magnets.i2.desc') },
-  { image: img2,  title: t('magnets.i3.title'), description: t('magnets.i3.desc') },
 ];
 ---
 
