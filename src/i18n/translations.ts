@@ -34,8 +34,8 @@ const translations = {
     'home.cta2.start': 'Start Your Project',
 
     // Portfolio index
-    'portfolio.title': 'Our Catalog',
-    'portfolio.subtitle': 'Explore our catalog of custom 3D printed products. Click any category to see examples and get in touch for a quote.',
+    'portfolio.title': 'Our Catalog of Personalized Gifts',
+    'portfolio.subtitle': 'Thoughtful 3D printed gifts for birthdays, anniversaries, festivals, Secret Santa, and everyday surprises.',
     'portfolio.viewGallery': 'View Gallery',
     'portfolio.cta.title': 'Have a Unique Idea?',
     'portfolio.cta.subtitle': "Don't see what you're looking for? We specialize in bringing custom ideas to life. Let's discuss your project!",
@@ -585,8 +585,8 @@ const translations = {
     'home.cta2.start': 'Démarrer Votre Projet',
 
     // Portfolio index
-    'portfolio.title': 'Notre Catalogue',
-    'portfolio.subtitle': 'Explorez notre catalogue de produits imprimés en 3D. Cliquez sur une catégorie pour voir les exemples et contactez-nous pour un devis.',
+    'portfolio.title': 'Notre catalogue de cadeaux personnalisés',
+    'portfolio.subtitle': 'Des cadeaux attentionnés imprimés en 3D pour les anniversaires, les fêtes, Secret Santa et les petites surprises du quotidien.',
     'portfolio.viewGallery': 'Voir la Galerie',
     'portfolio.cta.title': 'Vous avez une idée unique ?',
     'portfolio.cta.subtitle': "Vous ne trouvez pas ce que vous cherchez ? Nous sommes spécialisés dans la réalisation d'idées sur mesure. Parlons de votre projet !",
