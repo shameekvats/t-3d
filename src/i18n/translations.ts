@@ -297,6 +297,12 @@ const translations = {
     'lamps.i3.title': 'LED Lamp',
     'lamps.i3.desc': 'Custom designed decorative lamp',
     'lamps.i3.dims': '100 × 100 × 200 mm',
+    'lamps.i4.title': 'LED Lamp — Vol. 2',
+    'lamps.i4.desc': 'Full-size decorative lamp with warm ambient glow',
+    'lamps.i4.dims': '~200 mm tall',
+    'lamps.i5.title': 'LED Lamp — Vol. 3',
+    'lamps.i5.desc': 'Statement lamp piece for living spaces',
+    'lamps.i5.dims': '~200 mm tall',
 
     // Maps page
     'maps.title': '3D Maps & Cityscapes',
@@ -848,6 +854,12 @@ const translations = {
     'lamps.i3.title': 'Lampe LED',
     'lamps.i3.desc': 'Lampe décorative au design sur mesure',
     'lamps.i3.dims': '100 × 100 × 200 mm',
+    'lamps.i4.title': 'Lampe LED — Vol. 2',
+    'lamps.i4.desc': "Grande lampe décorative avec lumière d'ambiance chaleureuse",
+    'lamps.i4.dims': '~200 mm de hauteur',
+    'lamps.i5.title': 'Lampe LED — Vol. 3',
+    'lamps.i5.desc': "Lampe décorative imposante pour les espaces de vie",
+    'lamps.i5.dims': '~200 mm de hauteur',
 
     // Maps page
     'maps.title': 'Cartes 3D & Maquettes Urbaines',
