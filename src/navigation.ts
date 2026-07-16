@@ -12,7 +12,7 @@ export function getHeaderData(lang: Lang = 'en') {
     links: [
       { text: nav.home, href: getLocalizedUrl('/', lang) },
       { text: nav.portfolio, href: getLocalizedUrl('/catalog', lang) },
-      { text: nav.workshop, href: getLocalizedUrl('/workshop', lang), badge: lang === 'fr' ? 'GRATUIT' : 'FREE' },
+      // Workshop temporarily suspended — re-add this link (with badge) to unhide it
       { text: nav.contact, href: getLocalizedUrl('/contact', lang) },
     ],
   };
@@ -31,7 +31,7 @@ export function getFooterData(lang: Lang = 'en') {
         links: [
           { text: lang === 'fr' ? 'Accueil' : 'Home', href: getLocalizedUrl('/', lang) },
           { text: lang === 'fr' ? 'Catalogue' : 'Catalog', href: getLocalizedUrl('/catalog', lang) },
-          { text: lang === 'fr' ? 'Atelier' : 'Workshop', href: getLocalizedUrl('/workshop', lang) },
+          // Workshop temporarily suspended — re-add this link to unhide it
           { text: 'Contact', href: getLocalizedUrl('/contact', lang) },
         ],
       },

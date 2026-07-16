@@ -29,6 +29,11 @@ export default defineConfig({
     '/about': '/',
     '/catalog/electronics': '/catalog',
     '/fr/catalog/electronics': '/fr/catalog',
+    // Workshops temporarily suspended — remove these two redirects to unhide the workshop pages
+    '/workshop': '/',
+    '/workshop/thank-you': '/',
+    '/fr/workshop': '/fr',
+    '/fr/workshop/thank-you': '/fr',
   },
   integrations: [
     tailwind({
