@@ -1,0 +1,130 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import { Image } from 'astro:assets';
+import CategoryGridThumbnail from '~/components/CategoryGridThumbnail.astro';
+import PhotoComingSoon from '~/components/PhotoComingSoon.astro';
+import { useTranslations, getLocalizedUrl } from '~/i18n/utils';
+
+import keychainImg from '~/assets/images/Models/After_BM_Keychain.jpg';
+import keychain2 from '~/assets/images/Gallery/keychain/IMG_4973.jpg';
+import keychain4 from '~/assets/images/Gallery/keychain/PHOTO-2025-09-21-11-54-36.jpg';
+import bookmarkImg from '~/assets/images/Gallery/bookmarks/shameek.png';
+import bookmark1 from '~/assets/images/Gallery/bookmarks/shameek.png';
+import bookmark2 from '~/assets/images/Gallery/bookmarks/Cat_Sticker_Bookmark.jpeg';
+import bookmark3 from '~/assets/images/Gallery/bookmarks/t-3d.png';
+import bookmark4 from '~/assets/images/Gallery/bookmarks/t-3d_2.png';
+import cookieImg from '~/assets/images/Gallery/cookie_cutter/Image_2.png';
+import mapImg from '~/assets/images/Gallery/maps_cityscapes/1_Lux_Ville.jpg';
+import lampsImg from '~/assets/images/Gallery/lamps/mini-lamps.jpg';
+import magnetImg from '~/assets/images/Gallery/fridge_magnets/bm.png';
+import lightboxThumb1 from '~/assets/images/Gallery/lightbox/beyond_music/BM_1.png';
+import lightboxThumb2 from '~/assets/images/Gallery/lightbox/low_key/Image_3.png';
+import wirelessMouseImg from '~/assets/images/Gallery/wireless_mouse/Image_3.png';
+import iPhoneDockImg from '~/assets/images/Gallery/iPhone_dock/Image1.png';
+import clockImg from '~/assets/images/Gallery/clock/Image_2.png';
+
+const lang = 'fr';
+const t = useTranslations(lang);
+
+const metadata = {
+  title: 'Catalogue — tattva-3d | Impressions 3D au Luxembourg',
+  description: "Découvrez le catalogue tattva-3d d'impressions 3D personnalisées au Luxembourg — porte-clés, marque-pages, lampes, cartes et plus encore.",
+};
+
+const categories = [
+  { id: 'lamps', title: t('category.lamps.title'), icon: '💡', description: t('category.lamps.description'), image: lampsImg, slug: 'lamps' },
+  { id: 'keychains', title: t('category.keychains.title'), icon: '🔑', description: t('category.keychains.description'), image: keychainImg, gridImages: [keychainImg, keychain2, keychain4], slug: 'keychains' },
+  { id: 'bookmarks', title: t('category.bookmarks.title'), icon: '📖', description: t('category.bookmarks.description'), image: bookmarkImg, gridImages: [bookmark1, bookmark2, bookmark3, bookmark4], slug: 'bookmarks' },
+  { id: 'maps', title: t('category.maps.title'), icon: '🗺️', description: t('category.maps.description'), image: mapImg, slug: 'maps-cityscapes' },
+  { id: 'glow-photos', title: t('category.glowphotos.title'), icon: '✨', description: t('category.glowphotos.description'), image: null, slug: 'glow-photos' },
+  { id: 'lightboxes', title: t('category.lightbox.title'), icon: '💡', description: t('category.lightbox.description'), image: lightboxThumb1, gridImages: [lightboxThumb1, lightboxThumb2], slug: 'lightboxes' },
+  { id: 'fridge-magnets', title: t('category.magnets.title'), icon: '🧲', description: t('category.magnets.description'), image: magnetImg, slug: 'fridge-magnets' },
+  { id: 'cookie-cutters', title: t('category.cookies.title'), icon: '🍪', description: t('category.cookies.description'), image: cookieImg, slug: 'cookie-cutters' },
+  { id: 'clock', title: t('category.clock.title'), icon: '⏰', description: t('category.clock.description'), image: clockImg, slug: 'clock' },
+  { id: 'iphone-dock', title: t('category.iphone-dock.title'), icon: '📱', description: t('category.iphone-dock.description'), image: iPhoneDockImg, slug: 'iphone-dock' },
+  { id: 'wireless-mouse', title: t('category.wireless-mouse.title'), icon: '🖱️', description: t('category.wireless-mouse.description'), image: wirelessMouseImg, slug: 'wireless-mouse' },
+];
+---
+
+<Layout metadata={metadata}>
+  <Hero>
+    <Fragment slot="title">{t('portfolio.title')}</Fragment>
+    <Fragment slot="subtitle">{t('portfolio.subtitle')}</Fragment>
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/20"></div>
+    </Fragment>
+  </Hero>
+
+  <section class="py-16 md:py-20 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {categories.map((category) => (
+          <a
+            href={getLocalizedUrl(`/catalog/${category.slug}`, lang)}
+            class="category-card group block bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
+          >
+            <div class="relative aspect-[4/3]">
+              {!category.image ? (
+                <PhotoComingSoon class="aspect-[4/3]" />
+              ) : category.gridImages ? (
+                <CategoryGridThumbnail images={category.gridImages} title={category.title} columns={2} />
+              ) : (
+                <div class="relative aspect-[4/3] overflow-hidden bg-gray-100 dark:bg-slate-700">
+                  <Image
+                    src={category.image}
+                    alt={category.title}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    widths={[400, 768]}
+                    sizes="(max-width: 768px) 100vw, 400px"
+                  />
+                </div>
+              )}
+            </div>
+            <div class="p-6">
+              <h3 class="text-2xl font-bold mb-3 text-gray-900 dark:text-gray-100 group-hover:text-primary transition-colors">
+                {category.title}
+              </h3>
+              <p class="text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">{category.description}</p>
+              <div class="flex items-center text-primary font-semibold group-hover:gap-3 transition-all">
+                <span>{t('portfolio.viewGallery')}</span>
+                <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- Disclaimer -->
+      <p class="mt-10 text-center text-xs text-gray-400 dark:text-gray-500">
+        Les photos sont à titre illustratif uniquement. Les produits réels peuvent varier.
+      </p>
+
+      <div class="mt-10 text-center bg-gradient-to-r from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 rounded-2xl p-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-gray-900 dark:text-gray-100">{t('portfolio.cta.title')}</h2>
+        <p class="text-lg text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto">{t('portfolio.cta.subtitle')}</p>
+        <a
+          href={getLocalizedUrl('/contact', lang)}
+          class="inline-flex items-center gap-2 bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
+        >
+          <span>{t('portfolio.cta.button')}</span>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .category-card { cursor: pointer; }
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+</style>

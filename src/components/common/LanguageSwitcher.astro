@@ -1,0 +1,32 @@
+---
+import { getLangFromUrl, getAlternateUrl } from '~/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const alternateUrl = getAlternateUrl(Astro.url);
+const isEnglish = lang === 'en';
+const enHref = isEnglish ? undefined : alternateUrl;
+const frHref = isEnglish ? alternateUrl : undefined;
+---
+
+<div class="flex items-center text-sm font-semibold border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden">
+  <a
+    href={enHref ?? '#'}
+    aria-current={isEnglish ? 'true' : undefined}
+    class:list={[
+      'px-2.5 py-1 transition-colors',
+      isEnglish
+        ? 'bg-primary text-white cursor-default pointer-events-none'
+        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700',
+    ]}
+  >EN</a>
+  <a
+    href={frHref ?? '#'}
+    aria-current={!isEnglish ? 'true' : undefined}
+    class:list={[
+      'px-2.5 py-1 transition-colors',
+      !isEnglish
+        ? 'bg-primary text-white cursor-default pointer-events-none'
+        : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700',
+    ]}
+  >FR</a>
+</div>
