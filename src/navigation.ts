@@ -4,8 +4,8 @@ import type { Lang } from './i18n/translations';
 
 export function getHeaderData(lang: Lang = 'en') {
   const nav = {
-    en: { home: 'Home', portfolio: 'Catalog', workshop: 'Workshop', contact: 'Contact' },
-    fr: { home: 'Accueil', portfolio: 'Catalogue', workshop: 'Atelier', contact: 'Contact' },
+    en: { home: 'Home', portfolio: 'Catalog', workshop: 'Workshop', order: 'Order' },
+    fr: { home: 'Accueil', portfolio: 'Catalogue', workshop: 'Atelier', order: 'Commander' },
   }[lang];
 
   return {
@@ -13,7 +13,7 @@ export function getHeaderData(lang: Lang = 'en') {
       { text: nav.home, href: getLocalizedUrl('/', lang) },
       { text: nav.portfolio, href: getLocalizedUrl('/catalog', lang) },
       // Workshop temporarily suspended — re-add this link (with badge) to unhide it
-      { text: nav.contact, href: getLocalizedUrl('/contact', lang) },
+      { text: nav.order, href: getLocalizedUrl('/order', lang) },
     ],
   };
 }
@@ -32,13 +32,13 @@ export function getFooterData(lang: Lang = 'en') {
           { text: lang === 'fr' ? 'Accueil' : 'Home', href: getLocalizedUrl('/', lang) },
           { text: lang === 'fr' ? 'Catalogue' : 'Catalog', href: getLocalizedUrl('/catalog', lang) },
           // Workshop temporarily suspended — re-add this link to unhide it
-          { text: 'Contact', href: getLocalizedUrl('/contact', lang) },
+          { text: lang === 'fr' ? 'Commander' : 'Order', href: getLocalizedUrl('/order', lang) },
         ],
       },
       {
         title: labels.support,
         links: [
-          { text: labels.contactUs, href: getLocalizedUrl('/contact', lang) },
+          { text: labels.contactUs, href: getLocalizedUrl('/order', lang) },
           { text: labels.email, href: 'mailto:t-3d@ik.me' },
         ],
       },

@@ -17,6 +17,8 @@ export interface Category {
   description?: string;
   /** Short "How it's made" line (product language, no technique names) */
   howItsMade?: string;
+  /** Cover photo for category cards on the homepage */
+  image?: string;
 }
 
 export interface Addon {
@@ -35,6 +37,8 @@ export interface Product {
   /** Price in DKK; null means "price on quote" */
   price: number | null;
   priceNote?: string;
+  /** Multi-buy price used by the order estimate, e.g. 3 for 229 kr */
+  bundle?: { quantity: number; price: number };
   options: string[];
   addons: AddonId[];
   images: string[];
@@ -49,6 +53,7 @@ export const categories: Category[] = [
     description:
       'Send us a photo or a few words and we turn it into a keychain, magnet, bookmark, glow panel or photo cube. You see a preview before anything is printed.',
     howItsMade: 'Printed in layers of colour so your photo appears in the plastic.',
+    image: '~/assets/images/Gallery/keychain/PHOTO-2025-09-21-11-54-36.jpg',
   },
   {
     id: 'places',
@@ -56,6 +61,7 @@ export const categories: Category[] = [
     tagline: 'Any place on Earth, in 3D',
     description:
       'Turn any place on Earth into a 3D art piece. The mountain range you hiked, the city you grew up in, a dream destination, or a spot with a special memory — we source the real terrain data and print it with precision. Share a place name, coordinates or a rough area, and we handle everything else.',
+    image: '~/assets/images/Gallery/maps_cityscapes/trieste.jpg',
   },
   {
     id: 'lights',
@@ -63,6 +69,7 @@ export const categories: Category[] = [
     tagline: 'Lamps and lightboxes that glow',
     description:
       'Add character to your space. Choose a compact mini lamp for a desk or bedside, a full-size lamp for your living room, or a lightbox with your own text or logo. Each one casts a warm, cosy glow — and makes a genuinely unique gift.',
+    image: '~/assets/images/Gallery/lamps/mini-lamps.jpg',
   },
 ];
 
@@ -119,6 +126,7 @@ export const products: Product[] = [
     shortDescription: 'Your photo as a fridge magnet. Order one, or a set of three.',
     price: 89,
     priceNote: 'set of 3: 229 kr',
+    bundle: { quantity: 3, price: 229 },
     options: ['Your photo(s)'],
     addons: ['glow', 'nfc'],
     images: [],
@@ -233,7 +241,8 @@ export const products: Product[] = [
     available: true,
   },
 
-  // Custom & business (no fixed price; used by the order form and the Custom page)
+  // Custom & business (no fixed price; used by the order form and the /custom page).
+  // Examples: owner's own branded work only — no downloaded models.
   {
     id: 'custom',
     category: null,
@@ -244,6 +253,9 @@ export const products: Product[] = [
     addons: [],
     images: [
       `${IMG}/lightbox/beyond_music/BM_2.png`,
+      `${IMG}/lightbox/low_key/Image_2.png`,
+      `${IMG}/electronics/lightbox.jpg`,
+      `${IMG}/lightbox/low_key/Image_4.png`,
       `${IMG}/fridge_magnets/IMG_4137.jpg`,
       `${IMG}/fridge_magnets/IMG_4140.jpg`,
     ],
@@ -268,5 +280,21 @@ export const needsPhoto = (product: Product) => product.options.some((o) => /pho
 
 export const categoryPath = (id: CategoryId) => `/catalog/${id}`;
 export const productPath = (product: Product) =>
-  product.category ? `/catalog/${product.category}/${product.id}` : '/order?product=custom';
+  product.category ? `/catalog/${product.category}/${product.id}` : '/custom';
 export const orderPath = (product: Product) => `/order?product=${product.id}`;
+
+/**
+ * Order form estimate in DKK: product price × quantity (using the bundle price for full
+ * bundles) plus each chosen add-on per item. Returns null for products priced on quote.
+ */
+export const estimate = (product: Product, quantity: number, addonIds: string[]): number | null => {
+  if (product.price === null) return null;
+  const q = Math.max(1, Math.floor(quantity) || 1);
+  const base = product.bundle
+    ? Math.floor(q / product.bundle.quantity) * product.bundle.price + (q % product.bundle.quantity) * product.price
+    : q * product.price;
+  const extras = addons
+    .filter((a) => addonIds.includes(a.id) && product.addons.includes(a.id))
+    .reduce((sum, a) => sum + a.price, 0);
+  return base + extras * q;
+};

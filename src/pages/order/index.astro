@@ -1,206 +1,282 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import { getPermalink } from '~/utils/permalinks';
+import { categories, addons, productsInCategory, getProduct, formatPrice } from '~/data/products';
 
 const metadata = {
-  title: 'Place an Order — tattva-3d',
-  description: 'Order custom 3D printed products from tattva-3d.',
+  title: 'Order',
+  description: 'Order a personal 3D printed gift or ask for a quote. Local pickup in Aalborg, pay with MobilePay or cash after you approve the preview.',
 };
 
-const inputClass = "w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white";
+const custom = getProduct('custom')!;
+const inputClass =
+  'w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white';
+const labelClass = 'block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2';
+const optional = '<span class="text-gray-400 font-normal">(optional)</span>';
 ---
 
 <Layout metadata={metadata}>
   <section class="pt-24 pb-20 bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/20">
     <div class="max-w-3xl mx-auto px-4 sm:px-6">
-      <nav class="mb-8 text-sm">
+      <nav class="mb-8 text-sm" aria-label="Breadcrumb">
         <a href={getPermalink('/')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Home</a>
         <span class="mx-2 text-gray-400">/</span>
         <a href={getPermalink('/catalog')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Catalog</a>
         <span class="mx-2 text-gray-400">/</span>
-        <span class="text-gray-900 dark:text-gray-100 font-semibold">Place an Order</span>
+        <span class="text-gray-900 dark:text-gray-100 font-semibold">Order</span>
       </nav>
 
       <div class="text-center mb-10">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-gray-100">Place an Order</h1>
-        <p class="text-lg text-gray-600 dark:text-gray-300">Fill in your details and we'll get back to you to confirm.</p>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-gray-100">Order or ask a question</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300">
+          Tell us what you'd like. We reply by email with the final price and a preview before anything is printed.
+        </p>
       </div>
 
-      <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-8">
-        <!-- To use a dedicated order form endpoint, create a new form at formspree.io and replace the action URL below -->
+      <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-5 sm:p-8">
         <form action="https://formspree.io/f/mzzazwro" method="POST" id="orderForm">
-          <input type="hidden" name="_subject" value="New Order Request — tattva-3d" />
+          <input type="hidden" name="_subject" value="New order request — tattva-3d" />
+          <input type="hidden" name="estimated_price" id="estimatedPriceField" value="" />
+          <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
           <!-- Product -->
           <div class="mb-6">
-            <label for="product" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Product *</label>
+            <label for="product" class={labelClass}>Product *</label>
             <select id="product" name="product" required class={inputClass}>
-              <option value="">Select a product...</option>
-              <option value="3D Glow Photos">3D Glow Photos</option>
-              <option value="Keychains">Keychains</option>
-              <option value="Bookmarks">Bookmarks</option>
-              <option value="Electronics">Electronics</option>
-              <option value="3D Maps & Cityscapes">3D Maps &amp; Cityscapes</option>
-              <option value="Fridge Magnets">Fridge Magnets</option>
-              <option value="Lamps">Lamps</option>
-              <option value="Other / Custom">Other / Custom</option>
+              <option value="">Choose a product…</option>
+              {
+                categories.map((category) => (
+                  <optgroup label={category.name}>
+                    {productsInCategory(category.id).map((p) => (
+                      <option value={p.name} data-id={p.id}>
+                        {p.name} — {formatPrice(p.price!)}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))
+              }
+              <option value={custom.name} data-id={custom.id}>{custom.name}</option>
             </select>
           </div>
 
-          <!-- Name + Email -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
-              <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Full Name *</label>
-              <input type="text" id="name" name="name" required class={inputClass} placeholder="Your name" />
-            </div>
-            <div>
-              <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Email Address *</label>
-              <input type="email" id="email" name="email" required class={inputClass} placeholder="your.email@example.com" />
-            </div>
-          </div>
-
-          <!-- Phone + Quantity -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-            <div>
-              <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Phone Number <span class="text-gray-400 font-normal">(optional)</span>
-              </label>
-              <input type="tel" id="phone" name="phone" class={inputClass} placeholder="+352 ..." />
-            </div>
-            <div>
-              <label for="quantity" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Quantity *</label>
-              <input type="number" id="quantity" name="quantity" min="1" value="1" required class={inputClass} />
-            </div>
-          </div>
-
-          <!-- Project Details -->
-          <div class="mb-6">
-            <label for="details" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Project Details <span class="text-gray-400 font-normal">(optional)</span>
-            </label>
-            <textarea id="details" name="details" rows="4" class={inputClass + " resize-vertical"} placeholder="Describe your order: colors, dimensions, custom text, special requirements..."></textarea>
-          </div>
-
-          <!-- File Sharing -->
-          <div class="mb-6 p-4 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
-            <p class="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">File Sharing</p>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">Some products (like Glow Photos) require a high-resolution photo.</p>
+          <!-- Add-ons (only those the chosen product allows are shown and submitted) -->
+          <fieldset id="addonsField" class="mb-6 hidden">
+            <legend class={labelClass}>Add-ons <Fragment set:html={optional} /></legend>
             <div class="space-y-3">
+              {
+                addons.map((addon) => (
+                  <label class="addon-option flex items-start gap-3 cursor-pointer" data-addon={addon.id}>
+                    <input
+                      type="checkbox"
+                      name="addons"
+                      value={`${addon.name} (+${formatPrice(addon.price)})`}
+                      data-id={addon.id}
+                      class="mt-0.5 rounded text-primary focus:ring-primary"
+                    />
+                    <span class="text-sm text-gray-700 dark:text-gray-300">
+                      {addon.name} <span class="whitespace-nowrap text-gray-500 dark:text-gray-400">+{formatPrice(addon.price)}</span>
+                    </span>
+                  </label>
+                ))
+              }
+            </div>
+          </fieldset>
+
+          <!-- Quantity -->
+          <div class="mb-6 max-w-[10rem]">
+            <label for="quantity" class={labelClass}>Quantity *</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1" required inputmode="numeric" class={inputClass} />
+          </div>
+
+          <!-- Contact -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="name" class={labelClass}>Name *</label>
+              <input type="text" id="name" name="name" required autocomplete="name" class={inputClass} placeholder="Your name" />
+            </div>
+            <div>
+              <label for="email" class={labelClass}>Email *</label>
+              <input type="email" id="email" name="email" required autocomplete="email" class={inputClass} placeholder="you@example.com" />
+            </div>
+          </div>
+          <div class="mb-6">
+            <label for="phone" class={labelClass}>Phone <Fragment set:html={optional} /></label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" class={inputClass} placeholder="+45 …" />
+          </div>
+
+          <!-- Details -->
+          <div class="mb-6">
+            <label for="details" class={labelClass}>Details / text to print <Fragment set:html={optional} /></label>
+            <textarea
+              id="details"
+              name="details"
+              rows="4"
+              class={inputClass + ' resize-y'}
+              placeholder="The name or text to print, colour, location for a map, design you like…"></textarea>
+          </div>
+
+          <!-- Photos -->
+          <fieldset class="mb-6 p-4 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
+            <legend class="text-sm font-medium text-gray-700 dark:text-gray-300">How you'll send photos</legend>
+            <div class="space-y-3 mt-3">
               <label class="flex items-start gap-3 cursor-pointer">
-                <input type="radio" name="file_sharing" value="email" class="mt-0.5 text-primary focus:ring-primary" />
-                <span class="text-sm text-gray-700 dark:text-gray-300">I'll email the file(s) to <strong>t-3d@ik.me</strong> after submitting</span>
+                <input type="radio" name="file_sharing" value="By email" class="mt-0.5 text-primary focus:ring-primary" />
+                <span class="text-sm text-gray-700 dark:text-gray-300">By email to <strong>t-3d@ik.me</strong> after sending this form</span>
               </label>
               <label class="flex items-start gap-3 cursor-pointer">
-                <input type="radio" name="file_sharing" value="cloud" id="cloudRadio" class="mt-0.5 text-primary focus:ring-primary" />
-                <span class="text-sm text-gray-700 dark:text-gray-300">I have a cloud link (Google Drive, Dropbox, etc.)</span>
+                <input type="radio" name="file_sharing" value="Cloud link" class="mt-0.5 text-primary focus:ring-primary" />
+                <span class="text-sm text-gray-700 dark:text-gray-300">Cloud link (Google Drive, Dropbox, iCloud…)</span>
               </label>
               <label class="flex items-start gap-3 cursor-pointer">
-                <input type="radio" name="file_sharing" value="none" checked class="mt-0.5 text-primary focus:ring-primary" />
-                <span class="text-sm text-gray-700 dark:text-gray-300">No files needed for my order</span>
+                <input type="radio" name="file_sharing" value="Not needed" checked class="mt-0.5 text-primary focus:ring-primary" />
+                <span class="text-sm text-gray-700 dark:text-gray-300">Not needed for my order</span>
               </label>
             </div>
             <div id="cloudLinkSection" class="hidden mt-4">
-              <label for="cloud_link" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Cloud Link</label>
-              <input type="url" id="cloud_link" name="cloud_link" class={inputClass} placeholder="https://drive.google.com/..." />
+              <label for="cloud_link" class={labelClass}>Cloud link</label>
+              <input type="url" id="cloud_link" name="cloud_link" class={inputClass} placeholder="https://…" />
             </div>
-          </div>
+          </fieldset>
 
           <!-- Notes -->
           <div class="mb-8">
-            <label for="notes" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              Additional Notes <span class="text-gray-400 font-normal">(optional)</span>
-            </label>
-            <textarea id="notes" name="notes" rows="3" class={inputClass + " resize-vertical"} placeholder="Anything else you'd like us to know?"></textarea>
+            <label for="notes" class={labelClass}>Notes <Fragment set:html={optional} /></label>
+            <textarea id="notes" name="notes" rows="3" class={inputClass + ' resize-y'} placeholder="Anything else we should know?"></textarea>
           </div>
 
-          <!-- Submit -->
+          <!-- Estimate -->
+          <div class="mb-6 p-4 rounded-lg border border-primary/30 bg-primary/5 dark:bg-primary/10" aria-live="polite">
+            <p class="flex items-baseline justify-between gap-4">
+              <span class="font-semibold text-gray-900 dark:text-gray-100">Estimated price</span>
+              <span id="estimate" class="text-2xl font-bold text-primary">—</span>
+            </p>
+            <p class="mt-1 text-xs text-gray-600 dark:text-gray-400">Estimate — final price confirmed by email.</p>
+          </div>
+
           <button
             type="submit"
             id="submitBtn"
             class="w-full inline-flex items-center justify-center px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition duration-200 shadow-lg hover:shadow-xl disabled:opacity-50"
           >
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
-            </svg>
-            <span id="btnText">Send Order Request</span>
+            <span id="btnText">Send order request</span>
           </button>
+          <p class="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">
+            Local pickup in Aalborg · Pay with MobilePay or cash · No payment needed until you approve the preview.
+          </p>
         </form>
 
         <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-center">
           <p class="text-sm text-gray-500 dark:text-gray-400">
-            Questions? Email us at <a href="mailto:t-3d@ik.me" class="text-primary hover:underline font-medium">t-3d@ik.me</a>
+            Prefer email? Write to <a href="mailto:t-3d@ik.me" class="text-primary hover:underline font-medium">t-3d@ik.me</a>
           </p>
         </div>
       </div>
 
       <div class="mt-6 text-center">
-        <a href={getPermalink('/catalog')} class="text-sm text-gray-500 dark:text-gray-400 hover:text-primary">
-          ← Back to Catalog
-        </a>
+        <a href={getPermalink('/catalog')} class="text-sm text-gray-500 dark:text-gray-400 hover:text-primary">← Back to Catalog</a>
       </div>
     </div>
   </section>
 </Layout>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  // Pre-fill product from URL param
-  const params = new URLSearchParams(window.location.search);
-  const productParam = params.get('product');
-  if (productParam) {
-    const productMap: Record<string, string> = {
-      'glow-photos': '3D Glow Photos',
-      'keychains': 'Keychains',
-      'bookmarks': 'Bookmarks',
-      'electronics': 'Electronics',
-      'maps-cityscapes': '3D Maps & Cityscapes',
-      'fridge-magnets': 'Fridge Magnets',
-      'lamps': 'Lamps',
+  import { getProduct, estimate, formatPrice, needsPhoto } from '~/data/products';
+
+  // The site uses Astro's ClientRouter, so run on every page load, not just the first one.
+  const init = () => {
+    const form = document.getElementById('orderForm') as HTMLFormElement | null;
+    if (!form || form.dataset.ready) return;
+    form.dataset.ready = 'true';
+    const select = document.getElementById('product') as HTMLSelectElement | null;
+    const quantity = document.getElementById('quantity') as HTMLInputElement | null;
+    const addonsField = document.getElementById('addonsField');
+    const estimateEl = document.getElementById('estimate');
+    const estimateField = document.getElementById('estimatedPriceField') as HTMLInputElement | null;
+    const cloudLinkSection = document.getElementById('cloudLinkSection');
+    const addonLabels = Array.from(document.querySelectorAll<HTMLLabelElement>('.addon-option'));
+    const fileRadios = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="file_sharing"]'));
+    let fileChoiceTouched = false;
+
+    const selectedProduct = () => {
+      const id = select?.selectedOptions[0]?.dataset.id;
+      return id ? getProduct(id) : undefined;
     };
-    const productSelect = document.getElementById('product') as HTMLSelectElement | null;
-    if (productSelect && productMap[productParam]) {
-      productSelect.value = productMap[productParam];
-    }
-  }
 
-  // Cloud link toggle
-  const cloudLinkSection = document.getElementById('cloudLinkSection');
-  document.querySelectorAll('input[name="file_sharing"]').forEach((radio) => {
-    radio.addEventListener('change', function (e) {
-      const target = e.target as HTMLInputElement;
-      cloudLinkSection?.classList.toggle('hidden', target.value !== 'cloud');
-    });
-  });
+    const update = () => {
+      const product = selectedProduct();
+      const allowed = product?.addons ?? [];
 
-  // Form submission
-  const orderForm = document.getElementById('orderForm') as HTMLFormElement | null;
-  const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null;
-  const btnText = document.getElementById('btnText');
-
-  orderForm?.addEventListener('submit', async function (e) {
-    e.preventDefault();
-    if (!submitBtn || !btnText) return;
-    submitBtn.disabled = true;
-    btnText.textContent = 'Sending...';
-
-    try {
-      const response = await fetch(orderForm.action, {
-        method: 'POST',
-        body: new FormData(orderForm),
-        headers: { Accept: 'application/json' },
+      // Show only the add-ons this product allows; disabled inputs aren't submitted.
+      addonLabels.forEach((label) => {
+        const input = label.querySelector('input') as HTMLInputElement;
+        const ok = allowed.includes(label.dataset.addon as never);
+        label.classList.toggle('hidden', !ok);
+        input.disabled = !ok;
+        if (!ok) input.checked = false;
       });
-      if (response.ok) {
-        window.location.href = '/order/thank-you';
-      } else {
-        alert('Sorry, there was an error. Please try again or email us at t-3d@ik.me');
-        submitBtn.disabled = false;
-        btnText.textContent = 'Send Order Request';
+      addonsField?.classList.toggle('hidden', allowed.length === 0);
+
+      const chosen = addonLabels
+        .map((l) => l.querySelector('input') as HTMLInputElement)
+        .filter((i) => i.checked && !i.disabled)
+        .map((i) => i.dataset.id as string);
+      const total = product ? estimate(product, Number(quantity?.value), chosen) : null;
+      const text = !product ? '—' : total === null ? 'Price on quote' : formatPrice(total);
+      if (estimateEl) estimateEl.textContent = text;
+      if (estimateField) estimateField.value = product ? text : '';
+
+      // Photo products: suggest email for photos unless the customer already picked an option.
+      if (product && needsPhoto(product) && !fileChoiceTouched) {
+        const email = fileRadios.find((r) => r.value === 'By email');
+        if (email) email.checked = true;
+        cloudLinkSection?.classList.add('hidden');
       }
-    } catch {
-      alert('Sorry, there was an error. Please try again or email us at t-3d@ik.me');
-      submitBtn.disabled = false;
-      btnText.textContent = 'Send Order Request';
+    };
+
+    // Preselect from ?product=<id>
+    const param = new URLSearchParams(window.location.search).get('product');
+    if (param && select) {
+      const option = Array.from(select.options).find((o) => o.dataset.id === param);
+      if (option) select.value = option.value;
     }
-  });
-});
+
+    select?.addEventListener('change', update);
+    quantity?.addEventListener('input', update);
+    addonLabels.forEach((l) => l.querySelector('input')?.addEventListener('change', update));
+    fileRadios.forEach((radio) =>
+      radio.addEventListener('change', () => {
+        fileChoiceTouched = true;
+        cloudLinkSection?.classList.toggle('hidden', radio.value !== 'Cloud link');
+      })
+    );
+    update();
+
+    // Submit via fetch so we can show our own thank-you page
+    const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null;
+    const btnText = document.getElementById('btnText');
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!submitBtn || !btnText) return;
+      submitBtn.disabled = true;
+      btnText.textContent = 'Sending…';
+      const fail = () => {
+        alert('Sorry, something went wrong. Please try again or email us at t-3d@ik.me');
+        submitBtn.disabled = false;
+        btnText.textContent = 'Send order request';
+      };
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (response.ok) window.location.href = '/order/thank-you';
+        else fail();
+      } catch {
+        fail();
+      }
+    });
+  };
+
+  document.addEventListener('astro:page-load', init);
 </script>

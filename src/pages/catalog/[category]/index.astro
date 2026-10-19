@@ -17,7 +17,7 @@ const { category } = Astro.props;
 const items = productsInCategory(category.id);
 
 const metadata = {
-  title: `${category.name} — tattva-3d`,
+  title: category.name,
   description: `${category.tagline}. Personal 3D printed ${category.name.toLowerCase()} from ${formatPrice(lowestPrice(category.id))}, made to order.`,
 };
 ---

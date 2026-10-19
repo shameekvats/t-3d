@@ -107,6 +107,10 @@ export default defineConfig({
     '/catalog/maps-cityscapes': '/catalog/places',
     '/catalog/lamps': '/catalog/lights',
     '/catalog/lightboxes': '/catalog/lights',
+    // Contact merged into the order form (Stage 4)
+    '/contact': '/order',
+    '/fr/contact': '/fr/order',
+    '/fr/custom': '/fr/order',
     // Legal pages exist in English only
     '/fr/terms': '/terms',
     '/fr/privacy': '/privacy',

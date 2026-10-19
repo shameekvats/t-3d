@@ -1,6 +1,6 @@
 ---
 import { getPermalink } from '~/utils/permalinks';
-import { getProduct, orderPath } from '~/data/products';
+import { getProduct, productPath } from '~/data/products';
 
 const custom = getProduct('custom');
 ---
@@ -8,7 +8,7 @@ const custom = getProduct('custom');
 {
   custom && (
     <a
-      href={getPermalink(orderPath(custom))}
+      href={getPermalink(productPath(custom))}
       class="group flex flex-col justify-center gap-3 rounded-xl p-6 sm:p-8 bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 border-2 border-dashed border-primary/30 hover:border-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
     >
       <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">Custom &amp; business</h3>

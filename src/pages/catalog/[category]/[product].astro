@@ -39,7 +39,7 @@ const productAddons = product.addons.map((id) => getAddon(id)!).filter(Boolean);
 const related = productsInCategory(category.id).filter((p) => p.id !== product.id);
 
 const metadata = {
-  title: `${product.name} — tattva-3d`,
+  title: product.name,
   description: `${product.shortDescription} ${priceLabel(product)}, made to order.`,
 };
 ---
