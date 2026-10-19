@@ -3,8 +3,9 @@ import Layout from '~/layouts/PageLayout.astro';
 import { getPermalink } from '~/utils/permalinks';
 
 const metadata = {
-  title: 'Order Received — tattva-3d',
-  description: 'Your order request has been received.',
+  title: 'Order received',
+  description: 'Thanks for your order request to tattva-3d in Aalborg. We reply by email with the final price and a preview.',
+  robots: { index: false, follow: true },
   robots: { index: false, follow: false },
 };
 ---
@@ -35,7 +36,7 @@ const metadata = {
             {[
               { n: 1, title: 'We Review Your Request', desc: "We'll review your order details and check availability" },
               { n: 2, title: 'We Contact You', desc: "We'll reach out to confirm details, answer questions, and share payment info" },
-              { n: 3, title: 'Production Starts', desc: 'Once confirmed and paid, we begin printing your order' },
+              { n: 3, title: 'Production Starts', desc: 'Once you approve the preview we print it. You pay with MobilePay or cash at pickup' },
             ].map(({ n, title, desc }) => (
               <li class="flex items-start">
                 <div class="flex-shrink-0 w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center mr-4">

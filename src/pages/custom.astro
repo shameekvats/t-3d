@@ -7,12 +7,15 @@ import { getPermalink } from '~/utils/permalinks';
 import { getProduct, orderPath } from '~/data/products';
 
 const custom = getProduct('custom')!;
-const examples = (await Promise.all(custom.images.map((src) => findImage(src)))).filter(Boolean) as ImageMetadata[];
+const examples = (
+  await Promise.all(custom.images.map(async (ref) => ({ ...ref, meta: (await findImage(ref.src)) as ImageMetadata | undefined })))
+).filter((img) => img.meta);
 
 const metadata = {
   title: 'Custom & business orders',
   description:
     'Branded keychains, logo lightboxes, logo magnets, large multi-tile maps and workshops. Tell us your idea and get a quote from tattva-3d in Aalborg.',
+  openGraph: { images: [{ url: custom.images[0].src }] },
 };
 
 const ideas = [
@@ -57,11 +60,11 @@ const steps = [
       <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">Work we've made</h2>
       <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
         {
-          examples.map((img, i) => (
+          examples.map((img) => (
             <div class="aspect-square rounded-xl overflow-hidden bg-gray-100 dark:bg-slate-700">
               <Image
-                src={img}
-                alt={`Custom branded piece by tattva-3d, example ${i + 1}`}
+                src={img.meta!}
+                alt={img.alt}
                 class="w-full h-full object-cover"
                 widths={[300, 600]}
                 sizes="(max-width: 768px) 50vw, 320px"

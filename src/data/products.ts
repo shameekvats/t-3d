@@ -18,7 +18,7 @@ export interface Category {
   /** Short "How it's made" line (product language, no technique names) */
   howItsMade?: string;
   /** Cover photo for category cards on the homepage */
-  image?: string;
+  image?: ProductImage;
 }
 
 export interface Addon {
@@ -26,6 +26,12 @@ export interface Addon {
   name: string;
   price: number;
   description?: string;
+}
+
+export interface ProductImage {
+  src: string;
+  /** Descriptive alt text, also used in structured data */
+  alt: string;
 }
 
 export interface Product {
@@ -41,7 +47,7 @@ export interface Product {
   bundle?: { quantity: number; price: number };
   options: string[];
   addons: AddonId[];
-  images: string[];
+  images: ProductImage[];
   available: boolean;
 }
 
@@ -53,7 +59,7 @@ export const categories: Category[] = [
     description:
       'Send us a photo or a few words and we turn it into a keychain, magnet, bookmark, glow panel or photo cube. You see a preview before anything is printed.',
     howItsMade: 'Printed in layers of colour so your photo appears in the plastic.',
-    image: '~/assets/images/Gallery/keychain/PHOTO-2025-09-21-11-54-36.jpg',
+    image: { src: '~/assets/images/Gallery/keychain/PHOTO-2025-09-21-11-54-36.jpg', alt: '3D printed keychain cut to the outline of a dog, made from a photo' },
   },
   {
     id: 'places',
@@ -61,7 +67,7 @@ export const categories: Category[] = [
     tagline: 'Any place on Earth, in 3D',
     description:
       'Turn any place on Earth into a 3D art piece. The mountain range you hiked, the city you grew up in, a dream destination, or a spot with a special memory — we source the real terrain data and print it with precision. Share a place name, coordinates or a rough area, and we handle everything else.',
-    image: '~/assets/images/Gallery/maps_cityscapes/trieste.jpg',
+    image: { src: '~/assets/images/Gallery/maps_cityscapes/trieste.jpg', alt: 'Multicolour 3D printed map of Trieste with the blue sea and city streets, in a dark frame' },
   },
   {
     id: 'lights',
@@ -69,7 +75,7 @@ export const categories: Category[] = [
     tagline: 'Lamps and lightboxes that glow',
     description:
       'Add character to your space. Choose a compact mini lamp for a desk or bedside, a full-size lamp for your living room, or a lightbox with your own text or logo. Each one casts a warm, cosy glow — and makes a genuinely unique gift.',
-    image: '~/assets/images/Gallery/lamps/mini-lamps.jpg',
+    image: { src: '~/assets/images/Gallery/lamps/mini-lamps.jpg', alt: 'Four lit 3D printed mini lamps in yellow, gold and blue' },
   },
 ];
 
@@ -105,7 +111,7 @@ export const products: Product[] = [
     price: 49,
     options: ['Your text', 'Colour from stock'],
     addons: ['nfc', 'giftbox'],
-    images: ['~/assets/images/Models/After_BM_Keychain.jpg'],
+    images: [{ src: '~/assets/images/Models/After_BM_Keychain.jpg', alt: 'Round black-and-white 3D printed keychains with the Beyond Music logo' }],
     available: true,
   },
   {
@@ -116,7 +122,7 @@ export const products: Product[] = [
     price: 99,
     options: ['Your photo'],
     addons: ['glow', 'nfc', 'giftbox'],
-    images: [`${IMG}/keychain/IMG_4973.jpg`, `${IMG}/keychain/PHOTO-2025-09-21-11-54-36.jpg`],
+    images: [{ src: `${IMG}/keychain/IMG_4973.jpg`, alt: 'Polaroid-style 3D printed photo keychain showing a black-and-white photo of a dog' }, { src: `${IMG}/keychain/PHOTO-2025-09-21-11-54-36.jpg`, alt: '3D printed keychain cut to the outline of a dog, made from a photo' }],
     available: true,
   },
   {
@@ -141,11 +147,11 @@ export const products: Product[] = [
     options: ['Your photo', 'Optional text'],
     addons: ['glow', 'giftbox'],
     images: [
-      `${IMG}/bookmarks/shameek.png`,
-      `${IMG}/bookmarks/shameek2.png`,
-      `${IMG}/bookmarks/Cat_Sticker_Bookmark.jpeg`,
-      `${IMG}/bookmarks/IMG_5479.jpg`,
-      `${IMG}/bookmarks/IMG_5480.jpg`,
+      { src: `${IMG}/bookmarks/shameek.png`, alt: 'Black-and-white 3D printed photo bookmark of a person in a suit, tucked into a book of Rumi poems' },
+      { src: `${IMG}/bookmarks/shameek2.png`, alt: 'Black-and-white 3D printed photo bookmark of a person in a suit, lying in an open poetry book' },
+      { src: `${IMG}/bookmarks/Cat_Sticker_Bookmark.jpeg`, alt: '3D printed bookmark of a cat wearing sunglasses, in green and black' },
+      { src: `${IMG}/bookmarks/IMG_5479.jpg`, alt: '3D printed photo bookmark lying in an open book' },
+      { src: `${IMG}/bookmarks/IMG_5480.jpg`, alt: '3D printed photo bookmark standing in a book of Rumi poems' },
     ],
     available: true,
   },
@@ -181,7 +187,7 @@ export const products: Product[] = [
     price: 249,
     options: ['Any location', 'Colour from stock'],
     addons: ['giftbox'],
-    images: [`${IMG}/maps_cityscapes/IMG_4173.JPG`],
+    images: [{ src: `${IMG}/maps_cityscapes/IMG_4173.JPG`, alt: 'Single-colour white 3D printed relief map of a city centre' }],
     available: true,
   },
   {
@@ -193,9 +199,9 @@ export const products: Product[] = [
     options: ['Any location'],
     addons: ['giftbox'],
     images: [
-      `${IMG}/maps_cityscapes/1_Lux_Ville.jpg`,
-      `${IMG}/maps_cityscapes/trieste.jpg`,
-      `${IMG}/maps_cityscapes/spilimbergo.jpg`,
+      { src: `${IMG}/maps_cityscapes/1_Lux_Ville.jpg`, alt: 'Multicolour 3D printed map of Luxembourg City with green parks and blue river, in a wooden frame' },
+      { src: `${IMG}/maps_cityscapes/trieste.jpg`, alt: 'Multicolour 3D printed map of Trieste with the blue sea and city streets, in a dark frame' },
+      { src: `${IMG}/maps_cityscapes/spilimbergo.jpg`, alt: 'Multicolour 3D printed map of Spilimbergo with green areas and streets, in a dark frame' },
     ],
     available: true,
   },
@@ -209,7 +215,7 @@ export const products: Product[] = [
     price: 99,
     options: ['Design', 'Colour from stock'],
     addons: ['giftbox'],
-    images: [`${IMG}/lamps/mini-lamps.jpg`, `${IMG}/lamps/mini-lamp_Circular.jpg`],
+    images: [{ src: `${IMG}/lamps/mini-lamps.jpg`, alt: 'Four lit 3D printed mini lamps in yellow, gold and blue' }, { src: `${IMG}/lamps/mini-lamp_Circular.jpg`, alt: 'Round yellow 3D printed mini lamp glowing on a small tripod stand' }],
     available: true,
   },
   {
@@ -220,7 +226,7 @@ export const products: Product[] = [
     price: 199,
     options: ['Design', 'Colour from stock'],
     addons: ['giftbox'],
-    images: [`${IMG}/lamps/1_lamp.jpg`, `${IMG}/lamps/led_lamp.PNG`, `${IMG}/lamps/led_lamp2.PNG`],
+    images: [{ src: `${IMG}/lamps/1_lamp.jpg`, alt: 'Lit white 3D printed table lamp with a diamond-pattern shade' }, { src: `${IMG}/lamps/led_lamp.PNG`, alt: 'Lit white pleated 3D printed lamp on a wooden base' }, { src: `${IMG}/lamps/led_lamp2.PNG`, alt: 'Three 3D printed table lamps: white pleated, white diamond-pattern and blue pleated' }],
     available: true,
   },
   {
@@ -232,11 +238,11 @@ export const products: Product[] = [
     options: ['Your text or logo'],
     addons: [],
     images: [
-      `${IMG}/electronics/lightbox.jpg`,
-      `${IMG}/lightbox/low_key/Image_1.png`,
-      `${IMG}/lightbox/low_key/Image_3.png`,
-      `${IMG}/lightbox/beyond_music/BM_1.png`,
-      `${IMG}/lightbox/beyond_music/BM_3.png`,
+      { src: `${IMG}/electronics/lightbox.jpg`, alt: 'Low Key logo lightbox glowing green in the dark' },
+      { src: `${IMG}/lightbox/low_key/Image_1.png`, alt: 'Low Key logo lightbox glowing green on a dark shelf' },
+      { src: `${IMG}/lightbox/low_key/Image_3.png`, alt: 'Low Key logo lightbox glowing green on a white shelf' },
+      { src: `${IMG}/lightbox/beyond_music/BM_1.png`, alt: 'Black cube lightbox with the Beyond Music logo lit up, next to a plant' },
+      { src: `${IMG}/lightbox/beyond_music/BM_3.png`, alt: 'Black cube lightbox with the Beyond Music logo glowing among candles' },
     ],
     available: true,
   },
@@ -252,12 +258,12 @@ export const products: Product[] = [
     options: [],
     addons: [],
     images: [
-      `${IMG}/lightbox/beyond_music/BM_2.png`,
-      `${IMG}/lightbox/low_key/Image_2.png`,
-      `${IMG}/electronics/lightbox.jpg`,
-      `${IMG}/lightbox/low_key/Image_4.png`,
-      `${IMG}/fridge_magnets/IMG_4137.jpg`,
-      `${IMG}/fridge_magnets/IMG_4140.jpg`,
+      { src: `${IMG}/lightbox/beyond_music/BM_2.png`, alt: 'Black cube lightbox with the Beyond Music logo on a desk' },
+      { src: `${IMG}/lightbox/low_key/Image_2.png`, alt: 'Low Key logo lightbox glowing green in a warmly lit room' },
+      { src: `${IMG}/electronics/lightbox.jpg`, alt: 'Low Key logo lightbox glowing green in the dark' },
+      { src: `${IMG}/lightbox/low_key/Image_4.png`, alt: 'Low Key logo lightbox on a white shelf next to a plant' },
+      { src: `${IMG}/fridge_magnets/IMG_4137.jpg`, alt: '3D printed Warriors logo fridge magnet in brown, red and black' },
+      { src: `${IMG}/fridge_magnets/IMG_4140.jpg`, alt: 'Round 3D printed Beyond Music logo fridge magnet' },
     ],
     available: true,
   },

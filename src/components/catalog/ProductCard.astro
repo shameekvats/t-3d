@@ -11,7 +11,8 @@ interface Props {
 }
 
 const { product } = Astro.props;
-const cover = product.images[0] ? ((await findImage(product.images[0])) as ImageMetadata | undefined) : undefined;
+const coverRef = product.images[0];
+const cover = coverRef ? ((await findImage(coverRef.src)) as ImageMetadata | undefined) : undefined;
 ---
 
 <a
@@ -23,7 +24,7 @@ const cover = product.images[0] ? ((await findImage(product.images[0])) as Image
       cover ? (
         <Image
           src={cover}
-          alt={product.name}
+          alt={coverRef!.alt}
           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           widths={[300, 600]}
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 300px"

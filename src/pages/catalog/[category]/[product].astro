@@ -4,6 +4,7 @@ import type { ImageMetadata } from 'astro';
 import Layout from '~/layouts/PageLayout.astro';
 import ProductCard from '~/components/catalog/ProductCard.astro';
 import PhotoComingSoon from '~/components/PhotoComingSoon.astro';
+import ProductSchema from '~/components/common/ProductSchema.astro';
 import { findImage } from '~/utils/images';
 import { getPermalink } from '~/utils/permalinks';
 import {
@@ -33,18 +34,22 @@ interface Props {
 
 const { product } = Astro.props;
 const category = getCategory(product.category!)!;
-const images = (await Promise.all(product.images.map((src) => findImage(src)))).filter(Boolean) as ImageMetadata[];
+const images = (
+  await Promise.all(product.images.map(async (ref) => ({ ...ref, meta: (await findImage(ref.src)) as ImageMetadata | undefined })))
+).filter((img) => img.meta);
 const [mainImage, ...moreImages] = images;
 const productAddons = product.addons.map((id) => getAddon(id)!).filter(Boolean);
 const related = productsInCategory(category.id).filter((p) => p.id !== product.id);
 
 const metadata = {
   title: product.name,
-  description: `${product.shortDescription} ${priceLabel(product)}, made to order.`,
+  description: `${product.shortDescription} ${priceLabel(product)}, made to order in Aalborg.`,
+  ...(product.images[0] ? { openGraph: { images: [{ url: product.images[0].src }] } } : {}),
 };
 ---
 
 <Layout metadata={metadata}>
+  <ProductSchema products={[product]} />
   <section class="pt-24 pb-12 bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <nav class="mb-6 text-sm" aria-label="Breadcrumb">
@@ -64,8 +69,8 @@ const metadata = {
             {
               mainImage ? (
                 <Image
-                  src={mainImage}
-                  alt={product.name}
+                  src={mainImage.meta!}
+                  alt={mainImage.alt}
                   class="w-full h-full object-cover"
                   widths={[400, 768, 1024]}
                   sizes="(max-width: 1024px) 100vw, 600px"
@@ -79,11 +84,11 @@ const metadata = {
           {
             moreImages.length > 0 && (
               <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 mt-3">
-                {moreImages.map((img, i) => (
+                {moreImages.map((img) => (
                   <div class="aspect-square rounded-lg overflow-hidden bg-gray-100 dark:bg-slate-700">
                     <Image
-                      src={img}
-                      alt={`${product.name}, photo ${i + 2}`}
+                      src={img.meta!}
+                      alt={img.alt}
                       class="w-full h-full object-cover"
                       widths={[200, 400]}
                       sizes="(max-width: 640px) 33vw, 150px"

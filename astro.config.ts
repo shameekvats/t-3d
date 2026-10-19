@@ -180,10 +180,10 @@ export const I18N = {
 
 export const METADATA = {
   title: {
-    default: 'tattva-3d — 3d Printing on demand',
-    template: '%s — tattva-3d'
+    default: 'tattva-3d — 3D-printed personal gifts in Aalborg',
+    template: '%s | tattva-3d'
   },
-  description: "Custom 3D printing service in Luxembourg. We create personalised gifts, business items, and creative keepsakes on demand.",
+  description: "Personal 3D printed gifts made to order in Aalborg, Denmark: photo gifts, 3D maps, lamps and lightboxes. Preview first, pay at pickup.",
   robots: {
     index: true,
     follow: true,
@@ -191,6 +191,8 @@ export const METADATA = {
   openGraph: {
     site_name: 'tattva-3d',
     type: 'website',
+    // Default share image (1200×630), made from real product photos
+    images: [{ url: '~/assets/images/og-default.jpg', width: 1200, height: 630 }],
   },
 };
 

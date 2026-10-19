@@ -2,6 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import ProductCard from '~/components/catalog/ProductCard.astro';
 import CustomCard from '~/components/catalog/CustomCard.astro';
+import ProductSchema from '~/components/common/ProductSchema.astro';
 import { getPermalink } from '~/utils/permalinks';
 import { categories, productsInCategory, formatPrice, lowestPrice, type Category } from '~/data/products';
 
@@ -18,11 +19,13 @@ const items = productsInCategory(category.id);
 
 const metadata = {
   title: category.name,
-  description: `${category.tagline}. Personal 3D printed ${category.name.toLowerCase()} from ${formatPrice(lowestPrice(category.id))}, made to order.`,
+  description: `${category.tagline}. ${category.name} from ${formatPrice(lowestPrice(category.id))}, 3D printed to order in Aalborg.`,
+  ...(category.image ? { openGraph: { images: [{ url: category.image.src }] } } : {}),
 };
 ---
 
 <Layout metadata={metadata}>
+  <ProductSchema products={items} />
   <section class="pt-24 pb-8 md:pb-12 bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6">
       <nav class="mb-6 text-sm" aria-label="Breadcrumb">

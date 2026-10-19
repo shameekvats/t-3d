@@ -1,5 +1,6 @@
 ---
 title: 'Terms'
+description: 'Terms for personalised 3D printed orders from tattva-3d in Aalborg: previews, pickup, payment by MobilePay or cash, and returns.'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 

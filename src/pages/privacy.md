@@ -1,5 +1,6 @@
 ---
 title: 'Privacy Notice'
+description: 'How tattva-3d in Aalborg handles your order details and photos, who processes them, how long we keep them, and your GDPR rights.'
 layout: '~/layouts/MarkdownLayout.astro'
 ---
 
