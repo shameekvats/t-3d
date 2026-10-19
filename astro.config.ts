@@ -24,9 +24,77 @@ export default defineConfig({
     remotePatterns: [{ protocol: 'https' }],
   },
   redirects: {
-    '/gallery': '/portfolio',
-    '/3d-models': '/portfolio',
+    // Old template / portfolio URLs
+    '/gallery': '/catalog',
+    '/3d-models': '/catalog',
+    '/models': '/catalog',
     '/about': '/',
+    '/portfolio': '/catalog',
+    '/portfolio/custom': '/catalog',
+    '/portfolio/bookmarks': '/catalog/bookmarks',
+    '/portfolio/fridge-magnets': '/catalog/fridge-magnets',
+    '/portfolio/glow-photos': '/catalog/glow-photos',
+    '/portfolio/keychains': '/catalog/keychains',
+    '/portfolio/lamps': '/catalog/lamps',
+    '/portfolio/maps-cityscapes': '/catalog/maps-cityscapes',
+    '/portfolio/cookie-cutters': '/catalog',
+    '/portfolio/electronics': '/catalog',
+    '/fr/portfolio': '/fr/catalog',
+    '/fr/portfolio/bookmarks': '/fr/catalog/bookmarks',
+    '/fr/portfolio/fridge-magnets': '/fr/catalog/fridge-magnets',
+    '/fr/portfolio/glow-photos': '/fr/catalog/glow-photos',
+    '/fr/portfolio/keychains': '/fr/catalog/keychains',
+    '/fr/portfolio/lamps': '/fr/catalog/lamps',
+    '/fr/portfolio/maps-cityscapes': '/fr/catalog/maps-cityscapes',
+    '/fr/portfolio/cookie-cutters': '/fr/catalog',
+    '/fr/portfolio/electronics': '/fr/catalog',
+    '/portfolio-new': '/catalog',
+    '/portfolio-old-backup': '/catalog',
+    '/portfolio-gallery-backup': '/catalog',
+    '/decapcms': '/',
+    '/homes/mobile-app': '/',
+    '/homes/personal': '/',
+    '/homes/saas': '/',
+    '/homes/startup': '/',
+    '/landing': '/',
+    '/landing/click-through': '/',
+    '/landing/lead-generation': '/',
+    '/landing/pre-launch': '/',
+    '/landing/product': '/',
+    '/landing/sales': '/',
+    '/landing/subscription': '/',
+    // Removed AstroWind demo pages and blog (Stage 1)
+    '/pricing': '/',
+    '/services': '/',
+    '/blog': '/',
+    '/category/documentation': '/',
+    '/category/tutorials': '/',
+    '/tag/astro': '/',
+    '/tag/blog': '/',
+    '/tag/front-end': '/',
+    '/tag/landing-pages': '/',
+    '/tag/markdown': '/',
+    '/tag/resources': '/',
+    '/tag/tailwind-css': '/',
+    '/tag/theme': '/',
+    '/tag/tools': '/',
+    '/astrowind-template-in-depth': '/',
+    '/get-started-website-with-astro-tailwind-css': '/',
+    '/how-to-customize-astrowind-to-your-brand': '/',
+    '/markdown-elements-demo-post': '/',
+    '/useful-resources-to-create-websites': '/',
+    // Products no longer sold (Stage 1)
+    '/catalog/wireless-mouse': '/catalog',
+    '/catalog/iphone-dock': '/catalog',
+    '/catalog/cookie-cutters': '/catalog',
+    '/catalog/clock': '/catalog',
+    '/fr/catalog/wireless-mouse': '/fr/catalog',
+    '/fr/catalog/iphone-dock': '/fr/catalog',
+    '/fr/catalog/cookie-cutters': '/fr/catalog',
+    '/fr/catalog/clock': '/fr/catalog',
+    // Legal pages exist in English only
+    '/fr/terms': '/terms',
+    '/fr/privacy': '/privacy',
     '/catalog/electronics': '/catalog',
     '/fr/catalog/electronics': '/fr/catalog',
     // Workshops temporarily suspended — remove these two redirects to unhide the workshop pages
@@ -105,11 +173,6 @@ export const METADATA = {
     site_name: 'tattva-3d',
     type: 'website',
   },
-  twitter: {
-    handle: '@tattva3d',
-    site: '@tattva3d',
-    cardType: 'summary',
-  },
 };
 
 export const ANALYTICS = {
@@ -120,44 +183,6 @@ export const ANALYTICS = {
   },
 };
 
-export const APP_BLOG = {
-  isEnabled: true,
-  postsPerPage: 6,
-  isRelatedPostsEnabled: true,
-  relatedPostsCount: 4,
-  post: {
-    isEnabled: true,
-    permalink: '/%slug%',
-    robots: {
-      index: true,
-      follow: true,
-    },
-  },
-  list: {
-    isEnabled: true,
-    pathname: 'blog',
-    robots: {
-      index: true,
-      follow: true,
-    },
-  },
-  category: {
-    isEnabled: true,
-    pathname: 'category',
-    robots: {
-      index: true,
-      follow: true,
-    },
-  },
-  tag: {
-    isEnabled: true,
-    pathname: 'tag',
-    robots: {
-      index: true,
-      follow: true,
-    },
-  },
-};
 
 export const UI = {
   theme: 'system',
