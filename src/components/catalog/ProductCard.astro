@@ -1,0 +1,46 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import PhotoComingSoon from '~/components/PhotoComingSoon.astro';
+import { findImage } from '~/utils/images';
+import { getPermalink } from '~/utils/permalinks';
+import { type Product, priceLabel, productPath } from '~/data/products';
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const cover = product.images[0] ? ((await findImage(product.images[0])) as ImageMetadata | undefined) : undefined;
+---
+
+<a
+  href={getPermalink(productPath(product))}
+  class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+>
+  <div class="aspect-square overflow-hidden bg-gray-100 dark:bg-slate-700">
+    {
+      cover ? (
+        <Image
+          src={cover}
+          alt={product.name}
+          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          widths={[300, 600]}
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 300px"
+        />
+      ) : (
+        <PhotoComingSoon class="aspect-square" />
+      )
+    }
+  </div>
+  <div class="flex flex-col flex-1 p-3 sm:p-4">
+    <h3 class="font-bold text-sm sm:text-base text-gray-900 dark:text-gray-100 group-hover:text-primary transition-colors">
+      {product.name}
+    </h3>
+    <p class="mt-1 text-xs sm:text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{product.shortDescription}</p>
+    <p class="mt-auto pt-3 font-semibold text-gray-900 dark:text-gray-100">
+      {priceLabel(product)}
+      {product.priceNote && <span class="block text-xs font-normal text-gray-500 dark:text-gray-400">{product.priceNote}</span>}
+    </p>
+  </div>
+</a>

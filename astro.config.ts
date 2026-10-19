@@ -7,6 +7,8 @@ import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 import icon from 'astro-icon';
 
+import { categories, catalogProducts } from './src/data/products';
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
@@ -24,6 +26,11 @@ export default defineConfig({
     remotePatterns: [{ protocol: 'https' }],
   },
   redirects: {
+    // French versions of the new catalog pages don't exist yet (Stage 6) — send the language switcher to /fr/catalog
+    ...Object.fromEntries([
+      ...categories.map((c) => `/fr/catalog/${c.id}`),
+      ...catalogProducts().map((p) => `/fr/catalog/${p.category}/${p.id}`),
+    ].map((from) => [from, '/fr/catalog'])),
     // Old template / portfolio URLs
     '/gallery': '/catalog',
     '/3d-models': '/catalog',
@@ -31,12 +38,12 @@ export default defineConfig({
     '/about': '/',
     '/portfolio': '/catalog',
     '/portfolio/custom': '/catalog',
-    '/portfolio/bookmarks': '/catalog/bookmarks',
-    '/portfolio/fridge-magnets': '/catalog/fridge-magnets',
-    '/portfolio/glow-photos': '/catalog/glow-photos',
-    '/portfolio/keychains': '/catalog/keychains',
-    '/portfolio/lamps': '/catalog/lamps',
-    '/portfolio/maps-cityscapes': '/catalog/maps-cityscapes',
+    '/portfolio/bookmarks': '/catalog/photo-gifts',
+    '/portfolio/fridge-magnets': '/catalog/photo-gifts',
+    '/portfolio/glow-photos': '/catalog/photo-gifts',
+    '/portfolio/keychains': '/catalog/photo-gifts',
+    '/portfolio/lamps': '/catalog/lights',
+    '/portfolio/maps-cityscapes': '/catalog/places',
     '/portfolio/cookie-cutters': '/catalog',
     '/portfolio/electronics': '/catalog',
     '/fr/portfolio': '/fr/catalog',
@@ -92,6 +99,14 @@ export default defineConfig({
     '/fr/catalog/iphone-dock': '/fr/catalog',
     '/fr/catalog/cookie-cutters': '/fr/catalog',
     '/fr/catalog/clock': '/fr/catalog',
+    // Old technique-based category pages (Stage 3)
+    '/catalog/keychains': '/catalog/photo-gifts',
+    '/catalog/bookmarks': '/catalog/photo-gifts',
+    '/catalog/glow-photos': '/catalog/photo-gifts',
+    '/catalog/fridge-magnets': '/catalog/photo-gifts',
+    '/catalog/maps-cityscapes': '/catalog/places',
+    '/catalog/lamps': '/catalog/lights',
+    '/catalog/lightboxes': '/catalog/lights',
     // Legal pages exist in English only
     '/fr/terms': '/terms',
     '/fr/privacy': '/privacy',

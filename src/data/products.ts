@@ -14,12 +14,16 @@ export interface Category {
   id: CategoryId;
   name: string;
   tagline: string;
+  description?: string;
+  /** Short "How it's made" line (product language, no technique names) */
+  howItsMade?: string;
 }
 
 export interface Addon {
   id: AddonId;
   name: string;
   price: number;
+  description?: string;
 }
 
 export interface Product {
@@ -38,16 +42,49 @@ export interface Product {
 }
 
 export const categories: Category[] = [
-  { id: 'photo-gifts', name: 'Photo Gifts', tagline: 'Your photo, made into something you can hold' },
-  { id: 'places', name: 'Places', tagline: 'Any place on Earth, in 3D' },
-  { id: 'lights', name: 'Lights', tagline: 'Lamps and lightboxes that glow' },
+  {
+    id: 'photo-gifts',
+    name: 'Photo Gifts',
+    tagline: 'Your photo, made into something you can hold',
+    description:
+      'Send us a photo or a few words and we turn it into a keychain, magnet, bookmark, glow panel or photo cube. You see a preview before anything is printed.',
+    howItsMade: 'Printed in layers of colour so your photo appears in the plastic.',
+  },
+  {
+    id: 'places',
+    name: 'Places',
+    tagline: 'Any place on Earth, in 3D',
+    description:
+      'Turn any place on Earth into a 3D art piece. The mountain range you hiked, the city you grew up in, a dream destination, or a spot with a special memory — we source the real terrain data and print it with precision. Share a place name, coordinates or a rough area, and we handle everything else.',
+  },
+  {
+    id: 'lights',
+    name: 'Lights',
+    tagline: 'Lamps and lightboxes that glow',
+    description:
+      'Add character to your space. Choose a compact mini lamp for a desk or bedside, a full-size lamp for your living room, or a lightbox with your own text or logo. Each one casts a warm, cosy glow — and makes a genuinely unique gift.',
+  },
 ];
 
 export const addons: Addon[] = [
-  { id: 'glow', name: 'Glow-in-the-dark finish', price: 29 },
-  { id: 'nfc', name: 'NFC tag (tap to share a link or contact)', price: 39 },
+  {
+    id: 'glow',
+    name: 'Glow-in-the-dark finish',
+    price: 29,
+    description: 'Absorbs light during the day and glows softly in the dark.',
+  },
+  {
+    id: 'nfc',
+    name: 'NFC tag (tap to share a link or contact)',
+    price: 39,
+    description:
+      'Tap any NFC-enabled phone to it to instantly share a contact, link or social profile — no app needed. Works with all modern smartphones.',
+  },
   { id: 'giftbox', name: 'Gift box', price: 19 },
 ];
+
+/** Shown on products that need a customer photo */
+export const photoTip = 'A high-resolution photo works best (at least 1000 px). You can email it after sending your order.';
 
 const IMG = '~/assets/images/Gallery';
 
@@ -216,4 +253,20 @@ export const products: Product[] = [
 
 export const getProduct = (id: string) => products.find((p) => p.id === id);
 export const getAddon = (id: AddonId) => addons.find((a) => a.id === id);
+export const getCategory = (id: CategoryId) => categories.find((c) => c.id === id);
 export const productsInCategory = (id: CategoryId) => products.filter((p) => p.category === id && p.available);
+
+/** Products that have their own page in the catalog (everything except the custom quote entry) */
+export const catalogProducts = () => products.filter((p) => p.category !== null && p.available);
+
+export const formatPrice = (price: number) => `${price} kr`;
+export const priceLabel = (product: Product) => (product.price === null ? 'Price on quote' : formatPrice(product.price));
+export const lowestPrice = (id: CategoryId) =>
+  Math.min(...productsInCategory(id).flatMap((p) => (p.price === null ? [] : [p.price])));
+
+export const needsPhoto = (product: Product) => product.options.some((o) => /photo/i.test(o));
+
+export const categoryPath = (id: CategoryId) => `/catalog/${id}`;
+export const productPath = (product: Product) =>
+  product.category ? `/catalog/${product.category}/${product.id}` : '/order?product=custom';
+export const orderPath = (product: Product) => `/order?product=${product.id}`;

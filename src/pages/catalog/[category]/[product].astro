@@ -1,0 +1,173 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Layout from '~/layouts/PageLayout.astro';
+import ProductCard from '~/components/catalog/ProductCard.astro';
+import PhotoComingSoon from '~/components/PhotoComingSoon.astro';
+import { findImage } from '~/utils/images';
+import { getPermalink } from '~/utils/permalinks';
+import {
+  catalogProducts,
+  getAddon,
+  getCategory,
+  productsInCategory,
+  priceLabel,
+  formatPrice,
+  needsPhoto,
+  photoTip,
+  categoryPath,
+  orderPath,
+  type Product,
+} from '~/data/products';
+
+export function getStaticPaths() {
+  return catalogProducts().map((product) => ({
+    params: { category: product.category!, product: product.id },
+    props: { product },
+  }));
+}
+
+interface Props {
+  product: Product;
+}
+
+const { product } = Astro.props;
+const category = getCategory(product.category!)!;
+const images = (await Promise.all(product.images.map((src) => findImage(src)))).filter(Boolean) as ImageMetadata[];
+const [mainImage, ...moreImages] = images;
+const productAddons = product.addons.map((id) => getAddon(id)!).filter(Boolean);
+const related = productsInCategory(category.id).filter((p) => p.id !== product.id);
+
+const metadata = {
+  title: `${product.name} — tattva-3d`,
+  description: `${product.shortDescription} ${priceLabel(product)}, made to order.`,
+};
+---
+
+<Layout metadata={metadata}>
+  <section class="pt-24 pb-12 bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <nav class="mb-6 text-sm" aria-label="Breadcrumb">
+        <a href={getPermalink('/')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Home</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <a href={getPermalink('/catalog')} class="text-gray-600 dark:text-gray-400 hover:text-primary">Catalog</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <a href={getPermalink(categoryPath(category.id))} class="text-gray-600 dark:text-gray-400 hover:text-primary">{category.name}</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <span class="text-gray-900 dark:text-gray-100 font-semibold">{product.name}</span>
+      </nav>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+        <!-- Photos -->
+        <div>
+          <div class="aspect-square rounded-2xl overflow-hidden bg-gray-100 dark:bg-slate-700 shadow-lg">
+            {
+              mainImage ? (
+                <Image
+                  src={mainImage}
+                  alt={product.name}
+                  class="w-full h-full object-cover"
+                  widths={[400, 768, 1024]}
+                  sizes="(max-width: 1024px) 100vw, 600px"
+                  loading="eager"
+                />
+              ) : (
+                <PhotoComingSoon class="aspect-square" />
+              )
+            }
+          </div>
+          {
+            moreImages.length > 0 && (
+              <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 mt-3">
+                {moreImages.map((img, i) => (
+                  <div class="aspect-square rounded-lg overflow-hidden bg-gray-100 dark:bg-slate-700">
+                    <Image
+                      src={img}
+                      alt={`${product.name}, photo ${i + 2}`}
+                      class="w-full h-full object-cover"
+                      widths={[200, 400]}
+                      sizes="(max-width: 640px) 33vw, 150px"
+                    />
+                  </div>
+                ))}
+              </div>
+            )
+          }
+        </div>
+
+        <!-- Details -->
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-6 sm:p-8 border border-gray-100 dark:border-slate-700">
+          <h1 class="text-3xl md:text-4xl font-bold text-gray-900 dark:text-gray-100">{product.name}</h1>
+          <p class="mt-3 text-3xl font-bold text-primary">{priceLabel(product)}</p>
+          {product.priceNote && <p class="text-sm text-gray-500 dark:text-gray-400">{product.priceNote}</p>}
+          <p class="mt-4 text-lg text-gray-600 dark:text-gray-400">{product.shortDescription}</p>
+
+          {
+            product.options.length > 0 && (
+              <div class="mt-6">
+                <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2">You choose</h2>
+                <ul class="space-y-2">
+                  {product.options.map((option) => (
+                    <li class="px-4 py-2.5 bg-gray-50 dark:bg-slate-700/50 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300">
+                      {option}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+
+          {
+            productAddons.length > 0 && (
+              <div class="mt-6">
+                <h2 class="text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-2">Add-ons</h2>
+                <ul class="space-y-2">
+                  {productAddons.map((addon) => (
+                    <li class="px-4 py-2.5 bg-primary/5 dark:bg-primary/10 border border-primary/20 rounded-lg">
+                      <div class="flex items-baseline justify-between gap-4 text-sm font-medium text-gray-700 dark:text-gray-300">
+                        <span>{addon.name}</span>
+                        <span class="whitespace-nowrap">+{formatPrice(addon.price)}</span>
+                      </div>
+                      {addon.description && <p class="mt-1 text-xs text-gray-600 dark:text-gray-400">{addon.description}</p>}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+
+          {
+            needsPhoto(product) && (
+              <p class="mt-6 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-700/50 rounded-lg p-3 text-xs text-amber-800 dark:text-amber-300">
+                {photoTip}
+              </p>
+            )
+          }
+
+          <a
+            href={getPermalink(orderPath(product))}
+            class="mt-8 block w-full text-center bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-lg transition-colors duration-300"
+          >
+            Order this →
+          </a>
+          <p class="mt-3 text-center text-sm text-gray-500 dark:text-gray-400">
+            Prices in DKK. You approve a preview before we print.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {
+    related.length > 0 && (
+      <section class="py-12 md:py-16 bg-white dark:bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+          <h2 class="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-6">More {category.name.toLowerCase()}</h2>
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+            {related.map((p) => <ProductCard product={p} />)}
+          </div>
+        </div>
+      </section>
+    )
+  }
+</Layout>
