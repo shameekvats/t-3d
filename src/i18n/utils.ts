@@ -1,30 +1,28 @@
-import translations, { type Lang } from './translations';
+import translations, { defaultLang, type Lang, type UiKey } from './translations';
 
 export function useTranslations(lang: Lang) {
-  return function t(key: keyof typeof translations['en']): string {
-    const langTranslations = translations[lang] as Record<string, string>;
-    const enTranslations = translations['en'] as Record<string, string>;
-    return langTranslations[key] ?? enTranslations[key] ?? key;
+  return function t(key: UiKey): string {
+    return translations[lang][key] ?? translations[defaultLang][key] ?? key;
   };
 }
 
 export function getLangFromUrl(url: URL): Lang {
-  const segments = url.pathname.split('/');
-  if (segments[1] === 'fr') return 'fr';
-  return 'en';
+  const first = url.pathname.split('/')[1];
+  return first === 'da' ? 'da' : 'en';
 }
 
+/** Prefix an English path with the language (Danish lives under /da with the same slugs) */
 export function getLocalizedUrl(path: string, lang: Lang): string {
   if (lang === 'en') return path;
-  return `/fr${path}`;
+  return path === '/' ? '/da' : `/da${path}`;
 }
 
-export function getAlternateUrl(url: URL): string {
-  const pathname = url.pathname;
-  const isFrench = pathname === '/fr' || pathname.startsWith('/fr/');
-  if (isFrench) {
-    const withoutPrefix = pathname.slice(3);
-    return withoutPrefix === '' ? '/' : withoutPrefix;
-  }
-  return pathname === '/' ? '/fr' : `/fr${pathname}`;
+/** The same page in every language, e.g. { en: '/catalog', da: '/da/catalog' } */
+export function getLanguageUrls(url: URL): Record<Lang, string> {
+  const path = url.pathname.replace(/\/$/, '') || '/';
+  const enPath = path === '/da' ? '/' : path.startsWith('/da/') ? path.slice(3) : path;
+  return { en: enPath, da: getLocalizedUrl(enPath, 'da') };
 }
+
+/** og:locale for each language */
+export const ogLocale: Record<Lang, string> = { en: 'en_GB', da: 'da_DK' };

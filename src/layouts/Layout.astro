@@ -2,7 +2,8 @@
 import '~/assets/styles/tailwind.css';
 
 import { I18N } from 'astrowind:config';
-import { getLangFromUrl } from '~/i18n/utils';
+import { getLangFromUrl, getLanguageUrls } from '~/i18n/utils';
+import { getCanonical } from '~/utils/permalinks';
 
 import CommonMeta from '~/components/common/CommonMeta.astro';
 import Favicons from '~/components/Favicons.astro';
@@ -25,8 +26,10 @@ export interface Props {
 
 const { metadata = {} } = Astro.props;
 const { textDirection } = I18N;
-// Page language from the URL, so French pages declare lang="fr"
+// Page language from the URL, so Danish pages declare lang="da"
 const language = getLangFromUrl(Astro.url);
+// Every page exists in English and Danish under the same slug (except the 404 page)
+const alternates = Astro.url.pathname.startsWith('/404') ? undefined : getLanguageUrls(Astro.url);
 ---
 
 <!doctype html>
@@ -37,6 +40,15 @@ const language = getLangFromUrl(Astro.url);
     <CustomStyles />
     <ApplyColorMode />
     <Metadata {...metadata} />
+    {
+      alternates && (
+        <>
+          <link rel="alternate" hreflang="en" href={String(getCanonical(alternates.en))} />
+          <link rel="alternate" hreflang="da" href={String(getCanonical(alternates.da))} />
+          <link rel="alternate" hreflang="x-default" href={String(getCanonical(alternates.en))} />
+        </>
+      )
+    }
     <SiteVerification />
     <LocalBusinessSchema />
     <Analytics />

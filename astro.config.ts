@@ -11,13 +11,106 @@ import { categories, catalogProducts } from './src/data/products';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+const enRedirects: Record<string, string> = {
+  // Old template / portfolio URLs
+  '/gallery': '/catalog',
+  '/3d-models': '/catalog',
+  '/models': '/catalog',
+  '/about': '/',
+  '/portfolio': '/catalog',
+  '/portfolio/custom': '/catalog',
+  '/portfolio/bookmarks': '/catalog/photo-gifts',
+  '/portfolio/fridge-magnets': '/catalog/photo-gifts',
+  '/portfolio/glow-photos': '/catalog/photo-gifts',
+  '/portfolio/keychains': '/catalog/photo-gifts',
+  '/portfolio/lamps': '/catalog/lights',
+  '/portfolio/maps-cityscapes': '/catalog/places',
+  '/portfolio/cookie-cutters': '/catalog',
+  '/portfolio/electronics': '/catalog',
+  '/portfolio-new': '/catalog',
+  '/portfolio-old-backup': '/catalog',
+  '/portfolio-gallery-backup': '/catalog',
+  '/decapcms': '/',
+  '/homes/mobile-app': '/',
+  '/homes/personal': '/',
+  '/homes/saas': '/',
+  '/homes/startup': '/',
+  '/landing': '/',
+  '/landing/click-through': '/',
+  '/landing/lead-generation': '/',
+  '/landing/pre-launch': '/',
+  '/landing/product': '/',
+  '/landing/sales': '/',
+  '/landing/subscription': '/',
+  // Removed AstroWind demo pages and blog (Stage 1)
+  '/pricing': '/',
+  '/services': '/',
+  '/blog': '/',
+  '/category/documentation': '/',
+  '/category/tutorials': '/',
+  '/tag/astro': '/',
+  '/tag/blog': '/',
+  '/tag/front-end': '/',
+  '/tag/landing-pages': '/',
+  '/tag/markdown': '/',
+  '/tag/resources': '/',
+  '/tag/tailwind-css': '/',
+  '/tag/theme': '/',
+  '/tag/tools': '/',
+  '/astrowind-template-in-depth': '/',
+  '/get-started-website-with-astro-tailwind-css': '/',
+  '/how-to-customize-astrowind-to-your-brand': '/',
+  '/markdown-elements-demo-post': '/',
+  '/useful-resources-to-create-websites': '/',
+  // Products no longer sold (Stage 1)
+  '/catalog/wireless-mouse': '/catalog',
+  '/catalog/iphone-dock': '/catalog',
+  '/catalog/cookie-cutters': '/catalog',
+  '/catalog/clock': '/catalog',
+  // Old technique-based category pages (Stage 3)
+  '/catalog/keychains': '/catalog/photo-gifts',
+  '/catalog/bookmarks': '/catalog/photo-gifts',
+  '/catalog/glow-photos': '/catalog/photo-gifts',
+  '/catalog/fridge-magnets': '/catalog/photo-gifts',
+  '/catalog/maps-cityscapes': '/catalog/places',
+  '/catalog/lamps': '/catalog/lights',
+  '/catalog/lightboxes': '/catalog/lights',
+  // Contact merged into the order form (Stage 4)
+  '/contact': '/order',
+  // Legal pages exist in English only
+  '/catalog/electronics': '/catalog',
+  // Workshops temporarily suspended — remove these two redirects to unhide the workshop pages
+  '/workshop': '/',
+  '/workshop/thank-you': '/',
+};
+
+// English pages (same slugs are served in Danish under /da)
+const enPages = [
+  '/',
+  '/catalog',
+  ...categories.map((c) => `/catalog/${c.id}`),
+  ...catalogProducts().map((p) => `/catalog/${p.category}/${p.id}`),
+  '/custom',
+  '/order',
+  '/order/thank-you',
+  '/terms',
+  '/privacy',
+];
+
+// French was dropped in Stage 6: send every old /fr URL (pages and redirects) to its English equivalent
+const frRedirects = Object.fromEntries([
+  ['/fr', '/'],
+  ...enPages.filter((p) => p !== '/').map((p) => [`/fr${p}`, p]),
+  ...Object.entries(enRedirects).map(([from, to]) => [`/fr${from}`, to]),
+]);
+
 export default defineConfig({
   site: 'https://t-3d.me', // ← CHANGED: Your custom domain
   base: '/', // ← CHANGED: Root path for custom domain
   output: 'static',
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'fr'],
+    locales: ['en', 'da'],
     routing: {
       prefixDefaultLocale: false,
     },
@@ -26,107 +119,16 @@ export default defineConfig({
     remotePatterns: [{ protocol: 'https' }],
   },
   redirects: {
-    // French versions of the new catalog pages don't exist yet (Stage 6) — send the language switcher to /fr/catalog
-    ...Object.fromEntries([
-      ...categories.map((c) => `/fr/catalog/${c.id}`),
-      ...catalogProducts().map((p) => `/fr/catalog/${p.category}/${p.id}`),
-    ].map((from) => [from, '/fr/catalog'])),
-    // Old template / portfolio URLs
-    '/gallery': '/catalog',
-    '/3d-models': '/catalog',
-    '/models': '/catalog',
-    '/about': '/',
-    '/portfolio': '/catalog',
-    '/portfolio/custom': '/catalog',
-    '/portfolio/bookmarks': '/catalog/photo-gifts',
-    '/portfolio/fridge-magnets': '/catalog/photo-gifts',
-    '/portfolio/glow-photos': '/catalog/photo-gifts',
-    '/portfolio/keychains': '/catalog/photo-gifts',
-    '/portfolio/lamps': '/catalog/lights',
-    '/portfolio/maps-cityscapes': '/catalog/places',
-    '/portfolio/cookie-cutters': '/catalog',
-    '/portfolio/electronics': '/catalog',
-    '/fr/portfolio': '/fr/catalog',
-    '/fr/portfolio/bookmarks': '/fr/catalog/bookmarks',
-    '/fr/portfolio/fridge-magnets': '/fr/catalog/fridge-magnets',
-    '/fr/portfolio/glow-photos': '/fr/catalog/glow-photos',
-    '/fr/portfolio/keychains': '/fr/catalog/keychains',
-    '/fr/portfolio/lamps': '/fr/catalog/lamps',
-    '/fr/portfolio/maps-cityscapes': '/fr/catalog/maps-cityscapes',
-    '/fr/portfolio/cookie-cutters': '/fr/catalog',
-    '/fr/portfolio/electronics': '/fr/catalog',
-    '/portfolio-new': '/catalog',
-    '/portfolio-old-backup': '/catalog',
-    '/portfolio-gallery-backup': '/catalog',
-    '/decapcms': '/',
-    '/homes/mobile-app': '/',
-    '/homes/personal': '/',
-    '/homes/saas': '/',
-    '/homes/startup': '/',
-    '/landing': '/',
-    '/landing/click-through': '/',
-    '/landing/lead-generation': '/',
-    '/landing/pre-launch': '/',
-    '/landing/product': '/',
-    '/landing/sales': '/',
-    '/landing/subscription': '/',
-    // Removed AstroWind demo pages and blog (Stage 1)
-    '/pricing': '/',
-    '/services': '/',
-    '/blog': '/',
-    '/category/documentation': '/',
-    '/category/tutorials': '/',
-    '/tag/astro': '/',
-    '/tag/blog': '/',
-    '/tag/front-end': '/',
-    '/tag/landing-pages': '/',
-    '/tag/markdown': '/',
-    '/tag/resources': '/',
-    '/tag/tailwind-css': '/',
-    '/tag/theme': '/',
-    '/tag/tools': '/',
-    '/astrowind-template-in-depth': '/',
-    '/get-started-website-with-astro-tailwind-css': '/',
-    '/how-to-customize-astrowind-to-your-brand': '/',
-    '/markdown-elements-demo-post': '/',
-    '/useful-resources-to-create-websites': '/',
-    // Products no longer sold (Stage 1)
-    '/catalog/wireless-mouse': '/catalog',
-    '/catalog/iphone-dock': '/catalog',
-    '/catalog/cookie-cutters': '/catalog',
-    '/catalog/clock': '/catalog',
-    '/fr/catalog/wireless-mouse': '/fr/catalog',
-    '/fr/catalog/iphone-dock': '/fr/catalog',
-    '/fr/catalog/cookie-cutters': '/fr/catalog',
-    '/fr/catalog/clock': '/fr/catalog',
-    // Old technique-based category pages (Stage 3)
-    '/catalog/keychains': '/catalog/photo-gifts',
-    '/catalog/bookmarks': '/catalog/photo-gifts',
-    '/catalog/glow-photos': '/catalog/photo-gifts',
-    '/catalog/fridge-magnets': '/catalog/photo-gifts',
-    '/catalog/maps-cityscapes': '/catalog/places',
-    '/catalog/lamps': '/catalog/lights',
-    '/catalog/lightboxes': '/catalog/lights',
-    // Contact merged into the order form (Stage 4)
-    '/contact': '/order',
-    '/fr/contact': '/fr/order',
-    '/fr/custom': '/fr/order',
-    // Legal pages exist in English only
-    '/fr/terms': '/terms',
-    '/fr/privacy': '/privacy',
-    '/catalog/electronics': '/catalog',
-    '/fr/catalog/electronics': '/fr/catalog',
-    // Workshops temporarily suspended — remove these two redirects to unhide the workshop pages
-    '/workshop': '/',
-    '/workshop/thank-you': '/',
-    '/fr/workshop': '/fr',
-    '/fr/workshop/thank-you': '/fr',
+    ...enRedirects,
+    ...frRedirects,
   },
   integrations: [
     tailwind({
       applyBaseStyles: false,
     }),
-    sitemap(),
+    sitemap({
+      i18n: { defaultLocale: 'en', locales: { en: 'en', da: 'da' } },
+    }),
     mdx(),
     icon({
       include: {
@@ -169,7 +171,7 @@ export const SITE = {
   name: 'tattva-3d',
   site: 'https://t-3d.me', // ← CHANGED: Your custom domain
   base: '/', // ← CHANGED: Root path for custom domain
-  trailingSlash: false,
+  trailingSlash: true, // GitHub Pages serves pages at /path/ (it 301s /path), so canonical and hreflang URLs end in a slash
   googleSiteVerificationId: '7BP559-kvcXtG6PUq64np72RrwD4KrDAuE0uz5_KiJI',
 };
 

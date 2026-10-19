@@ -2,14 +2,15 @@
 import { getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { findImage } from '~/utils/images';
-import { currency, productPath, type Product } from '~/data/products';
+import { currency, productPath, type Lang, type Product } from '~/data/products';
 
 // Product + Offer JSON-LD generated from products.ts. One product -> Product; several -> ItemList.
 interface Props {
   products: Product[];
+  lang: Lang;
 }
 
-const { products } = Astro.props;
+const { products, lang } = Astro.props;
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://t-3d.me';
 
 const toProduct = async (p: Product) => {
@@ -19,12 +20,12 @@ const toProduct = async (p: Product) => {
       return meta ? new URL((await getImage({ src: meta, width: 1200, format: 'jpg' })).src, site).toString() : undefined;
     })
   );
-  const url = `${site}${productPath(p)}`;
+  const url = `${site}${productPath(p, lang)}`;
   return {
     '@type': 'Product',
     '@id': `${url}#product`,
-    name: p.name,
-    description: p.shortDescription,
+    name: p.name[lang],
+    description: p.shortDescription[lang],
     sku: p.id,
     url,
     ...(images.some(Boolean) ? { image: images.filter(Boolean) } : {}),

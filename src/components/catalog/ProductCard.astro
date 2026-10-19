@@ -3,20 +3,21 @@ import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import PhotoComingSoon from '~/components/PhotoComingSoon.astro';
 import { findImage } from '~/utils/images';
-import { getPermalink } from '~/utils/permalinks';
-import { type Product, priceLabel, productPath } from '~/data/products';
+import { type Lang, type Product, imageAlt, priceLabel, priceNote, productPath } from '~/data/products';
 
 interface Props {
   product: Product;
+  lang: Lang;
 }
 
-const { product } = Astro.props;
+const { product, lang } = Astro.props;
 const coverRef = product.images[0];
 const cover = coverRef ? ((await findImage(coverRef.src)) as ImageMetadata | undefined) : undefined;
+const note = priceNote(product, lang);
 ---
 
 <a
-  href={getPermalink(productPath(product))}
+  href={productPath(product, lang)}
   class="group flex flex-col bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
 >
   <div class="aspect-square overflow-hidden bg-gray-100 dark:bg-slate-700">
@@ -24,7 +25,7 @@ const cover = coverRef ? ((await findImage(coverRef.src)) as ImageMetadata | und
       cover ? (
         <Image
           src={cover}
-          alt={coverRef!.alt}
+          alt={imageAlt(coverRef!, lang, product.name)}
           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           widths={[300, 600]}
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 300px"
@@ -36,12 +37,12 @@ const cover = coverRef ? ((await findImage(coverRef.src)) as ImageMetadata | und
   </div>
   <div class="flex flex-col flex-1 p-3 sm:p-4">
     <h3 class="font-bold text-sm sm:text-base text-gray-900 dark:text-gray-100 group-hover:text-primary transition-colors">
-      {product.name}
+      {product.name[lang]}
     </h3>
-    <p class="mt-1 text-xs sm:text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{product.shortDescription}</p>
+    <p class="mt-1 text-xs sm:text-sm text-gray-600 dark:text-gray-400 line-clamp-2">{product.shortDescription[lang]}</p>
     <p class="mt-auto pt-3 font-semibold text-gray-900 dark:text-gray-100">
-      {priceLabel(product)}
-      {product.priceNote && <span class="block text-xs font-normal text-gray-500 dark:text-gray-400">{product.priceNote}</span>}
+      {priceLabel(product, lang)}
+      {note && <span class="block text-xs font-normal text-gray-500 dark:text-gray-400">{note}</span>}
     </p>
   </div>
 </a>

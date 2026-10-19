@@ -1,0 +1,298 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { getLocalizedUrl, useTranslations } from '~/i18n/utils';
+import { type Lang, categories, addons, productsInCategory, getProduct, formatPrice, priceOnQuote } from '~/data/products';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const metadata = { title: t('order.title'), description: t('order.description') };
+
+const custom = getProduct('custom')!;
+const inputClass =
+  'w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent dark:bg-slate-700 dark:text-white';
+const labelClass = 'block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2';
+const optional = t('order.optional');
+---
+
+<Layout metadata={metadata}>
+  <section class="pt-24 pb-20 bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/20">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6">
+      <nav class="mb-8 text-sm" aria-label="Breadcrumb">
+        <a href={getLocalizedUrl('/', lang)} class="text-gray-600 dark:text-gray-400 hover:text-primary">{t('nav.home')}</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <a href={getLocalizedUrl('/catalog', lang)} class="text-gray-600 dark:text-gray-400 hover:text-primary">{t('nav.catalog')}</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <span class="text-gray-900 dark:text-gray-100 font-semibold">{t('nav.order')}</span>
+      </nav>
+
+      <div class="text-center mb-10">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-gray-100">{t('order.heading')}</h1>
+        <p class="text-lg text-gray-600 dark:text-gray-300">{t('order.intro')}</p>
+      </div>
+
+      <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg p-5 sm:p-8">
+        <form
+          action="https://formspree.io/f/mzzazwro"
+          method="POST"
+          id="orderForm"
+          data-lang={lang}
+          data-sending={t('order.sending')}
+          data-submit={t('order.submit')}
+          data-error={t('order.error')}
+          data-required={t('order.required')}
+          data-quote={priceOnQuote[lang]}
+          data-thanks={getLocalizedUrl('/order/thank-you', lang)}
+        >
+          <input type="hidden" name="_subject" value="New order request — tattva-3d" />
+          <input type="hidden" name="language" value={lang} />
+          <input type="hidden" name="estimated_price" id="estimatedPriceField" value="" />
+          <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <!-- Product (values stay in English so order emails read the same in every language) -->
+          <div class="mb-6">
+            <label for="product" class={labelClass}>{t('order.product')}</label>
+            <select id="product" name="product" required class={inputClass}>
+              <option value="">{t('order.chooseProduct')}</option>
+              {
+                categories.map((category) => (
+                  <optgroup label={category.name[lang]}>
+                    {productsInCategory(category.id).map((p) => (
+                      <option value={p.name.en} data-id={p.id}>
+                        {p.name[lang]} — {formatPrice(p.price!, lang)}
+                      </option>
+                    ))}
+                  </optgroup>
+                ))
+              }
+              <option value={custom.name.en} data-id={custom.id}>{custom.name[lang]}</option>
+            </select>
+          </div>
+
+          <!-- Add-ons (only those the chosen product allows are shown and submitted) -->
+          <fieldset id="addonsField" class="mb-6 hidden">
+            <legend class={labelClass}>{t('order.addons')} <span class="text-gray-400 font-normal">{optional}</span></legend>
+            <div class="space-y-3">
+              {
+                addons.map((addon) => (
+                  <label class="addon-option flex items-start gap-3 cursor-pointer" data-addon={addon.id}>
+                    <input
+                      type="checkbox"
+                      name="addons"
+                      value={`${addon.name.en} (+${formatPrice(addon.price)})`}
+                      data-id={addon.id}
+                      class="mt-0.5 rounded text-primary focus:ring-primary"
+                    />
+                    <span class="text-sm text-gray-700 dark:text-gray-300">
+                      {addon.name[lang]}{' '}
+                      <span class="whitespace-nowrap text-gray-500 dark:text-gray-400">+{formatPrice(addon.price, lang)}</span>
+                    </span>
+                  </label>
+                ))
+              }
+            </div>
+          </fieldset>
+
+          <!-- Quantity -->
+          <div class="mb-6 max-w-[10rem]">
+            <label for="quantity" class={labelClass}>{t('order.quantity')}</label>
+            <input type="number" id="quantity" name="quantity" min="1" value="1" required inputmode="numeric" class={inputClass} />
+          </div>
+
+          <!-- Contact -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="name" class={labelClass}>{t('order.name')}</label>
+              <input type="text" id="name" name="name" required autocomplete="name" class={inputClass} placeholder={t('order.namePlaceholder')} />
+            </div>
+            <div>
+              <label for="email" class={labelClass}>{t('order.email')}</label>
+              <input type="email" id="email" name="email" required autocomplete="email" class={inputClass} placeholder="you@example.com" />
+            </div>
+          </div>
+          <div class="mb-6">
+            <label for="phone" class={labelClass}>{t('order.phone')} <span class="text-gray-400 font-normal">{optional}</span></label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel" class={inputClass} placeholder="+45 …" />
+          </div>
+
+          <!-- Details -->
+          <div class="mb-6">
+            <label for="details" class={labelClass}>{t('order.details')} <span class="text-gray-400 font-normal">{optional}</span></label>
+            <textarea id="details" name="details" rows="4" class={inputClass + ' resize-y'} placeholder={t('order.detailsPlaceholder')}></textarea>
+          </div>
+
+          <!-- Photos -->
+          <fieldset class="mb-6 p-4 bg-gray-50 dark:bg-slate-700/50 rounded-lg">
+            <legend class="text-sm font-medium text-gray-700 dark:text-gray-300">{t('order.photos')}</legend>
+            <div class="space-y-3 mt-3">
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="radio" name="file_sharing" value="By email" class="mt-0.5 text-primary focus:ring-primary" />
+                <span class="text-sm text-gray-700 dark:text-gray-300">{t('order.photos.email')}</span>
+              </label>
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="radio" name="file_sharing" value="Cloud link" class="mt-0.5 text-primary focus:ring-primary" />
+                <span class="text-sm text-gray-700 dark:text-gray-300">{t('order.photos.cloud')}</span>
+              </label>
+              <label class="flex items-start gap-3 cursor-pointer">
+                <input type="radio" name="file_sharing" value="Not needed" checked class="mt-0.5 text-primary focus:ring-primary" />
+                <span class="text-sm text-gray-700 dark:text-gray-300">{t('order.photos.none')}</span>
+              </label>
+            </div>
+            <div id="cloudLinkSection" class="hidden mt-4">
+              <label for="cloud_link" class={labelClass}>{t('order.cloudLink')}</label>
+              <input type="url" id="cloud_link" name="cloud_link" class={inputClass} placeholder="https://…" />
+            </div>
+          </fieldset>
+
+          <!-- Notes -->
+          <div class="mb-8">
+            <label for="notes" class={labelClass}>{t('order.notes')} <span class="text-gray-400 font-normal">{optional}</span></label>
+            <textarea id="notes" name="notes" rows="3" class={inputClass + ' resize-y'} placeholder={t('order.notesPlaceholder')}></textarea>
+          </div>
+
+          <!-- Estimate -->
+          <div class="mb-6 p-4 rounded-lg border border-primary/30 bg-primary/5 dark:bg-primary/10" aria-live="polite">
+            <p class="flex items-baseline justify-between gap-4">
+              <span class="font-semibold text-gray-900 dark:text-gray-100">{t('order.estimate')}</span>
+              <span id="estimate" class="text-2xl font-bold text-primary">—</span>
+            </p>
+            <p class="mt-1 text-xs text-gray-600 dark:text-gray-400">{t('order.estimateNote')}</p>
+          </div>
+
+          <button
+            type="submit"
+            id="submitBtn"
+            class="w-full inline-flex items-center justify-center px-8 py-4 bg-primary hover:bg-primary-dark text-white font-bold rounded-lg transition duration-200 shadow-lg hover:shadow-xl disabled:opacity-50"
+          >
+            <span id="btnText">{t('order.submit')}</span>
+          </button>
+          <p class="mt-4 text-center text-sm text-gray-600 dark:text-gray-400">{t('order.underButton')}</p>
+        </form>
+
+        <div class="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 text-center">
+          <p class="text-sm text-gray-500 dark:text-gray-400">
+            {t('order.preferEmail')} <a href="mailto:t-3d@ik.me" class="text-primary hover:underline font-medium">t-3d@ik.me</a>
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-6 text-center">
+        <a href={getLocalizedUrl('/catalog', lang)} class="text-sm text-gray-500 dark:text-gray-400 hover:text-primary">{t('order.backToCatalog')}</a>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  import { getProduct, estimate, formatPrice, needsPhoto, type Lang } from '~/data/products';
+
+  // The site uses Astro's ClientRouter, so run on every page load, not just the first one.
+  const init = () => {
+    const form = document.getElementById('orderForm') as HTMLFormElement | null;
+    if (!form || form.dataset.ready) return;
+    form.dataset.ready = 'true';
+    const msg = form.dataset;
+    const lang = (msg.lang ?? 'en') as Lang;
+    const select = document.getElementById('product') as HTMLSelectElement | null;
+    const quantity = document.getElementById('quantity') as HTMLInputElement | null;
+    const addonsField = document.getElementById('addonsField');
+    const estimateEl = document.getElementById('estimate');
+    const estimateField = document.getElementById('estimatedPriceField') as HTMLInputElement | null;
+    const cloudLinkSection = document.getElementById('cloudLinkSection');
+    const addonLabels = Array.from(document.querySelectorAll<HTMLLabelElement>('.addon-option'));
+    const fileRadios = Array.from(document.querySelectorAll<HTMLInputElement>('input[name="file_sharing"]'));
+    let fileChoiceTouched = false;
+
+    const selectedProduct = () => {
+      const id = select?.selectedOptions[0]?.dataset.id;
+      return id ? getProduct(id) : undefined;
+    };
+
+    const update = () => {
+      const product = selectedProduct();
+      const allowed = product?.addons ?? [];
+
+      // Show only the add-ons this product allows; disabled inputs aren't submitted.
+      addonLabels.forEach((label) => {
+        const input = label.querySelector('input') as HTMLInputElement;
+        const ok = allowed.includes(label.dataset.addon as never);
+        label.classList.toggle('hidden', !ok);
+        input.disabled = !ok;
+        if (!ok) input.checked = false;
+      });
+      addonsField?.classList.toggle('hidden', allowed.length === 0);
+
+      const chosen = addonLabels
+        .map((l) => l.querySelector('input') as HTMLInputElement)
+        .filter((i) => i.checked && !i.disabled)
+        .map((i) => i.dataset.id as string);
+      const total = product ? estimate(product, Number(quantity?.value), chosen) : null;
+      const text = !product ? '—' : total === null ? (msg.quote ?? '') : formatPrice(total, lang);
+      if (estimateEl) estimateEl.textContent = text;
+      if (estimateField) estimateField.value = product ? (total === null ? 'Price on quote' : formatPrice(total)) : '';
+
+      // Photo products: suggest email for photos unless the customer already picked an option.
+      if (product && needsPhoto(product) && !fileChoiceTouched) {
+        const email = fileRadios.find((r) => r.value === 'By email');
+        if (email) email.checked = true;
+        cloudLinkSection?.classList.add('hidden');
+      }
+    };
+
+    // Preselect from ?product=<id>
+    const param = new URLSearchParams(window.location.search).get('product');
+    if (param && select) {
+      const option = Array.from(select.options).find((o) => o.dataset.id === param);
+      if (option) select.value = option.value;
+    }
+
+    // Required-field message in the page language
+    form.querySelectorAll<HTMLInputElement | HTMLSelectElement>('[required]').forEach((field) => {
+      field.addEventListener('invalid', () => field.setCustomValidity(field.validity.valueMissing ? (msg.required ?? '') : ''));
+      field.addEventListener('input', () => field.setCustomValidity(''));
+      field.addEventListener('change', () => field.setCustomValidity(''));
+    });
+
+    select?.addEventListener('change', update);
+    quantity?.addEventListener('input', update);
+    addonLabels.forEach((l) => l.querySelector('input')?.addEventListener('change', update));
+    fileRadios.forEach((radio) =>
+      radio.addEventListener('change', () => {
+        fileChoiceTouched = true;
+        cloudLinkSection?.classList.toggle('hidden', radio.value !== 'Cloud link');
+      })
+    );
+    update();
+
+    // Submit via fetch so we can show our own thank-you page
+    const submitBtn = document.getElementById('submitBtn') as HTMLButtonElement | null;
+    const btnText = document.getElementById('btnText');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!submitBtn || !btnText) return;
+      submitBtn.disabled = true;
+      btnText.textContent = msg.sending ?? '';
+      const fail = () => {
+        alert(msg.error);
+        submitBtn.disabled = false;
+        btnText.textContent = msg.submit ?? '';
+      };
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        if (response.ok) window.location.href = msg.thanks ?? '/order/thank-you';
+        else fail();
+      } catch {
+        fail();
+      }
+    });
+  };
+
+  document.addEventListener('astro:page-load', init);
+</script>

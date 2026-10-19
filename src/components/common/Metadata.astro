@@ -5,7 +5,7 @@ import { AstroSeo } from '@astrolib/seo';
 import type { Props as AstroSeoProps } from '@astrolib/seo';
 
 import { SITE, METADATA, I18N } from 'astrowind:config';
-import { getLangFromUrl } from '~/i18n/utils';
+import { getLangFromUrl, ogLocale } from '~/i18n/utils';
 import type { MetaData } from '~/types';
 import { getCanonical } from '~/utils/permalinks';
 
@@ -37,7 +37,7 @@ const seoProps: AstroSeoProps = merge(
       url: canonical,
       site_name: SITE?.name,
       images: [],
-      locale: getLangFromUrl(Astro.url) === 'fr' ? 'fr_FR' : 'en_GB',
+      locale: ogLocale[getLangFromUrl(Astro.url)],
       type: 'website',
     },
     twitter: {

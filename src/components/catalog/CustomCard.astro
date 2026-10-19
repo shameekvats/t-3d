@@ -1,20 +1,26 @@
 ---
-import { getPermalink } from '~/utils/permalinks';
-import { getProduct, productPath } from '~/data/products';
+import { useTranslations } from '~/i18n/utils';
+import { type Lang, getProduct, productPath } from '~/data/products';
 
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
 const custom = getProduct('custom');
 ---
 
 {
   custom && (
     <a
-      href={getPermalink(productPath(custom))}
+      href={productPath(custom, lang)}
       class="group flex flex-col justify-center gap-3 rounded-xl p-6 sm:p-8 bg-gradient-to-br from-primary/10 to-secondary/10 dark:from-primary/20 dark:to-secondary/20 border-2 border-dashed border-primary/30 hover:border-primary transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
     >
-      <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">Custom &amp; business</h3>
-      <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">{custom.shortDescription}</p>
+      <h3 class="text-xl sm:text-2xl font-bold text-gray-900 dark:text-gray-100">{t('common.customTitle')}</h3>
+      <p class="text-sm sm:text-base text-gray-600 dark:text-gray-400">{custom.shortDescription[lang]}</p>
       <span class="inline-flex items-center gap-2 font-semibold text-primary">
-        Ask for a quote
+        {t('common.askQuote')}
         <svg class="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
         </svg>

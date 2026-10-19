@@ -1,0 +1,112 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Layout from '~/layouts/PageLayout.astro';
+import { findImage } from '~/utils/images';
+import { getLocalizedUrl, useTranslations } from '~/i18n/utils';
+import { type Lang, getProduct, orderPath, imageAlt } from '~/data/products';
+import type { UiKey } from '~/i18n/translations';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const custom = getProduct('custom')!;
+const examples = (
+  await Promise.all(custom.images.map(async (ref) => ({ ...ref, meta: (await findImage(ref.src)) as ImageMetadata | undefined })))
+).filter((img) => img.meta);
+const customName = { en: t('common.customTitle'), da: t('common.customTitle') };
+
+const metadata = {
+  title: t('custom.title'),
+  description: t('custom.description'),
+  openGraph: { images: [{ url: custom.images[0].src }] },
+};
+
+const ideas = [1, 2, 3, 4, 5].map((n) => ({
+  title: t(`custom.idea${n}.title` as UiKey),
+  text: t(`custom.idea${n}.text` as UiKey),
+}));
+const steps = [1, 2, 3].map((n) => ({
+  title: t(`custom.step${n}.title` as UiKey),
+  text: t(`custom.step${n}.text` as UiKey),
+}));
+const quoteHref = orderPath(custom, lang);
+---
+
+<Layout metadata={metadata}>
+  <section class="pt-24 pb-10 bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/20">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <nav class="mb-6 text-sm" aria-label="Breadcrumb">
+        <a href={getLocalizedUrl('/', lang)} class="text-gray-600 dark:text-gray-400 hover:text-primary">{t('nav.home')}</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <span class="text-gray-900 dark:text-gray-100 font-semibold">{t('nav.custom')}</span>
+      </nav>
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">{t('common.customTitle')}</h1>
+      <p class="mt-4 max-w-3xl text-lg text-gray-600 dark:text-gray-400">{t('custom.intro')}</p>
+      <a
+        href={quoteHref}
+        class="mt-8 inline-flex items-center justify-center bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-lg transition-colors"
+      >
+        {t('custom.cta')}
+      </a>
+    </div>
+  </section>
+
+  <section class="py-10 md:py-14 bg-white dark:bg-slate-900">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6">
+      <h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">{t('custom.workTitle')}</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+        {
+          examples.map((img) => (
+            <div class="aspect-square rounded-xl overflow-hidden bg-gray-100 dark:bg-slate-700">
+              <Image
+                src={img.meta!}
+                alt={imageAlt(img, lang, customName)}
+                class="w-full h-full object-cover"
+                widths={[300, 600]}
+                sizes="(max-width: 768px) 50vw, 320px"
+              />
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="mt-14 text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">{t('custom.canMakeTitle')}</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {
+          ideas.map((idea) => (
+            <div class="rounded-xl p-5 bg-gray-50 dark:bg-slate-800 border border-gray-100 dark:border-slate-700">
+              <h3 class="font-bold text-gray-900 dark:text-gray-100">{idea.title}</h3>
+              <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{idea.text}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <h2 class="mt-14 text-2xl md:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">{t('custom.howTitle')}</h2>
+      <ol class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {
+          steps.map((step, i) => (
+            <li class="rounded-xl p-5 bg-primary/5 dark:bg-primary/10 border border-primary/20">
+              <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary text-white font-bold">{i + 1}</span>
+              <h3 class="mt-3 font-bold text-gray-900 dark:text-gray-100">{step.title}</h3>
+              <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+
+      <div class="mt-14 text-center">
+        <a
+          href={quoteHref}
+          class="inline-flex items-center justify-center bg-primary hover:bg-primary-dark text-white font-bold py-4 px-8 rounded-lg transition-colors"
+        >
+          {t('custom.cta')}
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

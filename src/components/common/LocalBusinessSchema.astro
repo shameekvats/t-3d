@@ -2,9 +2,12 @@
 import { getImage } from 'astro:assets';
 import ogDefault from '~/assets/images/og-default.jpg';
 import { catalogProducts, currency, productPath } from '~/data/products';
+import { getLangFromUrl, getLocalizedUrl, useTranslations } from '~/i18n/utils';
 
 // LocalBusiness JSON-LD, generated from products.ts so prices stay in sync.
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://t-3d.me';
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const prices = catalogProducts().flatMap((p) => (p.price === null ? [] : [p.price]));
 const image = await getImage({ src: ogDefault, format: 'jpg' });
 
@@ -13,8 +16,8 @@ const schema = {
   '@type': 'LocalBusiness',
   '@id': `${site}/#business`,
   name: 'tattva-3d',
-  description: 'Personal 3D printed gifts made to order in Aalborg, Denmark: photo gifts, 3D maps, lamps and lightboxes.',
-  url: `${site}/`,
+  description: t('schema.businessDescription'),
+  url: lang === 'en' ? `${site}/` : `${site}${getLocalizedUrl('/', lang)}`,
   email: 't-3d@ik.me',
   image: new URL(image.src, site).toString(),
   address: {
@@ -33,8 +36,8 @@ const schema = {
       '@type': 'Offer',
       price: p.price,
       priceCurrency: currency,
-      url: `${site}${productPath(p)}`,
-      itemOffered: { '@type': 'Product', name: p.name, description: p.shortDescription },
+      url: `${site}${productPath(p, lang)}`,
+      itemOffered: { '@type': 'Product', name: p.name[lang], description: p.shortDescription[lang] },
     })),
   },
   sameAs: ['https://www.instagram.com/tattva_3d/'],

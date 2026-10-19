@@ -1,0 +1,12 @@
+---
+import CategoryView from '~/components/views/CategoryView.astro';
+import { categories } from '~/data/products';
+
+export function getStaticPaths() {
+  return categories.map((category) => ({ params: { category: category.id }, props: { category } }));
+}
+
+const { category } = Astro.props;
+---
+
+<CategoryView lang="da" category={category} />

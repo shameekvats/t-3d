@@ -1,10 +1,13 @@
 ---
+import { getLangFromUrl, useTranslations } from '~/i18n/utils';
+
 interface Props {
   label?: string;
   class?: string;
 }
 
-const { label = 'Photo coming soon', class: className = '' } = Astro.props;
+const t = useTranslations(getLangFromUrl(Astro.url));
+const { label = t('common.photoComingSoon'), class: className = '' } = Astro.props;
 ---
 
 <div

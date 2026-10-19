@@ -1,0 +1,59 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import ProductCard from '~/components/catalog/ProductCard.astro';
+import CustomCard from '~/components/catalog/CustomCard.astro';
+import ProductSchema from '~/components/common/ProductSchema.astro';
+import { getLocalizedUrl, useTranslations } from '~/i18n/utils';
+import { type Lang, type Category, productsInCategory, formatPrice, lowestPrice } from '~/data/products';
+
+interface Props {
+  category: Category;
+  lang: Lang;
+}
+
+const { category, lang } = Astro.props;
+const t = useTranslations(lang);
+const items = productsInCategory(category.id);
+
+const metadata = {
+  title: category.seo.title[lang],
+  description: category.seo.description[lang].replace('{from}', formatPrice(lowestPrice(category.id), lang)),
+  ...(category.image ? { openGraph: { images: [{ url: category.image.src }] } } : {}),
+};
+---
+
+<Layout metadata={metadata}>
+  <ProductSchema products={items} lang={lang} />
+  <section class="pt-24 pb-8 md:pb-12 bg-gradient-to-b from-primary/10 to-transparent dark:from-primary/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <nav class="mb-6 text-sm" aria-label="Breadcrumb">
+        <a href={getLocalizedUrl('/', lang)} class="text-gray-600 dark:text-gray-400 hover:text-primary">{t('nav.home')}</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <a href={getLocalizedUrl('/catalog', lang)} class="text-gray-600 dark:text-gray-400 hover:text-primary">{t('nav.catalog')}</a>
+        <span class="mx-2 text-gray-400">/</span>
+        <span class="text-gray-900 dark:text-gray-100 font-semibold">{category.name[lang]}</span>
+      </nav>
+
+      <h1 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100">{category.name[lang]}</h1>
+      <p class="text-xl text-gray-600 dark:text-gray-400 mt-2">{category.tagline[lang]}</p>
+      <p class="mt-6 max-w-3xl text-lg text-gray-600 dark:text-gray-400">{category.description[lang]}</p>
+      {category.howItsMade && <p class="mt-3 max-w-3xl text-sm text-gray-500 dark:text-gray-400">{category.howItsMade[lang]}</p>}
+    </div>
+  </section>
+
+  <section class="py-10 md:py-14 bg-white dark:bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        {items.map((product) => <ProductCard product={product} lang={lang} />)}
+      </div>
+
+      <div class="mt-10">
+        <CustomCard lang={lang} />
+      </div>
+
+      <p class="mt-10 text-center">
+        <a href={getLocalizedUrl('/catalog', lang)} class="font-semibold text-primary hover:underline">{t('catalog.allProducts')}</a>
+      </p>
+    </div>
+  </section>
+</Layout>
