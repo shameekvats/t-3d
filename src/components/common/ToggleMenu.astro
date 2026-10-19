@@ -1,17 +1,20 @@
 ---
 export interface Props {
   label?: string;
+  /** Label while the menu is open */
+  closeLabel?: string;
   class?: string;
 }
 
 const {
-  label = 'Toggle Menu',
+  label = 'Open menu',
+  closeLabel = 'Close menu',
   class: className = 'flex flex-col h-12 w-12 rounded justify-center items-center cursor-pointer group',
 } = Astro.props;
 ---
 
-<button type="button" class={className} aria-label={label} data-aw-toggle-menu>
-  <span class="sr-only">{label}</span>
+<button type="button" class={className} aria-label={label} aria-expanded="false" data-label-open={label} data-label-close={closeLabel} data-aw-toggle-menu>
+  <span class="sr-only" data-menu-label>{label}</span>
   <slot>
     <span
       aria-hidden="true"
@@ -27,3 +30,21 @@ const {
     ></span>
   </slot>
 </button>
+
+<script>
+  // Keep the button's label and aria-expanded in sync with the menu state (BasicScripts toggles .expanded)
+  document.addEventListener('astro:page-load', () => {
+    const button = document.querySelector<HTMLButtonElement>('[data-aw-toggle-menu]');
+    if (!button || button.dataset.labelSync) return;
+    button.dataset.labelSync = 'true';
+    const sync = () => {
+      const open = button.classList.contains('expanded');
+      const label = (open ? button.dataset.labelClose : button.dataset.labelOpen) ?? '';
+      button.setAttribute('aria-label', label);
+      button.setAttribute('aria-expanded', String(open));
+      const text = button.querySelector('[data-menu-label]');
+      if (text) text.textContent = label;
+    };
+    new MutationObserver(sync).observe(button, { attributes: true, attributeFilter: ['class'] });
+  });
+</script>

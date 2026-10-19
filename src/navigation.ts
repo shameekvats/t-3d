@@ -19,7 +19,6 @@ export function getFooterData(lang: Lang = 'en') {
   return {
     links: [
       {
-        title: 'tattva-3d',
         links: [
           { text: t('nav.home'), href: getLocalizedUrl('/', lang) },
           { text: t('nav.catalog'), href: getLocalizedUrl('/catalog', lang) },

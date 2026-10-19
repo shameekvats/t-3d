@@ -7,6 +7,7 @@
 // Danish text comes from private/da-copy.md. Anything still marked [DA] is waiting for a translation.
 
 import type { Lang } from '../i18n/translations';
+import { withTrailingSlash } from '../utils/slash';
 
 export type { Lang };
 /** A string in every site language */
@@ -422,7 +423,7 @@ export const catalogProducts = () => products.filter((p) => p.category !== null 
 export const formatPrice = (price: number, lang: Lang = 'en') => (lang === 'da' ? `${price} kr.` : `${price} kr`);
 /** "from 49 kr" / "fra 49 kr." */
 export const fromPrice = (price: number, lang: Lang = 'en') => `${lang === 'da' ? 'fra' : 'from'} ${formatPrice(price, lang)}`;
-export const priceOnQuote: L = { en: 'Price on quote', da: '[DA] Price on quote' };
+export const priceOnQuote: L = { en: 'Price on quote', da: 'Pris efter tilbud' };
 export const priceLabel = (product: Product, lang: Lang = 'en') =>
   product.price === null ? priceOnQuote[lang] : formatPrice(product.price, lang);
 /** "set of 3: 229 kr" / "sæt med 3: 229 kr." */
@@ -441,10 +442,13 @@ export const needsPhoto = (product: Product) => product.options.some((o) => /pho
 // ---- Paths (same slugs in every language; Danish lives under /da) -------------------------
 
 export const langPrefix = (lang: Lang) => (lang === 'da' ? '/da' : '');
-export const categoryPath = (id: CategoryId, lang: Lang = 'en') => `${langPrefix(lang)}/catalog/${id}`;
+export const categoryPath = (id: CategoryId, lang: Lang = 'en') => withTrailingSlash(`${langPrefix(lang)}/catalog/${id}`);
 export const productPath = (product: Product, lang: Lang = 'en') =>
-  product.category ? `${langPrefix(lang)}/catalog/${product.category}/${product.id}` : `${langPrefix(lang)}/custom`;
-export const orderPath = (product: Product, lang: Lang = 'en') => `${langPrefix(lang)}/order?product=${product.id}`;
+  withTrailingSlash(
+    product.category ? `${langPrefix(lang)}/catalog/${product.category}/${product.id}` : `${langPrefix(lang)}/custom`
+  );
+export const orderPath = (product: Product, lang: Lang = 'en') =>
+  withTrailingSlash(`${langPrefix(lang)}/order?product=${product.id}`);
 
 /**
  * Order form estimate in DKK: product price × quantity (using the bundle price for full

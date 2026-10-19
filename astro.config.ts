@@ -8,6 +8,7 @@ import mdx from '@astrojs/mdx';
 import icon from 'astro-icon';
 
 import { categories, catalogProducts } from './src/data/products';
+import { withTrailingSlash } from './src/utils/slash';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -98,7 +99,7 @@ const enPages = [
 ];
 
 // French was dropped in Stage 6: send every old /fr URL (pages and redirects) to its English equivalent
-const frRedirects = Object.fromEntries([
+const frRedirects: Record<string, string> = Object.fromEntries([
   ['/fr', '/'],
   ...enPages.filter((p) => p !== '/').map((p) => [`/fr${p}`, p]),
   ...Object.entries(enRedirects).map(([from, to]) => [`/fr${from}`, to]),
@@ -118,16 +119,18 @@ export default defineConfig({
   image: {
     remotePatterns: [{ protocol: 'https' }],
   },
-  redirects: {
-    ...enRedirects,
-    ...frRedirects,
-  },
+  // Redirect targets end in a slash so visitors land on the final URL in one hop
+  redirects: Object.fromEntries(
+    Object.entries({ ...enRedirects, ...frRedirects }).map(([from, to]) => [from, withTrailingSlash(to)])
+  ),
   integrations: [
     tailwind({
       applyBaseStyles: false,
     }),
     sitemap({
       i18n: { defaultLocale: 'en', locales: { en: 'en', da: 'da' } },
+      // Thank-you pages are noindex, so keep them out of the sitemap
+      filter: (page) => !page.includes('/order/thank-you/'),
     }),
     mdx(),
     icon({

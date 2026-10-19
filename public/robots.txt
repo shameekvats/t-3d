@@ -1,2 +1,4 @@
 User-agent: *
 Disallow:
+
+Sitemap: https://t-3d.me/sitemap-index.xml
