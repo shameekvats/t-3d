@@ -2,10 +2,12 @@
 import { getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { findImage } from '~/utils/images';
-import { catalogProducts, currency, productPath } from '~/data/products';
+import { catalogProducts, currency } from '~/data/products';
 import { getLangFromUrl, getLocalizedUrl, useTranslations } from '~/i18n/utils';
 
-// LocalBusiness JSON-LD, generated from products.ts so prices stay in sync.
+// LocalBusiness JSON-LD; the price range comes from products.ts so it stays in sync.
+// Products are described only on product and category pages (Product + Offer), not here:
+// Product nodes without offers are invalid for Google's product snippets.
 const site = Astro.site?.toString().replace(/\/$/, '') ?? 'https://t-3d.me';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -31,17 +33,6 @@ const schema = {
   priceRange: `${Math.min(...prices)}–${Math.max(...prices)} kr`,
   currenciesAccepted: currency,
   paymentAccepted: 'MobilePay, Cash',
-  hasOfferCatalog: {
-    '@type': 'OfferCatalog',
-    name: 'Personal 3D printed gifts',
-    itemListElement: catalogProducts().map((p) => ({
-      '@type': 'Offer',
-      price: p.price,
-      priceCurrency: currency,
-      url: `${site}${productPath(p, lang)}`,
-      itemOffered: { '@type': 'Product', name: p.name[lang], description: p.shortDescription[lang] },
-    })),
-  },
   sameAs: ['https://www.instagram.com/tattva_3d/'],
 };
 ---
