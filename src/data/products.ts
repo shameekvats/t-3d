@@ -262,7 +262,18 @@ export const products: Product[] = [
       { en: 'Stand or wall hook', da: 'Fod eller vægophæng' },
     ],
     addons: ['giftbox'],
-    images: [],
+    images: [
+      {
+        src: `${IMG}/3d_photo/glow-panel-dark.jpg`,
+        alt: 'Glow photo panel shining green in the dark, showing a person in profile wearing headphones',
+        altDa: 'Selvlysende fotoplade, der lyser grønt i mørket og viser en person i profil med hovedtelefoner',
+      },
+      {
+        src: `${IMG}/3d_photo/glow-panel-light.jpg`,
+        alt: 'The same photo panel in daylight: a black-and-white portrait in relief inside a thin tan frame',
+        altDa: 'Den samme fotoplade i dagslys: et sort-hvidt portræt i relief i en tynd, lysebrun ramme',
+      },
+    ],
     available: true,
   },
   {
