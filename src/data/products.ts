@@ -222,7 +222,13 @@ export const products: Product[] = [
     bundle: { quantity: 3, price: 229 },
     options: [{ en: 'Your photo(s)', da: 'Dit/dine billede(r)' }],
     addons: ['glow', 'nfc'],
-    images: [],
+    images: [
+      {
+        src: `${IMG}/fridge_magnets/face.jpg`,
+        alt: 'Black-and-white 3D printed photo magnet of a smiling person with curly hair and glasses, cut to their outline, on a steel fridge door',
+        altDa: 'Sort-hvid 3D-printet fotomagnet af en smilende person med krøllet hår og briller, skåret efter omridset, på en køleskabsdør i stål',
+      },
+    ],
     available: true,
   },
   {
